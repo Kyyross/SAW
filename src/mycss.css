@@ -1,0 +1,85 @@
+  .button{
+      font-family: verdana;
+  	  font-size: 20px;
+    }
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+	.warning{
+    	color:#dc143c;
+  }
+
+/* COMPONENT NOTES */
+
+  .areaNote{
+    height: 12px;
+    width: 200px;
+    position: static;
+    z-index: 1;
+    margin-top: 20px;
+    left: 0;
+  }
+
+  .listaNote {
+    height: 1000px;
+    width: 200px;
+    position: static;
+    z-index: 1;
+    margin-top: 12px;
+    left: 0;
+    overflow-x: hidden;
+    word-wrap: break-word;
+  }
+
+  .listaNote li {
+    background-color: #fff6a3;
+    color: black;
+    padding: 6px;
+    text-decoration: none;
+    display: block;
+  }
+  .listaNote li:hover {
+    background-color: #ffdfa3;
+    color: black;
+  }
+  .contenutoNote {
+    margin-left: 200px;
+    padding-left: 20px;
+    height: 1000px;
+    overflow-x: hidden;
+  }
