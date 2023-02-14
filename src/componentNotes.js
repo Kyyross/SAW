@@ -1,6 +1,7 @@
 import { reactive, ref, watch, computed } from 'vue'
+import {state0} from './globalVar.js';
 import { Obj } from './myclass.js'
-import {sortObject} from './macro-functions.js'
+import { sortObject } from './macro-functions.js'
 import { componentNotes_Html } from './componentHtml.js';
 
 export default {
@@ -77,7 +78,7 @@ export default {
           temp=obje.title;
         });
 
-        return {items, state , Open, Close, Confirm, Debugg, itemData, warning, Show, arrayOrdered};
+        return {items, state, state0 , Open, Close, Confirm, Debugg, itemData, warning, Show, arrayOrdered};
     },
     template: componentNotes_Html
 }
