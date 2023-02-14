@@ -1,19 +1,13 @@
 import express from 'express';
-import url from 'url';
-//import DOMPurify from 'dompurify';
-//import mymacro from './src/macro-functions.js';
-import { renderToString } from 'vue/server-renderer';
 import {createApp} from './src/app.js';
-import { setup } from '@css-render/vue3-ssr';
 import {html_, _html, html1, html2 } from './src/componentHtml.js';
-
+import { RenderApp} from './src/mymacros/macroserver.js';
 const server = express();
 
 server.get('/', (req, res) => {
   const app0=createApp(0);
   const app1=createApp(1);
   const app2=createApp(2);
-
   /*
   renderToString(app0).then((contentApp0) =>{
     renderToString(app1).then((contentApp1) =>{
@@ -23,22 +17,18 @@ server.get('/', (req, res) => {
         });
     });
   });*/
-  var promise0=new Promise((resolve,reject)=>{A(app0).then((contentApp)=>resolve(contentApp));});
-  var promise1=new Promise((resolve,reject)=>{A(app1).then((contentApp)=>resolve(contentApp));});
-  var promise2=new Promise((resolve,reject)=>{A(app2).then((contentApp)=>resolve(contentApp));});
-
-  Promise.all([promise0,promise1,promise2]).then((values)=>{
+  var promise0=new Promise((resolve,reject)=>{RenderApp(app0).then((contentApp)=>resolve(contentApp),()=>reject());});
+  var promise1=new Promise((resolve,reject)=>{RenderApp(app1).then((contentApp)=>resolve(contentApp),()=>reject());});
+  var promise2=new Promise((resolve,reject)=>{RenderApp(app2).then((contentApp)=>resolve(contentApp),()=>reject());});
+  try{
+    Promise.all([promise0,promise1,promise2]).then((values)=>{
     res.send(html_+`${values[0]}`+html1+`${values[1]}`+html2+`${values[2]}`+_html);
-  })
-
+    },()=>{throw new Error("error on the server, it couldn't renderize the page");})
+  }
+  catch(err){debug.err(err.message)};
 });
 
-async function A(app){
-  return await renderToString(app);
-}
-
 server.use(express.static('.'));
-
 server.listen(3000, () => {
-    console.log('ready http://localhost:3000 ');
+    console.log('ready http://localhost:3000');
 });
