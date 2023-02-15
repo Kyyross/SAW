@@ -10,8 +10,8 @@ var _html=`</div></body></html>`;
 
 //HTML FOR componentHtml
 var componentNotes_Html=`
-<!-- The Modal -->
 <div :style="{ display: state0.display }">
+  <!-- The Modal -->
   <div :style="{ display: state.display }" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
