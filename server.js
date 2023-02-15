@@ -28,6 +28,11 @@ server.get('/', (req, res) => {
   catch(err){debug.err(err.message)};
 });
 
+server.get('/user:id', (req, res) =>{
+  res.send("provaprova");
+});
+
+
 server.use(express.static('.'));
 server.listen(3000, () => {
     console.log('ready http://localhost:3000');

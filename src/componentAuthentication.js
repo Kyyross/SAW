@@ -1,5 +1,6 @@
 import { reactive, ref } from 'vue';
 import { state1, count} from './globalVar.js';
+import {MakeRequest} from './ajax/ajax-fun.js';
 
 export default {
     data() {
@@ -16,6 +17,7 @@ export default {
       const SignUp= ()=>{
         if(itemData.Username==""||itemData.Password==""){warning.value="Tutti i campi devono essere compilati"; return;} 
         console.log("mandata la richiesta di registrazione");
+        MakeRequest('test.txt','GET');
         GumpSignUp('n');
       }
       return {state, state1, count, itemData, GumpSignUp, GumpSignIn, SignUp, warning}
