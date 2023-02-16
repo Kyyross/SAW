@@ -2,18 +2,30 @@
 
 var httpRequest;
 
-const MakeRequest=(URL,METHOD,REQUEST)=>{
+const MakeRequest=(TYPE,REQUEST="",URL="")=>{
     httpRequest = new XMLHttpRequest();
     if (!httpRequest) { throw new Error("on making the request to the server").catch((e)=>{console.err(e.message);});}
-    httpRequest.onreadystatechange = CheckStateResponse; //METHOD=="GET"?CheckStateResponse;
-    httpRequest.open(METHOD, URL); //"GET/POST", "test.html"
-    if(METHOD=="POST"){
-        httpRequest.setRequestHeader(
-        "Content-Type",
-        "application/x-www-form-urlencoded"
-        );
+    switch(TYPE){
+        case "Auth":{
+            httpRequest.onreadystatechange = CheckStateResponse;
+            httpRequest.open("POST", "/SignUp");
+            httpRequest.setRequestHeader("Authorization", AuthenticateUser(REQUEST.username, REQUEST.password))
+            httpRequest.send();
+            return;
+        }
+        case "GET":{
+            httpRequest.onreadystatechange = CheckStateResponse;
+            httpRequest.open("GET", URL);
+            httpRequest.send(URL);
+            return;
+        }
     }
-    httpRequest.send(URL); //miss case REQUEST POST
+}
+
+function AuthenticateUser(username, password){
+    let token=username+":"+password;
+    //var hash=Buffer.from(token,'base64');
+    return token;
 }
 
 function CheckStateResponse() {

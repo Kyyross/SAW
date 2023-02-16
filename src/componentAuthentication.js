@@ -17,7 +17,7 @@ export default {
       const SignUp= ()=>{
         if(itemData.Username==""||itemData.Password==""){warning.value="Tutti i campi devono essere compilati"; return;} 
         console.log("mandata la richiesta di registrazione");
-        MakeRequest('test.txt','GET');
+        MakeRequest("Auth",{username:itemData.Username,password:itemData.Password});
         GumpSignUp('n');
       }
       return {state, state1, count, itemData, GumpSignUp, GumpSignIn, SignUp, warning}
