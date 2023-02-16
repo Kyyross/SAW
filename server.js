@@ -1,11 +1,12 @@
 import express from 'express';
 import {createApp} from './src/app.js';
 import {html_, _html, html1, html2 } from './src/componentHtml.js';
-import { RenderApp, RegisterAccount } from './src/mymacros/macroserver.js';
+import { RenderApp, RegisterAccount, corsOption } from './src/mymacros/macroserver.js';
+import cors from 'cors';
 
 const server = express();
 
-server.get('/', (req, res) => {
+server.get('/', cors(corsOption),(req, res) => {
   const app0=createApp(0);
   const app1=createApp(1);
   const app2=createApp(2);
@@ -29,10 +30,9 @@ server.get('/user:id', (req, res) =>{
 server.post('/SignUp', (req, res)=>{
   let token=req.headers["authorization"];
   console.log("da server:"+token);
-  RegisterAccount(token);
-  res.send("Registrazione effettuata con successo");
+  let response=RegisterAccount(token);
+  res.send(response);
 });
-
 
 server.use(express.static('.'));
 server.listen(3000, () => {

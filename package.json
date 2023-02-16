@@ -13,8 +13,10 @@
   "license": "ISC",
   "dependencies": {
     "@css-render/vue3-ssr": "^0.15.12",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
+    "require": "^0.4.4",
     "url": "^0.11.0",
     "vue": "^3.2.45"
   },
