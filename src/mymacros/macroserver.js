@@ -13,26 +13,38 @@ async function RenderApp(app){
 
 function RegisterAccount(token){
   try{
-  let credenziali=token.split(":");
-  let newUser={};
-  newUser["username"]=credenziali[0];
-  newUser["password"]=credenziali[1];
-  let allUsers=LoadFile(INDIRIZZOACCOUNTS);
-  if(allUsers[newUser.username]) throw new Error("Utente già esistente");
-  allUsers[newUser["username"]]=newUser["password"];
-  fs.writeFileSync(INDIRIZZOACCOUNTS, JSON.stringify(allUsers));
+    let credenziali=token.split(":");
+    let newUser={};
+    newUser["username"]=credenziali[0];
+    newUser["password"]=credenziali[1];
+    let allUsers=LoadFile(INDIRIZZOACCOUNTS);
+    if(allUsers[newUser.username]) throw new Error("Utente già esistente");
+    allUsers[newUser["username"]]=newUser["password"];
+    fs.writeFileSync(INDIRIZZOACCOUNTS, JSON.stringify(allUsers));
   }
-  catch(e){console.error("errore nel formato delle credenziali: "+e.message); return e.message}
+  catch(e){console.error("Errore nel formato delle credenziali: "+e.message); return e.message;}
   return "Registrazione effettuata con successo";
+}
+
+function LogIn(token){
+  try{
+    let credenziali=token.split(":");
+    let newUser={};
+    newUser["username"]=credenziali[0];
+    newUser["password"]=credenziali[1];
+    let allUsers=LoadFile(INDIRIZZOACCOUNTS);
+    if(!(allUsers[newUser.username]&&allUsers[newUser.username]==newUser.password)) throw new Error("Credenziali Errate");
+  }
+  catch(e){console.error(e.message); return e.message;}
+  return "Log In effettuato con successo";
 }
 
 function LoadFile(indirizzo){
   if(fs.existsSync(indirizzo)){
-    console.log("sono entrato");
     let file=fs.readFileSync(indirizzo);
     return JSON.parse(file);
   }
   return {};
 }
 
-export {RenderApp, RegisterAccount, corsOption}
+export {RenderApp, RegisterAccount, LogIn, corsOption}

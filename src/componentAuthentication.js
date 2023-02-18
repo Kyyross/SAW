@@ -1,52 +1,63 @@
-import { reactive, ref } from 'vue';
-import { state1, count} from './globalVar.js';
+import { reactive } from 'vue';
+import { displayAppAuth, count, warningSign, userName} from './globalVar.js';
 import {MakeRequest} from './ajax/ajax-fun.js';
 
 export default {
     data() {
-      const state = reactive({display:"none"});
+      const displaySign = reactive({displaySignUp:"none", displaySignIn:"none"});
       const itemData = reactive({Username:"", Password:""});
-      const warning= ref("");
-      const GumpSignIn = ()=> {}
-      const GumpSignUp= (check)=> {
-        warning.value="";
+      const GumpSign= (newAccount, check)=> {
+        warningSign.value="";
         itemData.Username="";
         itemData.Password="";
-        state.display  = check=='y'?"block":"none";
+        if(newAccount=='y')displaySign.displaySignUp  = check=='y'?"block":"none";
+        else displaySign.displaySignIn  = check=='y'?"block":"none";
       }
       const SignUp= ()=>{
-        if(itemData.Username==""||itemData.Password==""){warning.value="Tutti i campi devono essere compilati"; return;} 
-        console.log("mandata la richiesta di registrazione");
-        MakeRequest("Auth",{username:itemData.Username,password:itemData.Password});
-        GumpSignUp('n');
+        if(itemData.Username==""||itemData.Password==""){warningSign.value="Tutti i campi devono essere compilati"; return;} 
+        console.log("Mandata la richiesta di registrazione");
+        warningSign.value="Mandata la richiesta di registrazione";
+        MakeRequest("SignUp",{username:itemData.Username,password:itemData.Password});
       }
-      return {state, state1, count, itemData, GumpSignUp, GumpSignIn, SignUp, warning}
+      const SignIn= ()=>{
+        if(itemData.Username==""||itemData.Password==""){warningSign.value="Tutti i campi devono essere compilati"; return;} 
+        console.log("Attendere l'Autenticazione");
+        warningSign.value="Attendere l'Autenticazione";
+        MakeRequest("SignIn",{username:itemData.Username,password:itemData.Password});
+      }
+      return {displaySign, displayAppAuth, count, itemData, GumpSign, SignUp, SignIn, userName, warningSign}
     },
     template: `
-    <div :style="{ display: state1.display }" class="button" @click="count.val++">4: {{count.val}}</div>
-    <button @click="GumpSignUp('y')">Open Authentication</button>
-    <!-- The Modal -->
-    <div :style="{ display: state.display }" class="modal">
+    <div :style="{ display: displayAppAuth.display }" class="button" @click="count.val++">4: {{count.val}}</div>
+    <p> {{userName}} </p>
+    <button @click="GumpSign('y','y')">SignUp</button>
+    <button @click="GumpSign('n','y')">SignIn</button>
+    <!-- The Modal SignUp-->
+    <div :style="{ display: displaySign.displaySignUp }" class="modal">
       <!-- Modal content -->
       <div class="modal-content">
-        <span class="close" @click="GumpSignUp('n')">&times;</span>
+        <span class="close" @click="GumpSign('y','n')">&times;</span>
           <label>Username</label>
           <input v-model="itemData.Username"><br><br>
           <label>Password</label> 
           <input v-model="itemData.Password"><br><br>
           <div @click="SignUp">Sign Up</div>
-          <p class="warning"> {{ warning }} </p>
+          <p class="warning"> {{ warningSign }} </p>
+      </div>
+    </div>
+    <!-- The Modal SignIn-->
+    <div :style="{ display: displaySign.displaySignIn }" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close" @click="GumpSign('n','n')">&times;</span>
+          <label>Username</label>
+          <input v-model="itemData.Username"><br><br>
+          <label>Password</label> 
+          <input v-model="itemData.Password"><br><br>
+          <div @click="SignIn">Sign In</div>
+          <p class="warning"> {{ warningSign }} </p>
       </div>
     </div>
     `
   }
-
- /* <form>
-          <label for="Username">Username</label>
-          <input type="text" id="Username" name="Username"><br><br>
-          <label for="Password">Password</label> 
-          <input type="text" id="Password" name="Password"><br><br>
-          <input type="submit" value="Sign Up">
-          </form>
-  */
     

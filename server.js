@@ -1,7 +1,7 @@
 import express from 'express';
 import {createApp} from './src/app.js';
 import {html_, _html, html1, html2 } from './src/componentHtml.js';
-import { RenderApp, RegisterAccount, corsOption } from './src/mymacros/macroserver.js';
+import { RenderApp, RegisterAccount, LogIn, corsOption } from './src/mymacros/macroserver.js';
 import cors from 'cors';
 
 const server = express();
@@ -31,6 +31,13 @@ server.post('/SignUp', (req, res)=>{
   let token=req.headers["authorization"];
   console.log("da server:"+token);
   let response=RegisterAccount(token);
+  res.send(response);
+});
+
+server.post('/SignIn', (req, res)=>{
+  let token=req.headers["authorization"];
+  console.log("da server:"+token);
+  let response=LogIn(token);
   res.send(response);
 });
 
