@@ -1,5 +1,5 @@
 import { reactive, ref, watch, computed } from 'vue'
-import {state0} from './globalVar.js';
+import {state0, items} from './globalVar.js';
 import { Obj } from './myclass.js'
 import { sortObject } from './mymacros/macro-functions.js'
 import { componentNotes_Html } from './componentHtml.js';
@@ -10,7 +10,6 @@ export default {
         var temp="";
         var inModal=false;
         var semMove=0;
-        const items = reactive({});
         const itemData = reactive({title:"", tag:"" , lastaccess:"", text:""});
         const state = reactive({display:"none"});
         const warning = ref("");

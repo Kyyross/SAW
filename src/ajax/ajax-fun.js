@@ -58,6 +58,7 @@ const CheckStateSignIn=()=>{
             if (httpRequest.status === 200) {
             console.log(httpRequest.responseText);
             warningSign.value=httpRequest.responseText;
+            //trattare l' obj=json.parse(response); fun(obj)=>assegna alle variabili dell'app i dati salvati; 
             userName.value=utente;
             } else {
             console.log("There was a problem with the request.");
@@ -66,6 +67,10 @@ const CheckStateSignIn=()=>{
         }
     }
     catch(e){console.err(e.message);}
+}
+
+function LoadSave(obj){
+    //variabili app = dati salvati dall'utente;
 }
 
 export {MakeRequest}
