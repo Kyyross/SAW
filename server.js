@@ -19,7 +19,7 @@ server.get('/', cors(corsOption),(req, res) => {
     res.send(html_+`${values[0]}`+html1+`${values[1]}`+html2+`${values[2]}`+_html);
     },()=>{throw new Error("error on the server, it couldn't renderize the page");})
   }
-  catch(err){debug.err(err.message)};
+  catch(err){console.error(err.message)};
 });
 
 server.get('/user:id', (req, res) =>{
@@ -37,7 +37,7 @@ server.post('/SignUp', (req, res)=>{
 server.post('/SignIn', (req, res)=>{
   let token=req.headers["authorization"];
   console.log("da server:"+token);
-  let response=LogIn(token);
+  let response=JSON.stringify(LogIn(token));
   res.send(response);
 });
 

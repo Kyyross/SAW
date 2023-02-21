@@ -35,8 +35,8 @@ function LogIn(token){
     let allUsers=LoadFile(INDIRIZZOACCOUNTS);
     if(!(allUsers[newUser.username]&&allUsers[newUser.username]==newUser.password)) throw new Error("Credenziali Errate");
   }
-  catch(e){console.error(e.message); return e.message;}
-  return "Log In effettuato con successo";
+  catch(e){console.error(e.message); return {message:e.message, dati:{}};}
+  return {message:"Log In effettuato con successo", dati:{provino:{title:"provino", tag:"boh" , lastaccess: new Date(), text:"prova"}}};
 }
 
 function LoadFile(indirizzo){

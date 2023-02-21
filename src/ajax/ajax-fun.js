@@ -1,5 +1,5 @@
 //AJAX Approach
-import {warningSign, userName} from '../globalVar.js';
+import {warningSign, userName, items} from '../globalVar.js';
 var httpRequest;
 var utente;
 
@@ -56,21 +56,35 @@ const CheckStateSignIn=()=>{
     try{
         if (httpRequest.readyState === XMLHttpRequest.DONE) {
             if (httpRequest.status === 200) {
-            console.log(httpRequest.responseText);
-            warningSign.value=httpRequest.responseText;
-            //trattare l' obj=json.parse(response); fun(obj)=>assegna alle variabili dell'app i dati salvati; 
-            userName.value=utente;
+                let response=JSON.parse(httpRequest.responseText);
+                console.log(response.message);
+                warningSign.value=response.message;
+                console.log(response.dati); 
+                userName.value=utente;
+                LoadSave(response.dati);
             } else {
-            console.log("There was a problem with the request.");
-            warningSign.value="ERROR";
+                console.log("There was a problem with the request.");
+                warningSign.value="ERROR";
             }
         }
     }
-    catch(e){console.err(e.message);}
+    catch(e){console.error(e.message);}
 }
 
 function LoadSave(obj){
+    
+    for(let item in obj){
+        items[item]=obj[item];
+        items[item]["lastaccess"]=new Date(); //Date.parse(items[item]["lastaccess"] DA RIVEDERE! problema convertire stringa in date().
+    }
+}
+
+function StoreSave(){
     //variabili app = dati salvati dall'utente;
+    var obj={};
+    for(let item in items){
+        obj[item]=item.value;
+    }
 }
 
 export {MakeRequest}
