@@ -22,6 +22,10 @@ const MakeRequest=(TYPE,REQUEST="",URL="")=>{
             httpRequest.send();
             return;
         }
+        case "SaveWork":{
+            //salvare il lavoro, dentro la cartella "works" nel server, come un file di nome=nome utente 
+            return;
+        }
         case "GET":{
             httpRequest.onreadystatechange = CheckStateAuth;
             httpRequest.open("GET", URL);
@@ -72,7 +76,7 @@ const CheckStateSignIn=()=>{
 }
 
 function LoadSave(obj){
-    
+    //manca di pulire items
     for(let item in obj){
         items[item]=obj[item];
         items[item]["lastaccess"]=new Date(); //Date.parse(items[item]["lastaccess"] DA RIVEDERE! problema convertire stringa in date().
