@@ -1,6 +1,7 @@
 import { reactive } from 'vue';
 import { displayAppAuth, count, warningSign, userName} from './globalVar.js';
 import {MakeRequest} from './ajax/ajax-fun.js';
+import { componentAuthentication_Html } from './componentHtml.js';
 
 export default {
     data() {
@@ -25,42 +26,9 @@ export default {
         warningSign.value="Attendere l'Autenticazione";
         MakeRequest("SignIn",{username:itemData.Username,password:itemData.Password});
       }
-      const SaveWork= ()=>{;} //soluzione temporanea
+      const SaveWork= ()=>{MakeRequest("SaveWork")} //soluzione temporanea
       return {displaySign, displayAppAuth, count, itemData, GumpSign, SignUp, SignIn, userName, warningSign, SaveWork}
     },
-    template: `
-    <div :style="{ display: displayAppAuth.display }"> 
-      <p> {{userName}} </p>
-      <button @click="GumpSign('y','y')">SignUp</button>
-      <button @click="GumpSign('n','y')">SignIn</button>
-      <button @click="SaveWork">SaveWork</button>
-      <!-- The Modal SignUp-->
-      <div :style="{ display: displaySign.displaySignUp }" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-          <span class="close" @click="GumpSign('y','n')">&times;</span>
-            <label>Username</label>
-            <input v-model="itemData.Username"><br><br>
-            <label>Password</label> 
-            <input v-model="itemData.Password"><br><br>
-            <div @click="SignUp">Sign Up</div>
-            <p class="warning"> {{ warningSign }} </p>
-        </div>
-      </div>
-      <!-- The Modal SignIn-->
-      <div :style="{ display: displaySign.displaySignIn }" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-          <span class="close" @click="GumpSign('n','n')">&times;</span>
-            <label>Username</label>
-            <input v-model="itemData.Username"><br><br>
-            <label>Password</label> 
-            <input v-model="itemData.Password"><br><br>
-            <div @click="SignIn">Sign In</div>
-            <p class="warning"> {{ warningSign }} </p>
-        </div>
-      </div>
-    </div>
-    `
+    template: componentAuthentication_Html
   }
     

@@ -4,6 +4,7 @@ import fs from 'fs';
 //import url from 'url';
 //import DOMPurify from 'dompurify';
 const INDIRIZZOACCOUNTS="data/accounts.json";
+const INDIRIZZOSALVATAGGI="data/saves/";
 
 const corsOption= {origin: '*'}
 
@@ -27,6 +28,7 @@ function RegisterAccount(token){
 }
 
 function LogIn(token){
+  let dataClient={};
   try{
     let credenziali=token.split(":");
     let newUser={};
@@ -34,9 +36,10 @@ function LogIn(token){
     newUser["password"]=credenziali[1];
     let allUsers=LoadFile(INDIRIZZOACCOUNTS);
     if(!(allUsers[newUser.username]&&allUsers[newUser.username]==newUser.password)) throw new Error("Credenziali Errate");
+    dataClient=LoadFile(INDIRIZZOSALVATAGGI+newUser["username"]+".json");
   }
-  catch(e){console.error(e.message); return {message:e.message, dati:{}};}
-  return {message:"Log In effettuato con successo", dati:{provino:{title:"provino", tag:"boh" , lastaccess: new Date(), text:"prova"}}};
+  catch(e){console.error(e.message); return {message:e.message, permission: false, dati:{}};}
+  return {message:"Log In effettuato con successo", permission: true ,dati:dataClient};
 }
 
 function LoadFile(indirizzo){
@@ -47,4 +50,12 @@ function LoadFile(indirizzo){
   return {};
 }
 
-export {RenderApp, RegisterAccount, LogIn, corsOption}
+function StoreFile(obj){
+  try{
+    fs.writeFileSync(INDIRIZZOSALVATAGGI+obj.username+".json",JSON.stringify(obj.dati));
+  }
+  catch(e){console.error(e.message); return "Error, server couldn't store the files";}
+  return "The save is been stored successfully";
+}
+
+export {RenderApp, RegisterAccount, LogIn, StoreFile, corsOption}

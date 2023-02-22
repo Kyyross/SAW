@@ -1,15 +1,15 @@
 // HTML FOR SERVER
-var html_=
+const html_=
 `<!DOCTYPE html><html><head><title>Vue SSR Example</title><meta name="viewport" content="width=device-width, initial-scale=1"></meta><script type="importmap">{"imports": {"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"}}</script><script type="module" src="/src/client.js"></script><script type="module">
 import styles from './src/mycss.css' assert { type: "css" };
 document.adoptedStyleSheets = [styles];
 </script></head><body><div id="app0">`;
-var html1=`</div><div id="app1">`;
-var html2=`</div><div id="app2">`;
-var _html=`</div></body></html>`;
+const html1=`</div><div id="app1">`;
+const html2=`</div><div id="app2">`;
+const _html=`</div></body></html>`;
 
 //HTML FOR componentHtml
-var componentNotes_Html=`
+const componentNotes_Html=`
 <div :style="{ display: state0.display }">
   <!-- The Modal -->
   <div :style="{ display: state.display }" class="modal">
@@ -39,8 +39,43 @@ var componentNotes_Html=`
     <textarea v-model="itemData.text" placeholder="Text"></textarea>
   </div>
 </div>
-`
+`;
 
-export {html_ , _html, html1, html2, componentNotes_Html}
+const componentAuthentication_Html=`
+<div :style="{ display: displayAppAuth.display }"> 
+  <p> {{userName}} </p>
+  <button @click="GumpSign('y','y')">SignUp</button>
+  <button @click="GumpSign('n','y')">SignIn</button>
+  <button @click="SaveWork">SaveWork</button>
+  <!-- The Modal SignUp-->
+  <div :style="{ display: displaySign.displaySignUp }" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" @click="GumpSign('y','n')">&times;</span>
+        <label>Username</label>
+        <input v-model="itemData.Username"><br><br>
+        <label>Password</label> 
+        <input v-model="itemData.Password"><br><br>
+        <div @click="SignUp">Sign Up</div>
+        <p class="warning"> {{ warningSign }} </p>
+    </div>
+  </div>
+  <!-- The Modal SignIn-->
+  <div :style="{ display: displaySign.displaySignIn }" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" @click="GumpSign('n','n')">&times;</span>
+        <label>Username</label>
+        <input v-model="itemData.Username"><br><br>
+        <label>Password</label> 
+        <input v-model="itemData.Password"><br><br>
+        <div @click="SignIn">Sign In</div>
+        <p class="warning"> {{ warningSign }} </p>
+    </div>
+  </div>
+</div>
+`;
+
+export {html_ , _html, html1, html2, componentNotes_Html, componentAuthentication_Html}
 
 

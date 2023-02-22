@@ -2,6 +2,7 @@
 import {warningSign, userName, items} from '../globalVar.js';
 var httpRequest;
 var utente;
+var logged=false;
 
 const MakeRequest=(TYPE,REQUEST="",URL="")=>{
     httpRequest = new XMLHttpRequest();
@@ -24,6 +25,17 @@ const MakeRequest=(TYPE,REQUEST="",URL="")=>{
         }
         case "SaveWork":{
             //salvare il lavoro, dentro la cartella "works" nel server, come un file di nome=nome utente 
+            if(!logged) return;
+            let obj={username:utente, dati:MakeObjToSave()};
+            console.log(obj);
+            httpRequest.onreadystatechange = CheckStateSignUp;
+            httpRequest.open("POST", "/SaveWork");
+            httpRequest.setRequestHeader(
+                "Content-Type",
+                "application/json"
+              );
+            httpRequest.send(JSON.stringify(obj));
+            
             return;
         }
         case "GET":{
@@ -63,9 +75,11 @@ const CheckStateSignIn=()=>{
                 let response=JSON.parse(httpRequest.responseText);
                 console.log(response.message);
                 warningSign.value=response.message;
+                if(!response.permission)return;
                 console.log(response.dati); 
-                userName.value=utente;
                 LoadSave(response.dati);
+                logged=true;
+                userName.value=utente;
             } else {
                 console.log("There was a problem with the request.");
                 warningSign.value="ERROR";
@@ -83,12 +97,13 @@ function LoadSave(obj){
     }
 }
 
-function StoreSave(){
+function MakeObjToSave(){
     //variabili app = dati salvati dall'utente;
     var obj={};
     for(let item in items){
-        obj[item]=item.value;
+        obj[item]=items[item];
     }
+    return obj;
 }
 
 export {MakeRequest}

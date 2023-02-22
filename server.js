@@ -1,7 +1,8 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import {createApp} from './src/app.js';
 import {html_, _html, html1, html2 } from './src/componentHtml.js';
-import { RenderApp, RegisterAccount, LogIn, corsOption } from './src/mymacros/macroserver.js';
+import { RenderApp, RegisterAccount, LogIn, StoreFile, corsOption } from './src/mymacros/macroserver.js';
 import cors from 'cors';
 
 const server = express();
@@ -38,6 +39,14 @@ server.post('/SignIn', (req, res)=>{
   let token=req.headers["authorization"];
   console.log("da server:"+token);
   let response=JSON.stringify(LogIn(token));
+  res.send(response);
+});
+
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: false }))
+server.post('/SaveWork', (req, res)=>{
+  console.log(req.body);
+  let response=StoreFile(req.body);
   res.send(response);
 });
 
