@@ -13,13 +13,15 @@ export default {
         const itemData = reactive({title:"", tag:"" , lastaccess:"", text:""});
         const state = reactive({display:"none"});
         const warning = ref("");
+        const disabled=ref(true);
 
         //REACTIVE FUNCTIONs
         const Open=()=>{ 
           inModal=true;
           ItemDataSetter("","","",new Date()) 
           warning.value=""; 
-          state.display="block";};
+          state.display="block";
+        };
 
         const Close=()=>{ inModal=false; state.display="none";};
 
@@ -34,6 +36,8 @@ export default {
         const Show = (title)=>{
           semMove=2;
           temp=title;
+          disabled.value=false;
+          console.log(disabled.value),
           ItemDataSetter(title,items[title]["tag"],items[title]["text"],items[title]["lastaccess"]);
         }
 
@@ -44,6 +48,7 @@ export default {
           if(lastaccess!=-1)itemData.lastaccess=lastaccess;
         }
 
+        const isDisabled=computed(()=>{ return disabled.value})
         const arrayOrdered=computed(()=>{return sortObject(items,"lastaccess")})
 
         const Debugg=()=>{console.log(items);}
@@ -77,7 +82,7 @@ export default {
           temp=obje.title;
         });
 
-        return {items, state, state0 , Open, Close, Confirm, Debugg, itemData, warning, Show, arrayOrdered};
+        return {items, state, state0 , Open, Close, Confirm, Debugg, itemData, warning, Show, arrayOrdered, isDisabled};
     },
     template: componentNotes_Html
 }

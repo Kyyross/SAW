@@ -34,9 +34,9 @@ const componentNotes_Html=`
     </div>
   </div>
   <div class="contenutoNote">
-    <textarea v-model="itemData.title" placeholder="Title"></textarea>
+    <textarea v-model="itemData.title" :disabled="isDisabled" placeholder="Title"></textarea>
     <br>
-    <textarea v-model="itemData.text" placeholder="Text"></textarea>
+    <textarea v-model="itemData.text" :disabled="isDisabled" placeholder="Text"></textarea>
   </div>
 </div>
 `;
