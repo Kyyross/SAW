@@ -6,6 +6,7 @@ document.adoptedStyleSheets = [styles];
 </script></head><body><div id="app0">`;
 const html1=`</div><div id="app1">`;
 const html2=`</div><div id="app2">`;
+const html3=`</div><div id="app3">`;
 const _html=`</div></body></html>`;
 
 //HTML FOR componentHtml
@@ -76,6 +77,6 @@ const componentAuthentication_Html=`
 </div>
 `;
 
-export {html_ , _html, html1, html2, componentNotes_Html, componentAuthentication_Html}
+export {html_ , _html, html1, html2, html3, componentNotes_Html, componentAuthentication_Html}
 
 

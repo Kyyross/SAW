@@ -1,7 +1,7 @@
-import { reactive, ref, watch, computed } from 'vue'
+import { reactive, ref, watch, computed } from 'vue';
 import {state0, items} from './globalVar.js';
-import { Obj } from './myclass.js'
-import { sortObject } from './mymacros/macro-functions.js'
+import { Obj } from './myclass.js';
+import { sortObject } from './mymacros/macro-functions.js';
 import { componentNotes_Html } from './componentHtml.js';
 
 export default {
