@@ -24,12 +24,12 @@ export default{
                 if(Check(obje)) return; 
                 items[obje.title]=obje;
                 temp=obje.title; 
-                Close();
+                CloseAddCategGump();
         }
         function debug(){
             
         }
-        return { modalState, displayAppSpese, CloseAddCategGump, OpenAddCategGump, warning }
+        return {itemData, modalState, displayAppSpese, CloseAddCategGump, OpenAddCategGump, AddCateg, warning }
     },
     template:`
     <div :style="{ display: displayAppSpese.display }">
