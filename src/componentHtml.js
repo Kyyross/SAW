@@ -1,27 +1,41 @@
 // HTML FOR SERVER
 const html_=
 `<!DOCTYPE html><html><head><title>Vue SSR Example</title><meta name="viewport" content="width=device-width, initial-scale=1"></meta><script type="importmap">{"imports": {"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"}}</script><script type="module" src="/src/client.js"></script><script type="module">
-import styles from './src/mycss.css' assert { type: "css" };
+import styles from './src/styles.css' assert { type: "css" };
 document.adoptedStyleSheets = [styles];
-</script></head><body><div id="app0">`;
+</script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script></head><body>
+<div class="d-flex" id="wrapper">
+<!-- Sidebar-->
+<div class="border-end bg-white" id="sidebar-wrapper">
+    <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
+    <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Shortcuts</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
+    </div>
+</div>
+<div id="page-content-wrapper"><div id="app0">`;
 const html1=`</div><div id="app1">`;
 const html2=`</div><div id="app2">`;
 const html3=`</div><div id="app3">`;
-const _html=`</div></body></html>`;
+const _html=`</div></div></div></body></html>`;
 
 //HTML FOR componentHtml
 const componentNotes_Html=`
-<div :style="{ display: state0.display }">
+<div :style="{ display: displayAppNotes.display }">
   <!-- The Modal -->
   <div :style="{ display: state.display }" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
       <span class="close"  @click="Close">&times;</span>
-      <p>Some itemData in the Modal..</p>
+      <p>Add your Note!</p>
       <input v-model="itemData.title" placeholder="Note title">
       <input v-model="itemData.tag" placeholder="Note tag">
-      <div @click="Debugg">debugg</div>
-      <div @click="Confirm">add note</div>
+      <div @click="Debugg">debug x develouper</div>
+      <div @click="Confirm"><button>add note</button></div>
       <p class="warning">{{ warning }}</p>
     </div>
   </div>
@@ -41,6 +55,34 @@ const componentNotes_Html=`
   </div>
 </div>
 `;
+
+const componentMenu_Html=`
+<!-- Top navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container-fluid">
+        <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                <li class="nav-item active"><a class="nav-link">{{userName}}</a></li>
+                <li class="nav-item"><a class="nav-link"><div style="display: fixed" class="button" @click="open1" role="button">Login</div></a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Your Apps</a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item"><div style="display: fixed" class="button" @click="open0">Notes</div></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item"><div style="display: fixed" class="button" @click="open2">Expense Management</div></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page content-->
+<div class="container-fluid">
+    <h1 class="mt-4">Let's Go</h1>
+</div>
+`
 
 const componentAuthentication_Html=`
 <div :style="{ display: displayAppAuth.display }"> 
@@ -77,6 +119,6 @@ const componentAuthentication_Html=`
 </div>
 `;
 
-export {html_ , _html, html1, html2, html3, componentNotes_Html, componentAuthentication_Html}
+export {html_ , _html, html1, html2, html3, componentMenu_Html,componentNotes_Html, componentAuthentication_Html}
 
 

@@ -6,4 +6,11 @@ class Obj{
     }
 }
 
-export {Obj}
+class Categoria{
+    constructor(nCateg,nIcon){
+        this.nCateg=nCateg;
+        this.nIcon=nIcon;
+    }
+}
+
+export {Obj, Categoria}

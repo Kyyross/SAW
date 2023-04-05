@@ -1,5 +1,5 @@
 import { reactive, ref, watch, computed } from 'vue';
-import {state0, items} from './globalVar.js';
+import {displayAppNotes, items} from './globalVar.js';
 import { Obj } from './myclass.js';
 import { sortObject } from './mymacros/macro-functions.js';
 import { componentNotes_Html } from './componentHtml.js';
@@ -82,7 +82,7 @@ export default {
           temp=obje.title;
         });
 
-        return {items, state, state0 , Open, Close, Confirm, Debugg, itemData, warning, Show, arrayOrdered, isDisabled};
+        return {items, state, displayAppNotes , Open, Close, Confirm, Debugg, itemData, warning, Show, arrayOrdered, isDisabled};
     },
     template: componentNotes_Html
 }

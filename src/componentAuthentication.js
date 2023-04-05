@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 import { displayAppAuth, count, warningSign, userName} from './globalVar.js';
-import {MakeRequest} from './ajax/ajax-fun.js';
+import {MakeRequest} from './xmlHttpRequest/httpRequest-fun.js';
 import { componentAuthentication_Html } from './componentHtml.js';
 
 export default {
@@ -26,7 +26,12 @@ export default {
         warningSign.value="Attendere l'Autenticazione";
         MakeRequest("SignIn",{username:itemData.Username,password:itemData.Password});
       }
-      const SaveWork= ()=>{MakeRequest("SaveWork")} //soluzione temporanea
+      const SaveWork= ()=>{
+        if(!userName||userName.value==""){
+          console.log("It can't be possible save the work because there isn't a Authentication");
+          return;
+        }
+        MakeRequest("SaveWork")} //soluzione temporanea
       return {displaySign, displayAppAuth, count, itemData, GumpSign, SignUp, SignIn, userName, warningSign, SaveWork}
     },
     template: componentAuthentication_Html
