@@ -69,9 +69,9 @@ const componentMenu_Html=`
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Your Apps</a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item"><div style="display: fixed" class="button" @click="open0">Notes</div></a>
+                        <a class="dropdown-item"><div style="display: fixed" class="button" role="button" @click="open0">Notes</div></a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item"><div style="display: fixed" class="button" @click="open2">Expense Management</div></a>
+                        <a class="dropdown-item"><div style="display: fixed" class="button" role="button" @click="open2">Expense Management</div></a>
                     </div>
                 </li>
             </ul>

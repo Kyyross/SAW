@@ -1,4 +1,4 @@
-//AJAX Approach
+//XmlHttpRequest Approach
 import {warningSign, userName, items} from '../globalVar.js';
 var httpRequest;
 var utente;
