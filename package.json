@@ -17,8 +17,11 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
+    "help": "^3.0.2",
     "require": "^0.4.4",
     "url": "^0.11.0",
+    "uuid": "^9.0.0",
+    "uuidv4": "^6.2.13",
     "vue": "^3.2.45"
   },
   "devDependencies": {

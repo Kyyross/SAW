@@ -7,7 +7,9 @@ import cors from 'cors';
 
 const server = express();
 
-server.get('/', cors(corsOption),(req, res) => {
+server.use(cors(corsOption));
+
+server.get('/',(req, res) => {
   const app0=createApp(0);
   const app1=createApp(1);
   const app2=createApp(2);

@@ -1,6 +1,6 @@
 // HTML FOR SERVER
 const html_=
-`<!DOCTYPE html><html><head><title>Vue SSR Example</title><meta name="viewport" content="width=device-width, initial-scale=1"></meta><script type="importmap">{"imports": {"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"}}</script><script type="module" src="/src/client.js"></script><script type="module">
+`<!DOCTYPE html><html><head><title>Vue SSR Example</title><meta name="viewport" content="width=device-width, initial-scale=1"></meta><script type="importmap">{"imports": {"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js", "uuid": "https://jspm.dev/uuid"}}</script><script type="module" src="/src/client.js"></script><script type="module">
 import styles from './src/styles.css' assert { type: "css" };
 document.adoptedStyleSheets = [styles];
 </script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script></head><body>

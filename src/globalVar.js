@@ -9,5 +9,6 @@ const warningSign= ref("");
 const userName=ref("");
 const items = reactive({});
 const categories = reactive({});
+const codContainer={};
 
-export {count, displayAppNotes, displayAppAuth, displayAppSpese, warningSign, userName, items, categories};
+export {count, displayAppNotes, displayAppAuth, displayAppSpese, warningSign, userName, items, categories, codContainer};
