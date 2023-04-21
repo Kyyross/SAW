@@ -36,4 +36,8 @@ function Check00(cifre){
     return cifre;
 }
 
-export {sortObject, GetHumanDate}
+//usato per filtrare array delle transizioni
+function filterParams(array,params){
+    return (array[0]);
+}
+export {sortObject, GetHumanDate, filterParams}

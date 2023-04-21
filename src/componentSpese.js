@@ -30,6 +30,20 @@ export default{
                 CloseAddCategGump();
             }
             //DA FAR COMUNICARE STATE CON VIEW
+        const ModCateg=()=>{
+            let nameC=prompt("metti nome categoria da modificare");
+            try{
+                if(categories[nameC]){
+                    let rename=prompt("come deve essere rinominata?");
+                    for(let key of categories[nameC]["Transitions"]){
+                        console.log(key[0]);
+                        codContainer[key[0]]=rename;
+                    }
+                    categories[rename]=categories[nameC];
+                    delete(categories[nameC]);
+                } 
+            }catch(e){console.error("error on delete categoria"+e);}
+        }
         const RemCateg=()=>{
             let item=prompt("metti nome categoria da eliminare");
             try{
@@ -41,6 +55,17 @@ export default{
                     delete(categories[item]);
                 } 
             }catch(e){console.error("error on delete categoria"+e);}
+        }
+        const MergeCateg=()=>{
+            try{
+                let categ1=prompt("inserire la categoria slave da unire");
+                let categ2=prompt("inserire la categoria master");
+                for(let key of categories[categ1]["Transitions"]){
+                    codContainer[key[0]]=categ2;
+                    categories[categ2]["Transitions"].push(key);
+                }
+                delete(categories[categ1]);
+            }catch(e){console.error(e);}
         }
         const AddTransition=()=>{
             if(!categories[itemData.nCateg]) {warning.value="nome categoria non esistente";return;}
@@ -57,6 +82,29 @@ export default{
                 CloseAddTransitionGump();
             }catch(e){console.log("error when try to add the transition"+e);}
         }
+        const RemTransition=()=>{
+            try{
+                let namecateg=prompt("immettere nome della categoria dove andare ad eliminare la transizione");
+                let coditem=prompt("immettere codice transizione da eliminare");
+                if(!codContainer[coditem]) throw new Error("Codice oggetto non presente nel container");
+                delete(codContainer[coditem]);
+                categories[namecateg]["Transitions"]=categories[namecateg]["Transitions"].filter((element)=>element[0]!=coditem);
+            }catch(e){console.error("error when try to delete transition: "+e);}
+        }
+        const ModTransition=()=>{
+            try{
+                let namecateg=prompt("immettere nome della categoria dove andare a modificare la transizione");
+                let coditem=prompt("immettere codice transizione da modificare");
+                let value=prompt("nuovo valore della transizione");
+                for(let item in categories[namecateg]["Transitions"]){
+                    if(categories[namecateg]["Transitions"][item][0]==coditem){
+                        console.log("entro?");
+                        categories[namecateg]["Transitions"][item][2]=value; 
+                        break;
+                    }
+                }
+            }catch(e){console.error("error when try to modify the transition: "+coditem+" "+e);}
+        }
         function Check(obje){
             if(obje.nCateg==""||obje.nIcon==""){ warning.value="Tutti i campi devono essere compilati"; return true;}
             if(categories[obje.nCateg]){warning.value="esiste già una categoria con questo nome"; return true;}
@@ -67,7 +115,7 @@ export default{
             console.log(categories);
             console.log(codContainer);
         }
-        return {itemData, modalCategState, modalTransitionState, displayAppSpese, CloseAddCategGump, OpenAddCategGump, AddCateg, AddTransition, warning, debug, RemCateg, OpenAddTransitionGump, CloseAddTransitionGump}
+        return {itemData, modalCategState, modalTransitionState, displayAppSpese, CloseAddCategGump, OpenAddCategGump, AddCateg, ModCateg, MergeCateg, AddTransition, RemTransition,ModTransition, warning, debug, RemCateg, OpenAddTransitionGump, CloseAddTransitionGump}
     },
     template:`
     <div :style="{ display: displayAppSpese.display }">
@@ -96,7 +144,11 @@ export default{
         <button @click="OpenAddCategGump">Add Categories</button>
         <button @click="OpenAddTransitionGump">Add Transition</button>
         <button @click="debug">DebugPrinf</button>
-        <button @click="RemCateg">DebugRemove</button>
+        <button @click="RemCateg">DebugRemoveCateg</button>
+        <button @click="ModCateg">DebugModCateg</button>
+        <button @click="RemTransition">DebugRemTransition</button>
+        <button @click="ModTransition">DebugModTransition</button>
+        <button @click="MergeCateg">DebugMergeCateg</button>
     </div>
     `
 }
