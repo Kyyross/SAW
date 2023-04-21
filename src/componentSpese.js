@@ -10,12 +10,12 @@ export default{
         var inModal=false;
         //OPEN MODAL
         const OpenAddCategGump = () => { 
-            [inModal,warning.value,modalCategState]=[true,"","block"];
-            ItemDataSetter("","");
+            [inModal,modalCategState.display,warning.value]=[true,"block",""];
+            ItemDataSetter("","","","");
             };
         const OpenAddTransitionGump = () => { 
-            [inModal,warning.value,modalTransitionState]=[true,"","block"];
-            ItemDataSetter("","");
+            [inModal,warning.value,modalTransitionState.display]=[true,"","block"];
+            ItemDataSetter("","","","");
             };
         //CLOSE MODAL
         const CloseAddCategGump = () => [inModal,modalCategState.display]=[false,"none"];

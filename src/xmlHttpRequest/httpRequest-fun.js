@@ -1,5 +1,5 @@
 //XmlHttpRequest Approach
-import {warningSign, userName, items} from '../globalVar.js';
+import {warningSign, userName, items, categories, codContainer} from '../globalVar.js';
 var httpRequest;
 var utente;
 var logged=false;
@@ -91,19 +91,35 @@ const CheckStateSignIn=()=>{
 
 function LoadSave(obj){
     //manca di pulire items
-    for(let item in obj){
-        items[item]=obj[item];
-        items[item]["lastaccess"]=new Date(); //Date.parse(items[item]["lastaccess"] DA RIVEDERE! problema convertire stringa in date().
-    }
+    console.log(obj);
+    try{
+        for(let item in obj["notes"]){
+            items[item]=obj["notes"][item];
+            items[item]["lastaccess"]=new Date(); //Date.parse(items[item]["lastaccess"] DA RIVEDERE! problema convertire stringa in date().
+    }}catch(e){console.log("error on loading the notes (function LoadSave): "+e);}
+    try{
+        for(let item in obj["categories"]){
+            categories[item]=obj["categories"][item];
+    }}catch(e){console.log("error on loading the categories (function LoadSave): "+e);}
+    try{
+        for(let item in obj["codContainer"]){
+            codContainer[item]=obj["codContainer"][item];
+    }}catch(e){console.log("error on loading the codContainer (function LoadSave): "+e);}
 }
 
 function MakeObjToSave(){
     //variabili app = dati salvati dall'utente;
-    var obj={};
+    var [objNotes, objCategories, objCodContainer]=[{},{},{}];
     for(let item in items){
-        obj[item]=items[item];
+        objNotes[item]=items[item];
     }
-    return obj;
+    for(let category in categories){
+        objCategories[category]=categories[category];
+    }
+    for(let cod in codContainer){
+        objCodContainer[cod]=codContainer[cod];
+    }
+    return {"notes":objNotes,"categories":objCategories,"codContainer":objCodContainer};
 }
 
 export {MakeRequest}
