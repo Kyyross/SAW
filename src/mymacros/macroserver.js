@@ -6,7 +6,13 @@ import fs from 'fs';
 const INDIRIZZOACCOUNTS="data/accounts.json";
 const INDIRIZZOSALVATAGGI="data/saves/";
 
-const corsOption= {origin: '*'}
+const corsOption= {
+  origin: '*',
+  credentials:true,           
+  optionSuccessStatus:204,
+  maxAge: 7200,
+  preflightContinue:false
+}
 
 async function RenderApp(app){
     return await renderToString(app);

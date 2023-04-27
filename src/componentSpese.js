@@ -26,7 +26,7 @@ export default{
         const AddCateg=()=>{
                 var obje=new Categoria(itemData.nCateg,itemData.nIcon); 
                 if(Check(obje)) return; 
-                categories[itemData.nCateg]={"codIcona":obje.nIcon,"Transitions":[]};
+                categories.value[itemData.nCateg]={"codIcona":obje.nIcon,"Transitions":[]};
                 CloseAddCategGump();
             }
             //DA FAR COMUNICARE STATE CON VIEW
@@ -39,20 +39,20 @@ export default{
                         console.log(key[0]);
                         codContainer[key[0]]=rename;
                     }
-                    categories[rename]=categories[nameC];
-                    delete(categories[nameC]);
+                    categories.value[rename]=categories.value[nameC];
+                    delete(categories.value[nameC]);
                 } 
             }catch(e){console.error("error on delete categoria"+e);}
         }
         const RemCateg=()=>{
             let item=prompt("metti nome categoria da eliminare");
             try{
-                if(categories[item]&&confirm("sicuro di volerla rimuovere? così eliminerai anche le transazioni di questa categoria registrate finora")){
-                    for(let key of categories[item]["Transitions"]){
+                if(categories.value[item]&&confirm("sicuro di volerla rimuovere? così eliminerai anche le transazioni di questa categoria registrate finora")){
+                    for(let key of categories.value[item]["Transitions"]){
                         console.log(key[0]);
                         delete(codContainer[key[0]]);
                     }
-                    delete(categories[item]);
+                    delete(categories.value[item]);
                 } 
             }catch(e){console.error("error on delete categoria"+e);}
         }
@@ -60,15 +60,15 @@ export default{
             try{
                 let categ1=prompt("inserire la categoria slave da unire");
                 let categ2=prompt("inserire la categoria master");
-                for(let key of categories[categ1]["Transitions"]){
+                for(let key of categories.value[categ1]["Transitions"]){
                     codContainer[key[0]]=categ2;
-                    categories[categ2]["Transitions"].push(key);
+                    categories.value[categ2]["Transitions"].push(key);
                 }
-                delete(categories[categ1]);
+                delete(categories.value[categ1]);
             }catch(e){console.error(e);}
         }
         const AddTransition=()=>{
-            if(!categories[itemData.nCateg]) {warning.value="nome categoria non esistente";return;}
+            if(!categories.value[itemData.nCateg]) {warning.value="nome categoria non esistente";return;}
             if(parseFloat(itemData.valueTransition)<=0) {warning.value="Immettere un valore valido";return;}
             //check sul testo della nota, considerare di mettere controlli di sicurezza.
             try{
@@ -77,7 +77,7 @@ export default{
                 do{
                     codGenerated=uuid();
                 }while(codContainer[codGenerated])
-                categories[itemData.nCateg]["Transitions"].push([codGenerated,itemData.noteTransition,itemData.valueTransition]); //implementare generatore cod e check su cod
+                categories.value[itemData.nCateg]["Transitions"].push([codGenerated,itemData.noteTransition,itemData.valueTransition]); //implementare generatore cod e check su cod
                 codContainer[codGenerated]=itemData.nCateg;
                 CloseAddTransitionGump();
             }catch(e){console.log("error when try to add the transition"+e);}
@@ -88,7 +88,7 @@ export default{
                 let coditem=prompt("immettere codice transizione da eliminare");
                 if(!codContainer[coditem]) throw new Error("Codice oggetto non presente nel container");
                 delete(codContainer[coditem]);
-                categories[namecateg]["Transitions"]=categories[namecateg]["Transitions"].filter((element)=>element[0]!=coditem);
+                categories.value[namecateg]["Transitions"]=categories.value[namecateg]["Transitions"].filter((element)=>element[0]!=coditem);
             }catch(e){console.error("error when try to delete transition: "+e);}
         }
         const ModTransition=()=>{
@@ -96,10 +96,10 @@ export default{
                 let namecateg=prompt("immettere nome della categoria dove andare a modificare la transizione");
                 let coditem=prompt("immettere codice transizione da modificare");
                 let value=prompt("nuovo valore della transizione");
-                for(let item in categories[namecateg]["Transitions"]){
-                    if(categories[namecateg]["Transitions"][item][0]==coditem){
+                for(let item in categories.value[namecateg]["Transitions"]){
+                    if(categories.value[namecateg]["Transitions"][item][0]==coditem){
                         console.log("entro?");
-                        categories[namecateg]["Transitions"][item][2]=value; 
+                        categories.value[namecateg]["Transitions"][item][2]=value; 
                         break;
                     }
                 }
@@ -107,12 +107,12 @@ export default{
         }
         function Check(obje){
             if(obje.nCateg==""||obje.nIcon==""){ warning.value="Tutti i campi devono essere compilati"; return true;}
-            if(categories[obje.nCateg]){warning.value="esiste già una categoria con questo nome"; return true;}
+            if(categories.value[obje.nCateg]){warning.value="esiste già una categoria con questo nome"; return true;}
             console.log(obje.nCateg);
             return false;
           }
         function debug(){
-            console.log(categories);
+            console.log(categories.value);
             console.log(codContainer);
         }
         return {itemData, modalCategState, modalTransitionState, displayAppSpese, CloseAddCategGump, OpenAddCategGump, AddCateg, ModCateg, MergeCateg, AddTransition, RemTransition,ModTransition, warning, debug, RemCateg, OpenAddTransitionGump, CloseAddTransitionGump}

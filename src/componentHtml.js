@@ -1,9 +1,12 @@
 // HTML FOR SERVER
 const html_=
-`<!DOCTYPE html><html><head><title>Vue SSR Example</title><meta name="viewport" content="width=device-width, initial-scale=1"></meta><script type="importmap">{"imports": {"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js", "uuid": "https://jspm.dev/uuid"}}</script><script type="module" src="/src/client.js"></script><script type="module">
+`<!DOCTYPE html><html><head><title>Vue SSR Example</title><meta name="viewport" content="width=device-width, initial-scale=1"></meta><script type="importmap">{"imports": {"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js", "uuid": "https://jspm.dev/uuid"}}</script><script type="module" src="/src/client.js"></script>
+<!-- <script type="module">
 import styles from './src/styles.css' assert { type: "css" };
 document.adoptedStyleSheets = [styles];
-</script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script></head><body>
+</script> -->
+<link rel="stylesheet" href="./src/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script></head><body>
 <div class="d-flex" id="wrapper">
 <!-- Sidebar-->
 <div class="border-end bg-white" id="sidebar-wrapper">
@@ -65,13 +68,13 @@ const componentMenu_Html=`
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                 <li class="nav-item active"><a class="nav-link">{{userName}}</a></li>
-                <li class="nav-item"><a class="nav-link"><div style="display: fixed" class="button" @click="open1" role="button">Login</div></a></li>
+                <li class="nav-item"><a class="nav-link"><div style="display: fixed" class="button" @click="Open1" role="button">Login</div></a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Your Apps</a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item"><div style="display: fixed" class="button" role="button" @click="open0">Notes</div></a>
+                        <a class="dropdown-item"><div style="display: fixed" class="button" role="button" @click="Open0">Notes</div></a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item"><div style="display: fixed" class="button" role="button" @click="open2">Expense Management</div></a>
+                        <a class="dropdown-item"><div style="display: fixed" class="button" role="button" @click="Open2">Expense Management</div></a>
                     </div>
                 </li>
             </ul>
@@ -87,8 +90,14 @@ const componentMenu_Html=`
 const componentAuthentication_Html=`
 <div :style="{ display: displayAppAuth.display }"> 
   <p> {{userName}} </p>
-  <button @click="GumpSign('y','y')">SignUp</button>
-  <button @click="GumpSign('n','y')">SignIn</button>
+  <p class="warning"> {{ warningSign }} </p>
+  <div :style="{ display: displayButtonSign.SignIn }">
+  <button @click="GumpSign('y','y')">Sign Up</button>
+  <button @click="GumpSign('n','y')">Sign In</button>
+  </div>
+  <div :style="{ display: displayButtonSign.SignOut }">
+  <button @click="SignOut">Sign Out</button>
+  </div>
   <button @click="SaveWork">SaveWork</button>
   <!-- The Modal SignUp-->
   <div :style="{ display: displaySign.displaySignUp }" class="modal">

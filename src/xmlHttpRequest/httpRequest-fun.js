@@ -4,7 +4,7 @@ var httpRequest;
 var utente;
 var logged=false;
 
-const MakeRequest=(TYPE,REQUEST="",URL="")=>{
+const MakeRequest= (TYPE,REQUEST="",URL="")=>{
     httpRequest = new XMLHttpRequest();
     if (!httpRequest) { throw new Error("on making the request to the server").catch((e)=>{console.err(e.message);});}
     switch(TYPE){
@@ -94,12 +94,12 @@ function LoadSave(obj){
     console.log(obj);
     try{
         for(let item in obj["notes"]){
-            items[item]=obj["notes"][item];
-            items[item]["lastaccess"]=new Date(); //Date.parse(items[item]["lastaccess"] DA RIVEDERE! problema convertire stringa in date().
+            items.value[item]=obj["notes"][item];
+            items.value[item]["lastaccess"]=new Date(); //Date.parse(items[item]["lastaccess"] DA RIVEDERE! problema convertire stringa in date().
     }}catch(e){console.log("error on loading the notes (function LoadSave): "+e);}
     try{
         for(let item in obj["categories"]){
-            categories[item]=obj["categories"][item];
+            categories.value[item]=obj["categories"][item];
     }}catch(e){console.log("error on loading the categories (function LoadSave): "+e);}
     try{
         for(let item in obj["codContainer"]){
@@ -110,11 +110,11 @@ function LoadSave(obj){
 function MakeObjToSave(){
     //variabili app = dati salvati dall'utente;
     var [objNotes, objCategories, objCodContainer]=[{},{},{}];
-    for(let item in items){
-        objNotes[item]=items[item];
+    for(let item in items.value){
+        objNotes[item]=items.value[item];
     }
-    for(let category in categories){
-        objCategories[category]=categories[category];
+    for(let category in categories.value){
+        objCategories[category]=categories.value[category];
     }
     for(let cod in codContainer){
         objCodContainer[cod]=codContainer[cod];

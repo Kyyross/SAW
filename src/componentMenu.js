@@ -1,13 +1,21 @@
-import {displayAppNotes, displayAppAuth, displayAppSpese, userName} from './globalVar.js';
+import {displayAppNotes, displayAppAuth, displayAppSpese, userName, warningSign} from './globalVar.js';
 import { componentMenu_Html } from './componentHtml.js';
 export default {
     data() {
-      const open0=()=>{close(); displayAppNotes.display="block";};
-      const open1=()=>{close(); displayAppAuth.display="block";};
-      const open2=()=>{close(); displayAppSpese.display="block";};
-      const close=()=>{
+      const Open0=()=>{Close(); if(CheckLogIn())displayAppNotes.display="block";};
+      const Open1=()=>{Close(); displayAppAuth.display="block";};
+      const Open2=()=>{Close(); if(CheckLogIn())displayAppSpese.display="block";};
+      const CheckLogIn=()=> {
+        let check= (userName.value!=""?true:false);
+        if(!check){
+          warningSign.value="Per accedere alle tue applicazioni è necessario autenticarsi";
+          Open1();
+        }
+        return check;
+      }
+      const Close=()=>{
         displayAppNotes.display="none", displayAppAuth.display="none", displayAppSpese.display="none"}
-      return {open0, open1, open2, userName}
+      return {Open0, Open1, Open2, userName}
     },
     template: componentMenu_Html
   }

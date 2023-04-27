@@ -28,7 +28,7 @@ export default {
         const Confirm = ()=>{
             var obje=new Obj(itemData.title,itemData.lastaccess); 
             if(Check(obje)) return; 
-            items[obje.title]=obje;
+            items.value[obje.title]=obje;
             temp=obje.title; 
             Close();
         };
@@ -38,7 +38,7 @@ export default {
           temp=title;
           disabled.value=false;
           console.log(disabled.value),
-          ItemDataSetter(title,items[title]["tag"],items[title]["text"],items[title]["lastaccess"]);
+          ItemDataSetter(title,items.value[title]["tag"],items.value[title]["text"],items.value[title]["lastaccess"]);
         }
 
         function ItemDataSetter(title, tag, text, lastaccess=-1){
@@ -55,7 +55,7 @@ export default {
 
         function Check(obje){
           if(obje.title==""||obje.tag==""){ warning.value="Tutti i campi devono essere compilati"; return true;}
-          if(items[obje.title]){warning.value="esiste già una nota con questo titolo"; return true;}
+          if(items.value[obje.title]){warning.value="esiste già una nota con questo titolo"; return true;}
           console.log(obje.title);
           return false;
         }
@@ -67,7 +67,7 @@ export default {
           itemData.text=dataNew;
           itemData.lastaccess=new Date();
           var obje=new Obj(itemData.title,itemData.lastaccess,dataNew);
-          items[obje.title]=obje;
+          items.value[obje.title]=obje;
          });
 
         watch(()=>itemData.title,dataNew=>{
@@ -77,8 +77,8 @@ export default {
           itemData.title=dataNew;
           itemData.lastaccess=new Date();
           var obje=new Obj(itemData.title,itemData.lastaccess,itemData.text);
-          delete(items[temp]);
-          items[obje.title]=obje;
+          delete(items.value[temp]);
+          items.value[obje.title]=obje;
           temp=obje.title;
         });
 
