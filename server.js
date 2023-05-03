@@ -28,9 +28,9 @@ server.get('/',(req, res) => {
   catch(err){console.error(err.message)};
 });
 
-server.get('/user:id', (req, res) =>{
-  res.send("provaprova");
-});
+//server.get('/user:id', (req, res) =>{
+//  res.send("provaprova");
+//});
 
 //server.use(express.json());
 server.post('/SignUp', (req, res)=>{

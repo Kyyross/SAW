@@ -1,0 +1,102 @@
+//Documentation: resources
+
+Note = {
+    title : string,
+    tag : string,
+    lastaccess : string,
+    text : string
+}
+
+Category = {
+    namecateg : string,
+    codIcon : string,
+    transition : Transition[]
+}
+
+Transition = {
+    codTrans : string,
+    noteTrans : string,
+    valueTrans : double,
+}
+
+notes = {
+   "titolo" : Note
+}
+categories = {
+    "namecateg" : Category
+}
+
+//x tracciare tutti i codici delle transazioni nelle categorie ed evitare duplicati
+codContainer = {
+    "id" : "ncateg"
+}
+
+-------- COME è ADESSO
+
+- POST /SignIn
+    - 200 OK  {
+        "message" : "e.message",
+        "permission" : "boolean",
+         "dati" : {}
+    }
+
+- POST /SignUp
+    "headers": { 
+        "authorization" : "username:password"
+     }
+    -201 Created 
+        "message"
+
+- POST /SaveWork 
+    body : {"username" : "user", dati: { categories, notes, codContainer }}
+    - 200 OK 
+        "message"
+    
+-------- COME SARA'
+
+- POST /SignIn
+    - 200 OK  {
+        "links" : {
+            "self": "/SignIn" 
+        },
+        "metadati":{
+            "message" : "log in"
+            "permission" : true
+        }
+        "data":{
+             categories, 
+             notes, 
+             codContainer 
+        }
+    }
+    -400 Bad Request
+    -500 Internal Server Error
+
+- POST /SignUp
+    "headers": { 
+        "authorization" : "username:password"
+     }
+    -201 Created {
+            "links":{
+                "self": "/SignUp"
+            }
+            "metadati":{
+                "message": "Registration is done successfully"
+            }
+        }
+    -400 Bad Request 
+    -500 Internal Server Error
+
+- POST /SaveWork 
+    body : {"username" : "user", dati: { categories, notes, codContainer }}
+    - 200 OK{
+        "links": {
+            "self": "/SaveWork"
+        },
+        "metadati":{
+            "message": "Your Work is stored successfully"
+        }
+    }
+
+    -500 Internal Server Error 
+       

@@ -1,5 +1,4 @@
 import { createApp } from './app.js';
-import { warningSign } from './globalVar.js';
 
 createApp(0).mount('#app0');
 createApp(1).mount('#app1');
@@ -34,7 +33,6 @@ if("serviceWorker" in navigator){
 
     navigator.serviceWorker.addEventListener('message',evt=>{
         console.log("SW to Client: " + evt.data);
-        //warningSign=evt.data;
     });
 
     if(navigator.serviceWorker.controller!=null)

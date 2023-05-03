@@ -1,7 +1,5 @@
 import { reactive, ref } from 'vue'
 
-//const count = ref({val:1})
-
 const displayAppNotes = reactive({display:"none"});
 const displayAppAuth = reactive({display:"none"});
 const displayAppSpese = reactive({display:"none"});
