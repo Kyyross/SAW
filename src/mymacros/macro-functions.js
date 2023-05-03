@@ -2,9 +2,7 @@ import {Obj} from '../myclass.js'
 
 //prende un oggetto lo ordina (decrescente) e restituisce lo restituisce in forma di array
 function sortObject(obj,key){
-    console.log(obj.value);
     if(Object.entries(obj.value).length==0){
-        console.log("vuoto"); 
         return [];
     }
     var arr=[];

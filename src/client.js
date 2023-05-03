@@ -1,4 +1,5 @@
 import { createApp } from './app.js';
+import { warningSign } from './globalVar.js';
 
 createApp(0).mount('#app0');
 createApp(1).mount('#app1');
@@ -21,3 +22,28 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     }
   });
+
+if("serviceWorker" in navigator){
+    navigator.serviceWorker
+        .register("/service_worker.js")
+        .then(serviceWorker=>{
+            console.log("service worker registered: ", serviceWorker);
+        })
+        .catch(error=>{console.error("error registering the service worker: ", error)
+    });
+
+    navigator.serviceWorker.addEventListener('message',evt=>{
+        console.log("SW to Client: " + evt.data);
+        //warningSign=evt.data;
+    });
+
+    if(navigator.serviceWorker.controller!=null)
+        navigator.serviceWorker.controller.postMessage("Hi");
+}
+else{
+    alert("the browser doesn't support the ServiceWorker");
+    console.log("the browser doesnt' support the SW");
+}
+
+if(window.isSecureContext)console.log("siamo al sicuro");
+else console.log("non al sicuro");

@@ -71,22 +71,29 @@ function CheckStateSignUp() {
 const CheckStateSignIn=()=>{
     try{
         if (httpRequest.readyState === XMLHttpRequest.DONE) {
-            if (httpRequest.status === 200) {
-                let response=JSON.parse(httpRequest.responseText);
-                console.log(response.message);
-                warningSign.value=response.message;
-                if(!response.permission)return;
-                console.log(response.dati); 
-                LoadSave(response.dati);
-                logged=true;
-                userName.value=utente;
-            } else {
-                console.log("There was a problem with the request.");
-                warningSign.value="ERROR";
+            switch(httpRequest.status) {
+                case 200: {
+                    let response=JSON.parse(httpRequest.responseText);
+                    console.log(response.message);
+                    warningSign.value=response.message;
+                    if(!response.permission)return;
+                    console.log(response.dati); 
+                    LoadSave(response.dati);
+                    logged=true;
+                    userName.value=utente;
+                }
+                break;
+                case 404: {
+                    throw new Error("offline");
+                }
+                default: {
+                    console.error("There was a problem with the request. try to verify your connection");
+                    warningSign.value="There was a problem with the request. try to verify your connection";
+                }
             }
         }
     }
-    catch(e){console.error(e.message);}
+    catch(e){console.error(e);}
 }
 
 function LoadSave(obj){
