@@ -1,14 +1,14 @@
 # SAW
-v.0.0.7
+v.0.2.1
 
 to Do:
 
--to implement notification when app is opened.
 -make a view for the state.
 -(optional)implement firebase(database), so fix operations restful.
 
 Done:
 
+-to implement notification when app is opened. (DONE)
 -update operations restful in according with api.txt (DONE)
 -to implement log in forced when try to access the apps. (DONE)
 -to implement Sign-out. (DONE)
