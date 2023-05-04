@@ -5,8 +5,8 @@ const html_=
 import styles from './src/styles.css' assert { type: "css" };
 document.adoptedStyleSheets = [styles];
 </script> -->
-<link rel="stylesheet" href="./src/styles.css">
-<link rel="manifest" type="application/manifest+json" href="PWA.webmanifest">
+<link rel="stylesheet" a href="./src/styles.css">
+<link rel="manifest" type="application/manifest+json" a href="PWA.webmanifest">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script></head><body>
 <div class="d-flex" id="wrapper">
 <!-- Sidebar-->

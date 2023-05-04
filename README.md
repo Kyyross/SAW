@@ -1,10 +1,11 @@
 # SAW
-v.0.2.1
+v.0.2.2
 
 to Do:
 
 -make a view for the state.
 -(optional)implement firebase(database), so fix operations restful.
+-optmize lighthouse "Ceo"
 
 Done:
 
