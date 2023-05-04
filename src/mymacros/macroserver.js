@@ -25,12 +25,12 @@ function RegisterAccount(token){
     newUser["username"]=credenziali[0];
     newUser["password"]=credenziali[1];
     let allUsers=LoadFile(INDIRIZZOACCOUNTS);
-    if(allUsers[newUser.username]) throw new Error("Utente già esistente");
+    if(allUsers[newUser.username]) throw new Error("Username is taken");
     allUsers[newUser["username"]]=newUser["password"];
     fs.writeFileSync(INDIRIZZOACCOUNTS, JSON.stringify(allUsers));
   }
-  catch(e){console.error("Errore nel formato delle credenziali: "+e.message); return e.message;}
-  return "Registrazione effettuata con successo";
+  catch(e){console.error(e.message); return MakeObjHttp(400,{message:e.message});}//{message: e.message, status: 400};}
+  return MakeObjHttp(201, {message: "Registration is done successfully"});//{message: "Registration is done successfully", status: 201};
 }
 
 function LogIn(token){
@@ -41,11 +41,11 @@ function LogIn(token){
     newUser["username"]=credenziali[0];
     newUser["password"]=credenziali[1];
     let allUsers=LoadFile(INDIRIZZOACCOUNTS);
-    if(!(allUsers[newUser.username]&&allUsers[newUser.username]==newUser.password)) throw new Error("Credenziali Errate");
+    if(!(allUsers[newUser.username]&&allUsers[newUser.username]==newUser.password)) throw new Error("Wrong credentials");
     dataClient=LoadFile(INDIRIZZOSALVATAGGI+newUser["username"]+".json");
   }
-  catch(e){console.error(e.message); return {message:e.message, permission: false, dati:{}};}
-  return {message:"Log In effettuato con successo", permission: true ,dati:dataClient};
+  catch(e){console.error(e.message); return MakeObjHttp(400,{message: e.message}, {});}//{message:e.message, permission: false, data:{}, status: 400};}
+  return MakeObjHttp(200, {message:"Successfully logged"}, dataClient);//{message:"Successfully logged", permission: true , data:dataClient, status: 200};
 }
 
 function LoadFile(indirizzo){
@@ -62,6 +62,10 @@ function StoreFile(obj){
   }
   catch(e){console.error(e.message); return "Error, server couldn't store the files";}
   return "The save is been stored successfully";
+}
+
+const MakeObjHttp=(status, metadati, data, links)=>{
+  return {"links": links, "metadati": metadati, "data": data, "status": status}
 }
 
 export {RenderApp, RegisterAccount, LogIn, StoreFile, corsOption}

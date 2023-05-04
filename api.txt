@@ -60,7 +60,7 @@ codContainer = {
             "self": "/SignIn" 
         },
         "metadati":{
-            "message" : "log in"
+            "message" : "Successfully logged"
             "permission" : true
         }
         "data":{
@@ -69,8 +69,8 @@ codContainer = {
              codContainer 
         }
     }
-    -400 Bad Request
-    -500 Internal Server Error
+    -400 {"message": "Bad Request"}
+    -500 {"message": "Internal Server Error"}
 
 - POST /SignUp
     "headers": { 
@@ -81,11 +81,12 @@ codContainer = {
                 "self": "/SignUp"
             }
             "metadati":{
-                "message": "Registration is done successfully"
+                "message": "Registration is done successfully",
+                "status": 201
             }
         }
-    -400 Bad Request 
-    -500 Internal Server Error
+    -400 {"message": "Username is taken"} 
+    -500 {"message": "Internal Server Error"}
 
 - POST /SaveWork 
     body : {"username" : "user", dati: { categories, notes, codContainer }}
@@ -98,5 +99,5 @@ codContainer = {
         }
     }
 
-    -500 Internal Server Error 
+    -500 {"message": "Internal Server Error"}
        

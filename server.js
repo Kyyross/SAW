@@ -34,17 +34,27 @@ server.get('/',(req, res) => {
 
 //server.use(express.json());
 server.post('/SignUp', (req, res)=>{
-  let token=req.headers["authorization"];
-  console.log("da server:"+token);
-  let response=RegisterAccount(token);
-  res.send(response);
+  try{
+    let token=req.headers["authorization"];
+    console.log("da server:"+token);
+    let response=RegisterAccount(token);
+    res.status(response.status);
+    delete response.status;
+    //response=JSON.stringify(response);
+    res.send(response);
+  }catch(e){res.status(500); console.error(e); res.send({message: "Internal Server Error"});}
 });
 
 server.post('/SignIn', (req, res)=>{
-  let token=req.headers["authorization"];
-  console.log("da server:"+token);
-  let response=JSON.stringify(LogIn(token));
-  res.send(response);
+  try{
+    let token=req.headers["authorization"];
+    console.log("da server:"+token);
+    let response=LogIn(token);
+    res.status(response.status);
+    delete response.status;
+    //response=JSON.stringify(response);
+    res.send(response);
+  }catch(e){res.status(500); console.error(e); res.send({message: "Internal Server Error"});}
 });
 
 server.use(bodyParser.json());

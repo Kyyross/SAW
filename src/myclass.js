@@ -13,4 +13,13 @@ class Categoria{
     }
 }
 
+class ObjHttp{
+    constructor(){
+        links={};
+        metadati={};
+        data={};
+    }
+}
+
 export {Obj, Categoria}
+
