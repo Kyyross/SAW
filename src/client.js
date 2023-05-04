@@ -39,9 +39,29 @@ if("serviceWorker" in navigator){
         navigator.serviceWorker.controller.postMessage("Hi");
 }
 else{
-    alert("the browser doesn't support the ServiceWorker");
-    console.log("the browser doesnt' support the SW");
+    alert("The browser does not support the ServiceWorker");
+    console.log("The browser does not support the SW");
 }
 
-if(window.isSecureContext)console.log("siamo al sicuro");
-else console.log("non al sicuro");
+if(!("Notification" in window)){
+    alert("The Browser does not support the notification")
+}
+else if(Notification.permission==="granted"){
+    var notification = new Notification(
+        "Hello",
+        {
+            lang: "en",
+            body: "Hi",
+            icon: "/src/icons/icon-192x192.png",
+            vibrate: [200,100,200]
+        }
+    );
+}else if(Notification.permission!=="denied"){
+    await Notification.requestPermission();
+    if(Notification.permission==="granted"){
+        var notification = new Notification("Try Notification");   
+    }
+}
+
+//DEBUGGINGif(window.isSecureContext)console.log("siamo al sicuro");
+//else console.log("non al sicuro");
