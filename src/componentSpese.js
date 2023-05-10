@@ -1,5 +1,5 @@
 import { displayAppSpese, categories, codContainer } from './globalVar.js';
-import {Categoria} from './myclass.js';
+import { Categoria } from './myclass.js';
 import { reactive, ref } from 'vue';
 import { v4 as uuid } from 'uuid';
 
@@ -111,11 +111,12 @@ export default{
             console.log(obje.nCateg);
             return false;
           }
-        function debug(){
+        function debug(item){
+            console.log(item);
             console.log(categories.value);
             console.log(codContainer);
         }
-        return {itemData, modalCategState, modalTransitionState, displayAppSpese, CloseAddCategGump, OpenAddCategGump, AddCateg, ModCateg, MergeCateg, AddTransition, RemTransition,ModTransition, warning, debug, RemCateg, OpenAddTransitionGump, CloseAddTransitionGump}
+        return {categories,itemData, modalCategState, modalTransitionState, displayAppSpese, CloseAddCategGump, OpenAddCategGump, AddCateg, ModCateg, MergeCateg, AddTransition, RemTransition,ModTransition, warning, debug, RemCateg, OpenAddTransitionGump, CloseAddTransitionGump}
     },
     template:`
     <div :style="{ display: displayAppSpese.display }">
@@ -139,6 +140,13 @@ export default{
                 <input v-model="itemData.noteTransition" placeholder="Nota">
                 <div @click="AddTransition">Confirm Transition</div>
                 <p class="warning">{{ warning }}</p>
+            </div>
+        </div>
+        <div class="Container-Spese">
+            <div class="area-categorie">
+                <li v-for="item in categories.value">
+                    <div @click="debug(item)"> {{ item.codIcona }}</div>
+                </li>
             </div>
         </div>
         <button @click="OpenAddCategGump">Add Categories</button>

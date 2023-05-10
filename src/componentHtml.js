@@ -8,7 +8,7 @@ const html_=
 </head><body>
 <div class="container-page">
 <!-- Sidebar-->
-<div class="navbar-side">
+<div id="navbar-side" class="navbar-side">
     <div class="sidebar-heading">Start</div>
     <div class="list-group">
         <a href="#!">Dashboard</a>
@@ -42,18 +42,20 @@ const componentNotes_Html=`
     </div>
   </div>
   <div class="areaNote">
-    <button @click="Open">Open Modal</button>
-    <button @click="Debugg">debugg</button>
-    <div class="listaNote">
-      <li v-for="item in arrayOrdered">
-        <div @click="Show(item.title)"> {{ item.title }} - {{ item.lastaccess }}</div>
-      </li>
+    <div class="grid-listanote">
+      <button @click="Open"><img src="/src/img/piu.png"></button>
+      <button @click="Debugg">debugg</button>
+      <div class="listaNote">
+        <li v-for="item in arrayOrdered">
+          <div @click="Show(item.title)"> {{ item.title }} - {{ item.lastaccess }}</div>
+        </li>
+      </div>
     </div>
   </div>
   <div class="contenutoNote">
-    <textarea v-model="itemData.title" :disabled="isDisabled" placeholder="Title"></textarea>
+    <textarea class="titleNoteCon" v-model="itemData.title" :disabled="isDisabled" placeholder="Title"></textarea>
     <br>
-    <textarea v-model="itemData.text" :disabled="isDisabled" placeholder="Text"></textarea>
+    <textarea class="textNoteCon" v-model="itemData.text" :disabled="isDisabled" placeholder="Text"></textarea>
   </div>
 </div>
 `;
