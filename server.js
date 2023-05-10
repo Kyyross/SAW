@@ -4,10 +4,12 @@ import {createApp} from './src/app.js';
 import {html_, _html, html1, html2, html3 } from './src/componentHtml.js';
 import { RenderApp, RegisterAccount, LogIn, StoreFile, corsOption } from './src/mymacros/macroserver.js';
 import cors from 'cors';
+import favicon from 'serve-favicon';
 
 const server = express();
 
 server.use(cors(corsOption));
+server.use(favicon("./src/icons/favicon.ico"));
 
 server.get('/',(req, res) => {
   const app0=createApp(0);
@@ -28,11 +30,6 @@ server.get('/',(req, res) => {
   catch(err){console.error(err.message)};
 });
 
-//server.get('/user:id', (req, res) =>{
-//  res.send("provaprova");
-//});
-
-//server.use(express.json());
 server.post('/SignUp', (req, res)=>{
   try{
     let token=req.headers["authorization"];
@@ -40,7 +37,6 @@ server.post('/SignUp', (req, res)=>{
     let response=RegisterAccount(token);
     res.status(response.status);
     delete response.status;
-    //response=JSON.stringify(response);
     res.send(response);
   }catch(e){res.status(500); console.error(e); res.send({message: "Internal Server Error"});}
 });
@@ -52,7 +48,6 @@ server.post('/SignIn', (req, res)=>{
     let response=LogIn(token);
     res.status(response.status);
     delete response.status;
-    //response=JSON.stringify(response);
     res.send(response);
   }catch(e){res.status(500); console.error(e); res.send({message: "Internal Server Error"});}
 });

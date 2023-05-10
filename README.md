@@ -1,12 +1,12 @@
 # SAW
-v.0.3.0
+v.0.3.1
 
 to Do:
 
--make a view for the state. (<--QUA)
+-make a view for the state. (in corso)
 
 -(optional)implement firebase(database), so fix operations restful.
--optmize lighthouse "Ceo"
+-optmize lighthouse (in corso)
 
 Done:
 
@@ -29,3 +29,10 @@ document.adoptedStyleSheets = [styles];
 </script> -->
     _con_
 <link rel="stylesheet" href="./src/styles.css">
+
+sostituito:
+    _questo_
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="./src/styles.css">
+    _con_
+<link rel="stylesheet" href="./src/mycss.css">

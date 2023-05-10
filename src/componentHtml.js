@@ -1,27 +1,25 @@
 // HTML FOR SERVER
 const html_=
-`<!DOCTYPE html><html><head><title>Vue SSR Example</title><meta name="viewport" content="width=device-width, initial-scale=1"></meta><script type="importmap">{"imports": {"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js", "uuid": "https://jspm.dev/uuid"}}</script><script type="module" src="/src/client.js"></script>
-<!-- <script type="module">
-import styles from './src/styles.css' assert { type: "css" };
-document.adoptedStyleSheets = [styles];
-</script> -->
-<link rel="stylesheet" a href="./src/styles.css">
+`<!DOCTYPE html><html lang="en"><head><title>Vue SSR Example</title><meta name="viewport" content="width=device-width, initial-scale=1"></meta><script type="importmap">{"imports": {"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js", "uuid": "https://jspm.dev/uuid"}}</script><script type="module" src="/src/client.js"></script>
+<link rel="stylesheet" a href="./src/mycss.css">
 <link rel="manifest" type="application/manifest+json" a href="PWA.webmanifest">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script></head><body>
-<div class="d-flex" id="wrapper">
+<link rel="icon" type="image/x-icon" href="/src/icons/favicon.ico" />
+<meta name="description" content="Use this free PWA to manage your expenses">
+</head><body>
+<div class="container-page">
 <!-- Sidebar-->
-<div class="border-end bg-white" id="sidebar-wrapper">
-    <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
-    <div class="list-group list-group-flush">
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Shortcuts</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
+<div class="navbar-side">
+    <div class="sidebar-heading">Start</div>
+    <div class="list-group">
+        <a href="#!">Dashboard</a>
+        <a href="#!">Shortcuts</a>
+        <a href="#!">Overview</a>
+        <a href="#!">Events</a>
+        <a href="#!">Profile</a>
+        <a href="#!">Status</a>
     </div>
 </div>
-<div id="page-content-wrapper"><div id="app0">`;
+<div class="container-main"><div id="app0">`;
 const html1=`</div><div id="app1">`;
 const html2=`</div><div id="app2">`;
 const html3=`</div><div id="app3">`;
@@ -62,30 +60,21 @@ const componentNotes_Html=`
 
 const componentMenu_Html=`
 <!-- Top navigation-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <div class="container-fluid">
-        <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                <li class="nav-item active"><a class="nav-link">{{userName}}</a></li>
-                <li class="nav-item"><a class="nav-link"><div style="display: fixed" class="button" @click="Open1" role="button">Login</div></a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Your Apps</a>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item"><div style="display: fixed" class="button" role="button" @click="Open0">Notes</div></a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item"><div style="display: fixed" class="button" role="button" @click="Open2">Expense Management</div></a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- Page content-->
-<div class="container-fluid">
-    <h1 class="mt-4">Let's Go</h1>
+<div class="navbar">
+  <div class="navbar-item" :style="{ display: displayUsername.display }"><p>{{userName}}</p></div>
+  <div style="display: fixed" class="navbar-item" role="button" @click="Open1"><p>Login</p></div>
+  <div class="dropdown"> 
+      <div class="navbar-item"><p>Your Apps</p></div>
+      <div class="dropdown-content">
+        <ul class="list-group">
+          <li><div style="display: fixed" class="navitem-btn" role="button" @click="Open0">Notes</div></li>
+          <li><div style="display: fixed" class="navitem-btn" role="button" @click="Open2">Expense Management</div></li>
+        </ul>
+      </div>
+  </div>
 </div>
+<!-- Page content-->
+    <h1 class="mt-4">Let's Go</h1>
 `
 
 const componentAuthentication_Html=`

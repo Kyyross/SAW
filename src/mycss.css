@@ -1,9 +1,149 @@
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Style the body */
+  body {
+    font-family: Arial;
+    margin: 0;
+  }
+  
+  /* Header/logo Title */
+  .header {
+    padding: 60px;
+    text-align: center;
+    background: #1abc9c;
+    color: white;
+  }
+  
+  /* Style the top navigation bar */
+  .navbar {
+    display: flex;
+    background-color: #333;
+    align-items: center;
+    flex-direction: row-reverse;
+    max-height: 70px;
+    height: 70px;
+  }
+
+  /* Style the navigation bar links */
+  .navbar .navbar-item {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+    min-height: 48px;
+    min-width: 48px;
+    height: 70px;
+    width: 120px;
+  }
+  
+  /* Change color on hover */
+  .navbar .navbar-item:hover {
+    cursor: pointer;
+    background-color: #ddd;
+    color: black;
+  }
+
+  .navbar .dropdown {
+    position: relative;
+    display: block;
+  }
+
+  .navbar .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+  }
+  
+  .navbar .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .navbar .dropdown-content .list-group li {
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar .dropdown-content .navitem-btn{
+    font-family: verdana;
+    font-size: 16px;
+    min-width: 48px;
+    min-height: 48px; 
+    height: max-content;
+    width: max-content;
+  }
+
+  .navbar .dropdown-content .navitem-btn:hover{
+    cursor: pointer;
+    font-size: 17px;
+  }
+  
+  /* Column container */
+  .container-page {  
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  /* Create two unequal columns that sits next to each other */
+  /* Sidebar/left column */
+  .navbar-side {
+    flex: 20%;
+    background-color: #f1f1f1;
+    padding: 20px;
+    display:block;
+  }
+
+  .navbar-side .list-group a {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Main column */
+  .container-main {
+    flex: 80%;
+    background-color: white;
+    padding: 20px;
+  }
+  
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+  }
+  
+  /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+  @media (max-width: 700px) {
+    .navbar {   
+      flex-direction: column;
+      max-height: 300px;
+      height: auto;
+    }
+    .navbar-side{
+      flex:0%;
+      display:none;
+    }
+  }
+  
   .button{
       font-family: verdana;
   	  font-size: 20px;
+      min-height: 48px;
+      min-width: 48px;
     }
+  .button:hover{
+    cursor: pointer;
+    background-color: #ddd;
+    color: black;
+  }
   
-    .modal {
+  .modal {
       display: none; /* Hidden by default */
       position: fixed; /* Stay in place */
       z-index: 1; /* Sit on top */
@@ -16,8 +156,8 @@
       background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     }
     
-    /* Modal Content/Box */
-    .modal-content {
+  /* Modal Content/Box */
+  .modal-content {
       background-color: #fefefe;
       margin: 15% auto; /* 15% from the top and centered */
       padding: 20px;

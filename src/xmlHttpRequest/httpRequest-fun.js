@@ -1,5 +1,5 @@
 //XmlHttpRequest Approach
-import {warningSign, userName, items, categories, codContainer} from '../globalVar.js';
+import {warningSign, userName, items, categories, codContainer, displayUsername} from '../globalVar.js';
 var httpRequest;
 var utente;
 var logged=false;
@@ -90,7 +90,7 @@ const CheckStateSignIn=()=>{
                     let response=JSON.parse(httpRequest.responseText);
                     console.log(response["metadati"].message);
                     console.log(response.data); 
-                    [warningSign.value,logged,userName.value]=[response["metadati"].message, true, utente];
+                    [warningSign.value,logged,userName.value,displayUsername.display]=[response["metadati"].message, true, utente,"block"];
                     LoadSave(response.data);
                 }
                 break;

@@ -3,6 +3,7 @@ import { reactive, ref } from 'vue'
 const displayAppNotes = reactive({display:"none"});
 const displayAppAuth = reactive({display:"none"});
 const displayAppSpese = reactive({display:"none"});
+const displayUsername = reactive({display:"none"});
 const warningSign= ref("");
 const userName=ref("");
 const items = reactive({"value":{}});
@@ -15,4 +16,4 @@ const Clear=()=>{
     codContainer={};
 }
 
-export {displayAppNotes, displayAppAuth, displayAppSpese, warningSign, userName, items, categories, codContainer, Clear};
+export {displayAppNotes, displayAppAuth, displayAppSpese, displayUsername, warningSign, userName, items, categories, codContainer, Clear};
