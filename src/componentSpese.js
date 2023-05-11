@@ -13,9 +13,10 @@ export default{
             [inModal,modalCategState.display,warning.value]=[true,"block",""];
             ItemDataSetter("","","","");
             };
-        const OpenAddTransitionGump = () => { 
+        const OpenAddTransitionGump = (nameCateg,nIcon) => { 
             [inModal,warning.value,modalTransitionState.display]=[true,"","block"];
-            ItemDataSetter("","","","");
+            console.log(nameCateg+nIcon);
+            ItemDataSetter(nameCateg,nIcon,"","");
             };
         //CLOSE MODAL
         const CloseAddCategGump = () => [inModal,modalCategState.display]=[false,"none"];
@@ -26,26 +27,30 @@ export default{
         const AddCateg=()=>{
                 var obje=new Categoria(itemData.nCateg,itemData.nIcon); 
                 if(Check(obje)) return; 
-                categories.value[itemData.nCateg]={"codIcona":obje.nIcon,"Transitions":[]};
+                categories.value[itemData.nCateg]={"nCateg":itemData.nCateg,"codIcona":obje.nIcon,"Transitions":[]};
                 CloseAddCategGump();
             }
             //DA FAR COMUNICARE STATE CON VIEW
-        const ModCateg=()=>{
-            let nameC=prompt("metti nome categoria da modificare");
+        const ModCateg=(nameC)=>{
+            //let nameC=prompt("metti nome categoria da modificare");
+            //console.log(nameC);
             try{
-                if(categories[nameC]){
+                console.log(nameC);
+                if(categories.value[nameC]){
+                    console.log(nameC);
                     let rename=prompt("come deve essere rinominata?");
-                    for(let key of categories[nameC]["Transitions"]){
+                    for(let key of categories.value[nameC]["Transitions"]){
                         console.log(key[0]);
                         codContainer[key[0]]=rename;
                     }
                     categories.value[rename]=categories.value[nameC];
+                    categories.value[rename]["nCateg"]=rename;
                     delete(categories.value[nameC]);
                 } 
             }catch(e){console.error("error on delete categoria"+e);}
         }
-        const RemCateg=()=>{
-            let item=prompt("metti nome categoria da eliminare");
+        const RemCateg=(item)=>{
+            //let item=prompt("metti nome categoria da eliminare");
             try{
                 if(categories.value[item]&&confirm("sicuro di volerla rimuovere? così eliminerai anche le transazioni di questa categoria registrate finora")){
                     for(let key of categories.value[item]["Transitions"]){
@@ -56,10 +61,11 @@ export default{
                 } 
             }catch(e){console.error("error on delete categoria"+e);}
         }
-        const MergeCateg=()=>{
+        const MergeCateg=(categ1)=>{
             try{
-                let categ1=prompt("inserire la categoria slave da unire");
-                let categ2=prompt("inserire la categoria master");
+                //let categ1=prompt("inserire la categoria slave da unire");
+                let categ2=prompt("inserire la categoria a cui deve essere unita");
+                if(categ2===null)return;
                 for(let key of categories.value[categ1]["Transitions"]){
                     codContainer[key[0]]=categ2;
                     categories.value[categ2]["Transitions"].push(key);
@@ -135,7 +141,7 @@ export default{
             <!-- Modal content -->
             <div class="modal-content">
                 <span class="close"  @click="CloseAddTransitionGump">&times;</span>
-                <input v-model="itemData.nCateg" placeholder="Nome Categoria">
+                <p>{{itemData.nCateg}} {{itemData.nIcon}}</p>
                 <input v-model="itemData.valueTransition" placeholder="Valore">
                 <input v-model="itemData.noteTransition" placeholder="Nota">
                 <div @click="AddTransition">Confirm Transition</div>
@@ -143,20 +149,28 @@ export default{
             </div>
         </div>
         <div class="Container-Spese">
+            <div class="area-cmd">
+                <button @click="OpenAddCategGump">Add Categories</button>
+                <button @click="debug">DebugPrinf</button>
+                <button @click="RemTransition">DebugRemTransition</button>
+                <button @click="ModTransition">DebugModTransition</button>
+            </div>
             <div class="area-categorie">
                 <li v-for="item in categories.value">
-                    <div @click="debug(item)"> {{ item.codIcona }}</div>
+                    <div class="dropdown-categ-actions"> 
+                    <div class="categ-actions-item"><p>{{item.nCateg}}</p><p>{{ item.codIcona }}</p></div>
+                    <div class="dropdown-categ-actions-content">
+                        <ul class="list-group-categ-action">
+                        <li><div class="categ-action-item" role="button" @click="OpenAddTransitionGump(item.nCateg,item.codIcona)">Add Transition</div></li>
+                        <li><div class="categ-action-item" role="button" @click="ModCateg(item.nCateg)">Mod Category</div></li>
+                        <li><div class="categ-action-item" role="button" @click="RemCateg(item.nCateg)">Rem Category</div></li>
+                        <li><div class="categ-action-item" role="button" @click="MergeCateg(item.nCateg)">Merge Category</div></li>
+                        </ul>  
+                    </div>
+                    </div>
                 </li>
             </div>
         </div>
-        <button @click="OpenAddCategGump">Add Categories</button>
-        <button @click="OpenAddTransitionGump">Add Transition</button>
-        <button @click="debug">DebugPrinf</button>
-        <button @click="RemCateg">DebugRemoveCateg</button>
-        <button @click="ModCateg">DebugModCateg</button>
-        <button @click="RemTransition">DebugRemTransition</button>
-        <button @click="ModTransition">DebugModTransition</button>
-        <button @click="MergeCateg">DebugMergeCateg</button>
     </div>
     `
 }
