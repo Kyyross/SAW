@@ -1,6 +1,6 @@
 import {Obj} from '../myclass.js'
 
-//prende un oggetto lo ordina (decrescente) e restituisce lo restituisce in forma di array
+//prende un oggetto lo ordina (decrescente) e lo restituisce in forma di array
 function sortObject(obj,key){
     if(Object.entries(obj.value).length==0){
         return [];
@@ -43,4 +43,24 @@ function Check00(cifre){
 function filterParams(array,params){
     return (array[0]);
 }
-export {sortObject, GetHumanDate, filterParams}
+
+function GetTransitions(obj){
+    if(Object.entries(obj.value).length==0){
+        return [];
+    }
+    var arrOrd=[];
+    for(var category in obj.value){
+        console.log(category);
+        for(var item of obj.value[category]["Transitions"]){
+            console.log(item);
+            arrOrd.push([item[0],item[1],item[2]]);
+        }
+    }
+    console.log(arrOrd);
+    return arrOrd;
+}
+
+export {sortObject, GetHumanDate, filterParams, GetTransitions}
+
+
+//categories.value[itemData.nCateg]={"nCateg":itemData.nCateg,"codIcona":obje.nIcon,"Transitions":[]};

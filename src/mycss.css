@@ -92,20 +92,6 @@
     flex-wrap: wrap;
   }
   
-  /* Create two unequal columns that sits next to each other */
-  /* Sidebar/left column */
-  .navbar-side {
-    flex: 20%;
-    background-color: #f1f1f1;
-    padding: 20px;
-    display:none;
-  }
-
-  .navbar-side .list-group a {
-    display: flex;
-    align-items: center;
-  }
-  
   /* Main column */
   .container-main {
     flex: 80%;
@@ -126,10 +112,6 @@
       flex-direction: column;
       max-height: 300px;
       height: auto;
-    }
-    .navbar-side{
-      flex:0%;
-      display:none;
     }
   }
   
@@ -256,7 +238,37 @@
   }
 /* **FINE** COMPONENT NOTES */
 /* COMPONENT SPESE */
+  .componentSpese{
+    display: none;
+  }
+/* Create two unequal columns that sits next to each other */
+  /* Sidebar/left column */
+  .sidebar-heading{
+    font-size: 20px;
+    text-decoration:underline;
+    color: #1e9c83;
+    padding-bottom: 10px;
+  }
+  .navbar-side {
+    flex: 20%;
+    max-width: 180px;
+    background-color: #f1f1f1;
+    padding: 20px;
+  }
+  .navbar-side .list-group li {
+    padding-left:10px;
+    padding-top:5px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+  }
+    .navbar-side .list-group li:hover {
+      cursor:pointer;
+      color: #1e9c83;
+      font-size: 17px;
+    }
   .Container-Spese{
+    flex:80%;
     display:flex;
   }
   .area-cmd{
@@ -322,6 +334,14 @@
     font-size: 11px;
   }
   @media (max-width: 700px) {
+    .componentSpese {
+      flex-direction: column;
+    }
+    .navbar-side{
+      /*flex:0%;
+      display:none;*/
+      flex-direction: column;
+    }
     .Container-Spese{
       flex-direction: column;
     }
@@ -329,4 +349,13 @@
       grid-template-columns: auto auto auto;
     }
   }
+/* Subcomponent Transitions*/
+  .Container-Transitions{
+    display:"none";
+  }
+  .List-Transitions li{
+    list-style-type: none;
+  }
+
+/* **FINE** Subcomponent Transitions*/
 /* **FINE** COMPONENT SPESE */

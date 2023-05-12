@@ -4,7 +4,7 @@ export default {
     data() {
       const Open0=()=>{Close(); if(CheckLogIn())displayAppNotes.display="block";};
       const Open1=()=>{Close(); displayAppAuth.display="block";};
-      const Open2=()=>{Close(); if(CheckLogIn())displayAppSpese.display="block";};
+      const Open2=()=>{Close(); if(CheckLogIn())displayAppSpese.display="flex";};
       const CheckLogIn=()=> {
         let check= (userName.value!=""?true:false);
         if(!check){

@@ -1,24 +1,12 @@
 // HTML FOR SERVER
 const html_=
-`<!DOCTYPE html><html lang="en"><head><title>Vue SSR Example</title><meta name="viewport" content="width=device-width, initial-scale=1"></meta><script type="importmap">{"imports": {"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js", "uuid": "https://jspm.dev/uuid"}}</script><script type="module" src="/src/client.js"></script>
+`<!DOCTYPE html><html lang="en"><head><title>MySawProject</title><meta name="viewport" content="width=device-width, initial-scale=1"></meta><script type="importmap">{"imports": {"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js", "uuid": "https://jspm.dev/uuid"}}</script><script type="module" src="/src/client.js"></script>
 <link rel="stylesheet" a href="./src/mycss.css">
 <link rel="manifest" type="application/manifest+json" a href="PWA.webmanifest">
 <link rel="icon" type="image/x-icon" href="/src/icons/favicon.ico" />
 <meta name="description" content="Use this free PWA to manage your expenses">
 </head><body>
 <div class="container-page">
-<!-- Sidebar-->
-<div id="navbar-side" class="navbar-side">
-    <div class="sidebar-heading">Start</div>
-    <div class="list-group">
-        <a href="#!">Dashboard</a>
-        <a href="#!">Shortcuts</a>
-        <a href="#!">Overview</a>
-        <a href="#!">Events</a>
-        <a href="#!">Profile</a>
-        <a href="#!">Status</a>
-    </div>
-</div>
 <div class="container-main"><div id="app0">`;
 const html1=`</div><div id="app1">`;
 const html2=`</div><div id="app2">`;
@@ -120,6 +108,90 @@ const componentAuthentication_Html=`
 </div>
 `;
 
-export {html_ , _html, html1, html2, html3, componentMenu_Html,componentNotes_Html, componentAuthentication_Html}
+const componentSpese_Html=`
+<div class="componentSpese" :style="{ display: displayAppSpese.display }">
+    <!-- The Modal -->
+    <div :style="{ display: modalCategState.display }" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close"  @click="CloseAddCategGump">&times;</span>
+            <input v-model="itemData.nCateg" placeholder="Nome Categoria">
+            <input v-model="itemData.nIcon" placeholder="work in progress">
+            <div @click="AddCateg">Confirm Categories</div>
+            <p class="warning">{{ warning }}</p>
+        </div>
+    </div>
+    <div :style="{ display: modalTransitionState.display }" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close"  @click="CloseAddTransitionGump">&times;</span>
+            <p>{{itemData.nCateg}} {{itemData.nIcon}}</p>
+            <input v-model="itemData.valueTransition" placeholder="Valore">
+            <input v-model="itemData.noteTransition" placeholder="Nota">
+            <div @click="AddTransition">Confirm Transition</div>
+            <p class="warning">{{ warning }}</p>
+        </div>
+    </div>
+    <div :style="{ display: modalTransitionState.mod }" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close"  @click="CloseModTransitionGump">&times;</span>
+            <p>{{itemData.nCateg}} {{itemData.nIcon}}</p>
+            <input v-model="itemData.valueTransition" placeholder="Valore">
+            <input v-model="itemData.noteTransition" placeholder="Nota">
+            <div @click="ModTransition">Confirm Transition</div>
+            <p class="warning">{{ warning }}</p>
+        </div>
+    </div>
+    <!-- Sidebar-->
+    <div id="navbar-side" class="navbar-side">
+      <div class="sidebar-heading">Menù</div>
+      <div class="list-group">
+          <li><div role="button" @click="OpenCategory">Categories</div></li>
+          <li><div role="button" @click="OpenTransitions">Transitions</div></li>
+          <li><div role="button" @click="OpenAnalyticsTools">Analytics Tools</div></li>
+      </div>
+    </div>
+    <div class="Container-Spese" :style="{ display: displayAppSpese.containerSpese }">
+      <div class="area-cmd">
+          <button @click="OpenAddCategGump">Add Categories</button>
+          <button @click="debug">DebugPrinf</button>
+          <button @click="ModTransition">DebugModTransition</button>
+      </div>
+      <div class="area-categorie">
+        <li v-for="item in categories.value">
+          <div class="dropdown-categ-actions"> 
+            <div class="categ-actions-item"><p>{{item.nCateg}}</p><p>{{ item.codIcona }}</p></div>
+            <div class="dropdown-categ-actions-content">
+              <ul class="list-group-categ-action">
+                <li><div class="categ-action-item" role="button" @click="OpenAddTransitionGump(item.nCateg,item.codIcona)">Add Transition</div></li>
+                <li><div class="categ-action-item" role="button" @click="ModCateg(item.nCateg)">Mod Category</div></li>
+                <li><div class="categ-action-item" role="button" @click="RemCateg(item.nCateg)">Rem Category</div></li>
+                <li><div class="categ-action-item" role="button" @click="MergeCateg(item.nCateg)">Merge Category</div></li>
+              </ul>  
+            </div>
+          </div>
+        </li>
+      </div>
+    </div>
+    <div class="Container-Transitions" :style="{ display: displayAppSpese.containerTransitions }">
+      <div class="List-Transitions">
+        <li v-for="item in arrayTransitions">
+          <div class="dropdown-categ-actions"> 
+            <div class="categ-actions-item"><p> {{item[1]}} - {{item[2]}} </p></div>
+            <div class="dropdown-categ-actions-content">
+              <ul class="list-group-categ-action">
+                <li><div class="categ-action-item" role="button" @click="RemTransition(item[0])">Delete Transition</div></li>
+                <li><div class="categ-action-item" role="button" @click="OpenModTransitionGump(item[0])">Mod Transition</div></li>
+              </ul>  
+            </div>
+          </div>  
+        </li>
+      </div>
+    </div>
+</div>
+`;
+
+export {html_ , _html, html1, html2, html3, componentMenu_Html,componentNotes_Html, componentAuthentication_Html, componentSpese_Html}
 
 
