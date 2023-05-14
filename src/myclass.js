@@ -1,4 +1,4 @@
-class Obj{
+class Nota{
     constructor(title,lastaccess,text=""){
         this.title=title;
         this.lastaccess=lastaccess;
@@ -21,5 +21,5 @@ class ObjHttp{
     }
 }
 
-export {Obj, Categoria}
+export {Nota, Categoria}
 

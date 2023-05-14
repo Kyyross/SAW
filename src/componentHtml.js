@@ -22,8 +22,8 @@ const componentNotes_Html=`
     <div class="modal-content">
       <span class="close"  @click="Close">&times;</span>
       <p>Add your Note!</p>
-      <input v-model="itemData.title" placeholder="Note title">
-      <input v-model="itemData.tag" placeholder="Note tag">
+      <input v-model="itemData_Nota.value.title" placeholder="Note title">
+      <input v-model="itemData_Nota.value.tag" placeholder="Note tag">
       <div @click="Debugg">debug x develouper</div>
       <div @click="Confirm"><button>add note</button></div>
       <p class="warning">{{ warning }}</p>
@@ -41,9 +41,9 @@ const componentNotes_Html=`
     </div>
   </div>
   <div class="contenutoNote">
-    <textarea class="titleNoteCon" v-model="itemData.title" :disabled="isDisabled" placeholder="Title"></textarea>
+    <textarea class="titleNoteCon" v-model="itemData_Nota.value.title" :disabled="isDisabled" placeholder="Title"></textarea>
     <br>
-    <textarea class="textNoteCon" v-model="itemData.text" :disabled="isDisabled" placeholder="Text"></textarea>
+    <textarea class="textNoteCon" v-model="itemData_Nota.value.text" :disabled="isDisabled" placeholder="Text"></textarea>
   </div>
 </div>
 `;
@@ -115,8 +115,8 @@ const componentSpese_Html=`
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close"  @click="CloseAddCategGump">&times;</span>
-            <input v-model="itemData.nCateg" placeholder="Nome Categoria">
-            <input v-model="itemData.nIcon" placeholder="work in progress">
+            <input v-model="itemData.value.nCateg" placeholder="Nome Categoria">
+            <input v-model="itemData.value.nIcon" placeholder="work in progress">
             <div @click="AddCateg">Confirm Categories</div>
             <p class="warning">{{ warning }}</p>
         </div>
@@ -125,9 +125,11 @@ const componentSpese_Html=`
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close"  @click="CloseAddTransitionGump">&times;</span>
-            <p>{{itemData.nCateg}} {{itemData.nIcon}}</p>
-            <input v-model="itemData.valueTransition" placeholder="Valore">
-            <input v-model="itemData.noteTransition" placeholder="Nota">
+            <p>{{itemData.value.nCateg}} {{itemData.value.nIcon}}</p>
+            <input v-model="itemData.value.valueTransition" placeholder="Valore">
+            <input v-model="itemData.value.noteTransition" placeholder="Nota">
+            <label class="label-date">Data</label>
+            <input type="date" v-model="itemData.value.dateTransition" class="input-date">
             <div @click="AddTransition">Confirm Transition</div>
             <p class="warning">{{ warning }}</p>
         </div>
@@ -136,9 +138,11 @@ const componentSpese_Html=`
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close"  @click="CloseModTransitionGump">&times;</span>
-            <p>{{itemData.nCateg}} {{itemData.nIcon}}</p>
-            <input v-model="itemData.valueTransition" placeholder="Valore">
-            <input v-model="itemData.noteTransition" placeholder="Nota">
+            <p>{{itemData.value.nCateg}} {{itemData.value.nIcon}}</p>
+            <input v-model="itemData.value.valueTransition" placeholder="Valore">
+            <input v-model="itemData.value.noteTransition" placeholder="Nota">
+            <label class="label-date">Data</label>
+            <input type="date" v-model="itemData.value.dateTransition" class="input-date">
             <div @click="ModTransition">Confirm Transition</div>
             <p class="warning">{{ warning }}</p>
         </div>
@@ -156,7 +160,6 @@ const componentSpese_Html=`
       <div class="area-cmd">
           <button @click="OpenAddCategGump">Add Categories</button>
           <button @click="debug">DebugPrinf</button>
-          <button @click="ModTransition">DebugModTransition</button>
       </div>
       <div class="area-categorie">
         <li v-for="item in categories.value">
@@ -178,7 +181,7 @@ const componentSpese_Html=`
       <div class="List-Transitions">
         <li v-for="item in arrayTransitions">
           <div class="dropdown-categ-actions"> 
-            <div class="categ-actions-item"><p> {{item[1]}} - {{item[2]}} </p></div>
+            <div class="categ-actions-item"><p>{{item[1]}}</p><p>{{item[2]}}</p><p>{{item[3]}}</p></div>
             <div class="dropdown-categ-actions-content">
               <ul class="list-group-categ-action">
                 <li><div class="categ-action-item" role="button" @click="RemTransition(item[0])">Delete Transition</div></li>

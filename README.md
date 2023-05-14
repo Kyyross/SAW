@@ -1,5 +1,5 @@
 # SAW
-v.0.3.4
+v.0.3.5
 
 to Do:
 
@@ -17,6 +17,7 @@ Done:
 -to implement caching (DONE)
 -implement file config to progressive app. (DONE)
 -...check the conditions for Restful app. (DONE)
+-put style in date (DONE)
 
 not to Do:
 -foreach operation front-end make a http request. (notDONE! YEAH)

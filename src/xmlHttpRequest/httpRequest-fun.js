@@ -121,7 +121,6 @@ function LoadSave(obj){
     try{
         for(let item in obj["notes"]){
             items.value[item]=obj["notes"][item];
-            items.value[item]["lastaccess"]=new Date(); //Date.parse(items[item]["lastaccess"] DA RIVEDERE! problema convertire stringa in date().
     }}catch(e){console.log("error on loading the notes (function LoadSave): "+e);}
     try{
         for(let item in obj["categories"]){

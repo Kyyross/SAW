@@ -1,5 +1,3 @@
-import {Obj} from '../myclass.js'
-
 //prende un oggetto lo ordina (decrescente) e lo restituisce in forma di array
 function sortObject(obj,key){
     if(Object.entries(obj.value).length==0){
@@ -9,40 +7,10 @@ function sortObject(obj,key){
     for(var item in obj.value){
         arr.push([obj.value[item],obj.value[item][key]]);
     }
-    arr.sort((a,b)=>Sorting(a,b));
-    var arrOrd=[];
-    for(var item in arr){
-        let itemObj=ConvertDateComtoHum(arr[item][0]);
-        arrOrd.push(itemObj);
-    }
-    return arrOrd;
+    return arr.sort((a,b)=>Sorting(a,b)).map((a)=>a[0]);
 }
-
 //function per ordinare gli elementi in ordine decrescente.
 function Sorting(a,b,){return a[1]>b[1]?-1:0;}
-
-//prende l'oggetto contenente i dati della singola nota e restituisce un nuovo oggetto contente la data tradotta per l'utente
-function ConvertDateComtoHum(item){return new Obj(item.title,GetHumanDate(item.lastaccess),item.text);}
-
-//converte la data grezza in una data comprensibile all'utente.
-function GetHumanDate(Date){
-    let date=Date;
-    let hours=Check00(date.getHours());
-    let minutes=Check00(date.getMinutes());
-    let months=Check00(date.getMonth()+1);
-    let days=Check00(date.getDate());
-    return days+"-"+months+"-"+date.getFullYear()+", "+hours+":"+minutes;
-}
-//Completa i singoli numeri mettendogli 0 davanti. Per esempio 1 -> 01
-function Check00(cifre){
-    if(cifre/10<1) cifre='0'+cifre.toString();
-    return cifre;
-}
-
-//usato per filtrare array delle transizioni
-function filterParams(array,params){
-    return (array[0]);
-}
 
 function GetTransitions(obj){
     if(Object.entries(obj.value).length==0){
@@ -53,14 +21,21 @@ function GetTransitions(obj){
         console.log(category);
         for(var item of obj.value[category]["Transitions"]){
             console.log(item);
-            arrOrd.push([item[0],item[1],item[2]]);
+            arrOrd.push([item[0],item[1],item[2],item[3]]);
         }
     }
     console.log(arrOrd);
     return arrOrd;
 }
 
-export {sortObject, GetHumanDate, filterParams, GetTransitions}
+function CheckDate(value){
+    try{
+        console.log(value);
+        if((new Date(value).toString())==='Invalid Date')throw new Error("Format is wrong, it must be: fullyear-month-day");
+    }
+    catch(e){console.error(e.message); return false;}
+    return true;
+}
 
+export {sortObject, GetTransitions, CheckDate}
 
-//categories.value[itemData.nCateg]={"nCateg":itemData.nCateg,"codIcona":obje.nIcon,"Transitions":[]};

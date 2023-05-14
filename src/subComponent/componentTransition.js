@@ -1,10 +1,11 @@
 import { categories, codContainer, warning, ItemDataSetter, modalTransitionState, inModal, itemData } from '../globalVar.js';
+import { CheckDate } from '../mymacros/macro-functions.js';
 import { v4 as uuid } from 'uuid';
 
 export const OpenAddTransitionGump = (nameCateg,nIcon) => { 
     [inModal.bool,warning.value,modalTransitionState.display]=[true,"","block"];
     console.log(nameCateg+nIcon);
-    ItemDataSetter(nameCateg,nIcon,"","");
+    ItemDataSetter(nameCateg,nIcon,"","","","");
 };
 export const CloseAddTransitionGump = () => [inModal.bool,modalTransitionState.display]=[false,"none"];
 
@@ -13,22 +14,21 @@ export const OpenModTransitionGump = (codItem) => {
     let nameCateg=codContainer[codItem];
     let nIcon=categories.value[nameCateg]["codIcona"];
     console.log(nameCateg+nIcon);
-    ItemDataSetter(nameCateg,nIcon,"","",codItem);
+    ItemDataSetter(nameCateg,nIcon,"","",codItem,"");
 }
 export const CloseModTransitionGump = () => [inModal.bool,modalTransitionState.mod]=[false,"none"];
 
 export const AddTransition=()=>{
-    if(!categories.value[itemData.nCateg]) {warning.value="nome categoria non esistente";return;}
-    if(parseFloat(itemData.valueTransition)<=0) {warning.value="Immettere un valore valido";return;}
-    //check sul testo della nota, considerare di mettere controlli di sicurezza.
+    if(!categories.value[itemData.value.nCateg]) {warning.value="nome categoria non esistente";return;}
+    let message=CheckFormatTransition(itemData.value.valueTransition,itemData.value.dateTransition);
+    if(message!=="ok") {warning.value=message; return;}
     try{
-        //funzione che genera cod
         let codGenerated;
         do{
             codGenerated=uuid();
         }while(codContainer[codGenerated])
-        categories.value[itemData.nCateg]["Transitions"].push([codGenerated,itemData.noteTransition,itemData.valueTransition]); //implementare generatore cod e check su cod
-        codContainer[codGenerated]=itemData.nCateg;
+        categories.value[itemData.value.nCateg]["Transitions"].push([codGenerated,itemData.value.noteTransition,itemData.value.valueTransition,itemData.value.dateTransition]); //implementare generatore cod e check su cod
+        codContainer[codGenerated]=itemData.value.nCateg;
         CloseAddTransitionGump();
     }catch(e){console.log("error when try to add the transition"+e);}
 }
@@ -43,16 +43,28 @@ export const RemTransition=(coditem)=>{
 }
 export const ModTransition=()=>{
     try{
-        if(itemData.noteTransition==""||itemData.valueTransition==""){ warning.value="Immettere dei valori validi";console.log("valori inadeguati");return;}
-        for(let item in categories.value[itemData.nCateg]["Transitions"]){
-            if(categories.value[itemData.nCateg]["Transitions"][item][0]==itemData.codTransition){
+        let message=CheckFormatTransition(itemData.value.valueTransition,itemData.value.dateTransition);
+        if(message!=="ok") {warning.value=message; return;}
+        for(let item in categories.value[itemData.value.nCateg]["Transitions"]){
+            if(categories.value[itemData.value.nCateg]["Transitions"][item][0]==itemData.value.codTransition){
                 console.log("entro?");
-                categories.value[itemData.nCateg]["Transitions"][item][2]=itemData.valueTransition;
-                categories.value[itemData.nCateg]["Transitions"][item][1]=itemData.noteTransition;
+                categories.value[itemData.value.nCateg]["Transitions"][item][2]=itemData.value.valueTransition;
+                categories.value[itemData.value.nCateg]["Transitions"][item][1]=itemData.value.noteTransition;
+                categories.value[itemData.value.nCateg]["Transitions"][item][3]=itemData.value.dateTransition;
                 CloseModTransitionGump();
                 break;
             }
         }
         
-    }catch(e){console.error("error when try to modify the transition: "+itemData.codTransition+" "+e);}
+    }catch(e){console.error("error when try to modify the transition: "+itemData.value.codTransition+" "+e);}
+}
+
+function CheckFormatTransition(value,date){
+    try{
+        //check sul testo della nota, considerare di mettere controlli di sicurezza.
+        if(value===""||isNaN(parseFloat(value))||parseFloat(value)<=0) return "Immettere dei valori validi";
+        if(!CheckDate(date)) return "La data deve essere del formato: full_year-month-day";
+    }
+    catch(e){console.error(e.message);}
+    return "ok";
 }
