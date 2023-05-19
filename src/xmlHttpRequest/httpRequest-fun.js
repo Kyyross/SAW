@@ -121,15 +121,15 @@ function LoadSave(obj){
     try{
         for(let item in obj["notes"]){
             items.value[item]=obj["notes"][item];
-    }}catch(e){console.log("error on loading the notes (function LoadSave): "+e);}
+    }}catch(e){console.error("error on loading the notes (function LoadSave): "+e);}
     try{
         for(let item in obj["categories"]){
             categories.value[item]=obj["categories"][item];
-    }}catch(e){console.log("error on loading the categories (function LoadSave): "+e);}
+    }}catch(e){console.error("error on loading the categories (function LoadSave): "+e);}
     try{
         for(let item in obj["codContainer"]){
             codContainer[item]=obj["codContainer"][item];
-    }}catch(e){console.log("error on loading the codContainer (function LoadSave): "+e);}
+    }}catch(e){console.error("error on loading the codContainer (function LoadSave): "+e);}
 }
 
 function MakeObjToSave(){

@@ -1,13 +1,14 @@
 import { displayAppSpese, categories, codContainer, itemData, 
-    warning, modalCategState, modalTransitionState } from './globalVar.js';
-import {GetTransitions} from './mymacros/macro-functions.js'
+    warning, modalCategState, modalTransitionState, objGraphView, date } from './globalVar.js';
 
 import { CloseAddCategGump, OpenAddCategGump, AddCateg, ModCateg, 
     MergeCateg, RemCateg } from './subComponent/componentCategory.js';
 
 import { AddTransition, RemTransition, ModTransition, 
     OpenAddTransitionGump, CloseAddTransitionGump, 
-    OpenModTransitionGump, CloseModTransitionGump} from './subComponent/componentTransition.js';
+    OpenModTransitionGump, CloseModTransitionGump, GetTransitions} from './subComponent/componentTransition.js';
+
+import { ConfirmDate, objView } from './subComponent/componentTools.js';
 
 import { componentSpese_Html } from './componentHtml.js';
 import { computed } from 'vue';
@@ -16,20 +17,21 @@ export default{
     data(){
         const OpenCategory=()=>{Close(); displayAppSpese.containerSpese="flex";};
         const OpenTransitions=()=>{Close(); displayAppSpese.containerTransitions="flex";};
-        const OpenAnalyticsTools=()=>{Close();};
+        const OpenAnalyticsTools=()=>{Close(); displayAppSpese.containerTools="block";};
         const Close=()=>{
-            displayAppSpese.containerSpese="none", displayAppSpese.containerTransitions="none"//, displayAppSpese.display="none"
+            displayAppSpese.containerSpese="none", displayAppSpese.containerTransitions="none", displayAppSpese.containerTools="none"
         }
         function debug(item){
             console.log(item);
             console.log(categories.value);
             console.log(codContainer);
         }
-        const arrayTransitions=computed(()=>{return GetTransitions(categories)})
+        const arrayTransitions=computed(()=>GetTransitions(categories))
         return {categories,itemData, modalCategState, modalTransitionState, displayAppSpese, CloseAddCategGump, OpenAddCategGump, 
             AddCateg, ModCateg, MergeCateg, AddTransition, RemTransition,ModTransition, warning, debug, RemCateg, OpenAddTransitionGump, 
             CloseAddTransitionGump, OpenModTransitionGump, CloseModTransitionGump,OpenCategory, OpenAnalyticsTools, OpenTransitions, 
-            arrayTransitions}
+            arrayTransitions, objGraphView, objView, ConfirmDate
+        }
     },
     template:componentSpese_Html
 }

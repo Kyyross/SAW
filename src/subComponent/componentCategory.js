@@ -1,6 +1,6 @@
 import { categories, codContainer, warning, ItemDataSetter, inModal, modalCategState, itemData } from '../globalVar.js';
 import { Categoria } from '../myclass.js';
-
+import { getDarkColor } from '../mymacros/macro-functions.js';
 export const ModCateg=(nameC)=>{
     try{
         console.log(nameC);
@@ -21,7 +21,8 @@ export const ModCateg=(nameC)=>{
 export const AddCateg=()=>{
     var obje=new Categoria(itemData.value.nCateg,itemData.value.nIcon); 
     if(Check(obje)) return; 
-    categories.value[itemData.value.nCateg]={"nCateg":itemData.value.nCateg,"codIcona":obje.nIcon,"Transitions":[]};
+    let color=getDarkColor();
+    categories.value[itemData.value.nCateg]={"nCateg":itemData.value.nCateg,"codIcona":obje.nIcon, "color": color ,"Transitions":[]};
     CloseAddCategGump();
 }
 

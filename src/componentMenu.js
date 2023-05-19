@@ -14,7 +14,8 @@ export default {
         return check;
       }
       const Close=()=>{
-        displayAppNotes.display="none", displayAppAuth.display="none", displayAppSpese.display="none"}
+        displayAppNotes.display="none", displayAppAuth.display="none", displayAppSpese.display="none"
+      }
       return {Open0, Open1, Open2, userName, displayUsername}
     },
     template: componentMenu_Html

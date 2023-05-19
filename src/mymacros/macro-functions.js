@@ -1,5 +1,5 @@
 //prende un oggetto lo ordina (decrescente) e lo restituisce in forma di array
-function sortObject(obj,key){
+export function sortObject(obj,key){
     if(Object.entries(obj.value).length==0){
         return [];
     }
@@ -12,23 +12,7 @@ function sortObject(obj,key){
 //function per ordinare gli elementi in ordine decrescente.
 function Sorting(a,b,){return a[1]>b[1]?-1:0;}
 
-function GetTransitions(obj){
-    if(Object.entries(obj.value).length==0){
-        return [];
-    }
-    var arrOrd=[];
-    for(var category in obj.value){
-        console.log(category);
-        for(var item of obj.value[category]["Transitions"]){
-            console.log(item);
-            arrOrd.push([item[0],item[1],item[2],item[3]]);
-        }
-    }
-    console.log(arrOrd);
-    return arrOrd;
-}
-
-function CheckDate(value){
+export function CheckDate(value){
     try{
         console.log(value);
         if((new Date(value).toString())==='Invalid Date')throw new Error("Format is wrong, it must be: fullyear-month-day");
@@ -37,5 +21,19 @@ function CheckDate(value){
     return true;
 }
 
-export {sortObject, GetTransitions, CheckDate}
+export function getDarkColor() {
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += Math.floor(Math.random() * 10);
+    }
+    return color;
+}
+
+export function checkNested(obj, level,  ...rest) {
+    if (obj === undefined) return false
+    if (rest.length == 0 && obj.hasOwnProperty(level)) return true
+    return checkNested(obj[level], ...rest)
+  }
+
+//export {sortObject, GetTransitions, CheckDate, getDarkColor}
 

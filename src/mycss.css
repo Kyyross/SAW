@@ -378,5 +378,38 @@
     list-style-type: none;
   }
 
-/* **FINE** Subcomponent Transitions*/
+/* **FINE** Subcomponent Transitions */
+/* Subcomponent Tools */
+  .Container-Tools{
+    width:-webkit-fill-available;
+  }
+  /*Horizontal Bar*/
+  .list-graph-sum{
+    display: grid;
+    grid-template-columns: auto;
+    width: -webkit-fill-available;
+  }
+
+  .item-graph{
+    display:flow-root;
+    padding-left:15px;
+    width:-webkit-fill-available;
+  }
+  .graph-ncateg{
+    display:block;
+    flex:30%;
+  }
+  .graph-sum{
+    display:block;
+    flex:70%;
+    height:10px;
+    background: grey;
+  }
+  /*Vertical Bar*/
+  .list-graph-date{
+    
+  }
+
+
+/* **FINE** Subcomponent Tools */
 /* **FINE** COMPONENT SPESE */

@@ -58,6 +58,21 @@ export const ModTransition=()=>{
         
     }catch(e){console.error("error when try to modify the transition: "+itemData.value.codTransition+" "+e);}
 }
+export function GetTransitions(obj){
+    if(Object.entries(obj.value).length==0){
+        return [];
+    }
+    var arrOrd=[];
+    for(var category in obj.value){
+        console.log(category);
+        for(var item of obj.value[category]["Transitions"]){
+            console.log(item);
+            arrOrd.push([item[0],item[1],item[2],item[3]]);
+        }
+    }
+    console.log(arrOrd);
+    return arrOrd;
+}
 
 function CheckFormatTransition(value,date){
     try{
