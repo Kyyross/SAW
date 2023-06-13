@@ -32,7 +32,7 @@ const CalculateGraphs = () => {
   return {"h_bar": viewgraph.SumValueTransition(), 
     "week":viewgraph.week, "month":viewgraph.month, 
     "year":viewgraph.year,
-    "all":{}
+    "all":viewgraph.allTime
   };
 }
 

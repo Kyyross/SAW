@@ -1,8 +1,6 @@
 //XmlHttpRequest Approach
-import {warningSign, userName, items, categories, codContainer, displayUsername} from '../globalVar.js';
+import { warningSign, userName, items, categories, codContainer} from '../globalVar.js';
 var httpRequest;
-var utente;
-var logged=false;
 
 const MakeRequest= (TYPE,REQUEST="",URL="")=>{
     httpRequest = new XMLHttpRequest();
@@ -16,7 +14,7 @@ const MakeRequest= (TYPE,REQUEST="",URL="")=>{
             return;
         }
         case "SignIn":{
-            utente=REQUEST.username;
+            userName.temp=REQUEST.username;
             httpRequest.onreadystatechange = CheckStateSignIn;
             httpRequest.open("POST", "/SignIn");
             httpRequest.setRequestHeader("Authorization", AuthenticateUser(REQUEST.username, REQUEST.password))
@@ -25,8 +23,9 @@ const MakeRequest= (TYPE,REQUEST="",URL="")=>{
         }
         case "SaveWork":{
             //salvare il lavoro, dentro la cartella "works" nel server, come un file di nome=nome utente 
-            if(!logged) return;
-            let obj={username:utente, dati:MakeObjToSave()};
+            if(!userName.logged) return;
+            let obj={username:userName.value, dati:MakeObjToSave()};
+            window.localStorage.setItem(userName.value,JSON.stringify(obj.dati));
             console.log(obj);
             httpRequest.onreadystatechange = CheckStateSignUp;
             httpRequest.open("POST", "/SaveWork");
@@ -90,8 +89,10 @@ const CheckStateSignIn=()=>{
                     let response=JSON.parse(httpRequest.responseText);
                     console.log(response["metadati"].message);
                     console.log(response.data); 
-                    [warningSign.value,logged,userName.value,displayUsername.display]=[response["metadati"].message, true, utente,"block"];
+                    [warningSign.value,userName.logged,userName.value,userName.display]=[response["metadati"].message, true, userName.temp,"block"];
                     LoadSave(response.data);
+                    window.localStorage.setItem("username",userName.value);
+                    window.localStorage.setItem(userName.value,JSON.stringify(response.data));
                 }
                 break;
                 case 400: {
@@ -115,7 +116,7 @@ const CheckStateSignIn=()=>{
     catch(e){console.error(e);}
 }
 
-function LoadSave(obj){
+export function LoadSave(obj){
     //manca di pulire items
     console.log(obj);
     try{

@@ -1,12 +1,11 @@
 import { reactive, watch } from 'vue';
-import { displayAppAuth, warningSign, userName, Clear} from './globalVar.js';
+import {displayButtonSign, displayAppAuth, warningSign, userName, Clear} from './globalVar.js';
 import {MakeRequest} from './xmlHttpRequest/httpRequest-fun.js';
 import { componentAuthentication_Html } from './componentHtml.js';
 
 export default {
     data() {
       const displaySign = reactive({displaySignUp:"none", displaySignIn:"none"});
-      const displayButtonSign = reactive({SignIn:"block", SignOut:"none"});
       const itemData = reactive({Username:"", Password:""});
       const GumpSign= (newAccount, check)=> {
         warningSign.value="";
@@ -29,6 +28,7 @@ export default {
       }
       const SignOut= ()=>{
         warningSign.value="Il tuo account è stato disconnesso correttamente";
+        window.localStorage.clear();
         Clear();
       }
       const SaveWork= ()=>{
@@ -36,9 +36,9 @@ export default {
           console.log("It can't be possible save the work because there isn't a Authentication");
           return;
         }
-        MakeRequest("SaveWork")
+        MakeRequest("SaveWork");
       }   //soluzione temporanea
-      watch(userName, (newValue)=>{ 
+      watch(()=>userName.value, (newValue)=>{ 
           if(newValue===""){
             displayButtonSign.SignOut="none";
             displayButtonSign.SignIn="block";

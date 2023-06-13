@@ -1,4 +1,4 @@
-import {displayAppNotes, displayAppAuth, displayAppSpese, displayUsername, userName, warningSign} from './globalVar.js';
+import {displayAppNotes, displayAppAuth, displayAppSpese, userName, warningSign} from './globalVar.js';
 import { componentMenu_Html } from './componentHtml.js';
 export default {
     data() {
@@ -16,7 +16,7 @@ export default {
       const Close=()=>{
         displayAppNotes.display="none", displayAppAuth.display="none", displayAppSpese.display="none"
       }
-      return {Open0, Open1, Open2, userName, displayUsername}
+      return {Open0, Open1, Open2, userName}
     },
     template: componentMenu_Html
   }

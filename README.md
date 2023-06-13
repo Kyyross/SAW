@@ -1,10 +1,10 @@
 # SAW
-v.0.3.5
+v.0.3.6
 
 to Do:
 
 -make a view for the state. (in corso)
-
+-add delete note.
 -(optional)implement firebase(database), so fix operations restful.
 -optmize lighthouse (in corso)
 

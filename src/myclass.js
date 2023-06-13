@@ -84,7 +84,7 @@ export class graphView{
     GetGraph(date){
         if(Object.entries(this.map).length==0){console.log("getgraph"+this.map); return {}; }
         console.log(this.map);
-        var [year, month, day]=date.split("-");
+        var [year, month, day]=date!==undefined?date.split("-"):[undefined,undefined,undefined];
         try{
             console.log(year+month+day);
             if(day!==undefined){
@@ -92,7 +92,9 @@ export class graphView{
                  return this.map["allTime"]["years"][year]["months"][month]["days"][day];
             }
             if(month!==undefined) return this.map["allTime"]["years"][year]["months"][month];
-            return this.map["allTime"]["years"][year];
+            if(year!==undefined) return this.map["allTime"]["years"][year];
+            console.log(this.map["allTime"]);
+            return this.map["allTime"];
         }
         catch(e){console.log(e); return {}}
     }
@@ -124,6 +126,14 @@ export class graphView{
             for(var transition of this.categorie[category]["Transitions"]){
                 let arrYear = transition[3].split("-");
                 if(arrYear[0]==year)this.arrGraph.push(transition);
+            }
+        }
+    }
+    ShowAll(){
+        this.arrgraph=[];
+        for(var category in this.categorie){
+            for(var transition of this.categorie[category]["Transitions"]){
+                this.arrGraph.push(transition);
             }
         }
     }
@@ -166,6 +176,13 @@ export class graphView{
                 this.year=this.GetGraph(value);
                 this.ShowYear(value);
                 console.log(this.year);
+            }
+            break;
+            case "all":{
+                console.log("showgraph");
+                this.allTime=this.GetGraph();
+                this.ShowAll();
+                console.log(this.allTime);
             }
             break;
             default:break;

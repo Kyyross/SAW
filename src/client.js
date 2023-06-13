@@ -1,4 +1,6 @@
 import { createApp } from './app.js';
+import { LoadSave } from './xmlHttpRequest/httpRequest-fun.js';
+import {userName, displayButtonSign} from './globalVar.js'
 
 createApp(0).mount('#app0');
 createApp(1).mount('#app1');
@@ -45,8 +47,8 @@ else{
 
 if(!("Notification" in window)){
     alert("The Browser does not support the notification")
-}
-else if(Notification.permission==="granted"){
+    }
+    else if(Notification.permission==="granted"){
     var notification = new Notification(
         "Hello",
         {
@@ -56,11 +58,23 @@ else if(Notification.permission==="granted"){
             vibrate: [200,100,200]
         }
     );
-}else if(Notification.permission!=="denied"){
+    }else if(Notification.permission!=="denied"){
     await Notification.requestPermission();
     if(Notification.permission==="granted"){
         var notification = new Notification("Try Notification");   
     }
+}
+
+if(window.localStorage.length!=0){
+    let utente=window.localStorage.getItem("username");
+    console.log(utente);
+    let obj=JSON.parse(window.localStorage.getItem(utente));
+    console.log(obj);
+    LoadSave(obj);
+    [userName.value,userName.logged,userName.display,displayButtonSign.displaySignIn,displayButtonSign.displaySignUp]=[utente,true,"block","none","block"];
+}
+else{
+    console.log("inizio sessione");
 }
 
 //DEBUGGINGif(window.isSecureContext)console.log("siamo al sicuro");

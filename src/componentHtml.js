@@ -53,7 +53,7 @@ const componentNotes_Html=`
 const componentMenu_Html=`
 <!-- Top navigation-->
 <div class="navbar">
-  <div class="navbar-item" :style="{ display: displayUsername.display }"><p>{{userName}}</p></div>
+  <div class="navbar-item" :style="{ display: userName.display }"><p>{{userName.value}}</p></div>
   <div style="display: fixed" class="navbar-item" role="button" @click="Open1"><p>Login</p></div>
   <div class="dropdown"> 
       <div class="navbar-item"><p>Your Apps</p></div>
@@ -71,7 +71,7 @@ const componentMenu_Html=`
 
 const componentAuthentication_Html=`
 <div :style="{ display: displayAppAuth.display }"> 
-  <p> {{userName}} </p>
+  <p> {{userName.value}} </p>
   <p class="warning"> {{ warningSign }} </p>
   <div :style="{ display: displayButtonSign.SignIn }">
   <button @click="GumpSign('y','y')">Sign Up</button>
@@ -198,20 +198,27 @@ const subComponentTools_Html=`
           </li>
         </span>
       </div>-->
-      <div class="list-graph-Month">
-        <span v-for="day in objView.month.days">
+      <div class="list-graph-month">
+        <span v-for="(day,key) in objView.month.days">
           <li v-for="(categ,ncateg) in day.categ">
-            <div>{{ncateg}} - {{categ.sum}} </div>
+            <div>{{key}} - {{ncateg}} - {{categ.sum}} </div>
           </li>
         </span>
       </div>
-      <div class="list-graph-Year">
+      <div class="list-graph-year">
         <span v-for="months in objView.year.months">
           <li v-for="(categ,ncateg) in months.categ">
             <div>{{ncateg}} - {{categ.sum}} </div>
           </li>
         </span>
-      </div>  
+      </div>
+      <!--<div class="list-graph-all">
+        <span v-for="(years,key) in objView.all.years">
+          <li v-for="(categ,ncateg) in years.categ">
+            <div> {{key}} - {{ncateg}} - {{categ.sum}} </div>
+          </li>
+        </span>
+      </div>-->  
     </div>
     <div class="list-graph-sum">
       <li class="item-graph" v-for="item in objView.h_bar">
