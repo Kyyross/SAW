@@ -5,7 +5,7 @@ import { graphView } from '../myclass.js'
 var viewgraph=new graphView();
 
 export const ConfirmDate=()=>{
-    let type=prompt("t, a, m, g");
+    let type=prompt("t, a, m, g, w");
     let value=prompt("inserisci la data");
     //controlli sulla data
     [date.type,date.value]=[type,value];

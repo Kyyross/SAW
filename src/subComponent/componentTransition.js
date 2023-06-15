@@ -27,7 +27,7 @@ export const AddTransition=()=>{
         do{
             codGenerated=uuid();
         }while(codContainer[codGenerated])
-        categories.value[itemData.value.nCateg]["Transitions"].push([codGenerated,itemData.value.noteTransition,itemData.value.valueTransition,itemData.value.dateTransition]); //implementare generatore cod e check su cod
+        categories.value[itemData.value.nCateg]["Transitions"].push([codGenerated,itemData.value.noteTransition,itemData.value.valueTransition,itemData.value.dateTransition]); // categories.value[itemData.value.nCateg]]
         codContainer[codGenerated]=itemData.value.nCateg;
         CloseAddTransitionGump();
     }catch(e){console.log("error when try to add the transition"+e);}
@@ -67,7 +67,7 @@ export function GetTransitions(obj){
         console.log(category);
         for(var item of obj.value[category]["Transitions"]){
             console.log(item);
-            arrOrd.push([item[0],item[1],item[2],item[3]]);
+            arrOrd.push([item[0],item[1],item[2],item[3]]); //item[4]
         }
     }
     console.log(arrOrd);

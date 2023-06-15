@@ -20,7 +20,35 @@ export function CheckDate(value){
     catch(e){console.error(e.message); return false;}
     return true;
 }
-
+function FormatDate(date){
+    let [d,m,y]=date.split("/");
+    if(m.length==1)m="0"+m;
+    if(d.length==1)d="0"+d;
+    while(y.length<4){
+        y="0"+y;
+    }
+    return y+"-"+m+"-"+d;
+}
+//function che prende una data e restituisce un array contenente i giorni della settimana, da lunedi a domenica
+export function GetWeek(value){
+        let date=new Date(value);
+        try{
+            if(!CheckDate(date.getDate())) throw new Error();
+            let day=date.getDay()!=0?date.getDay()-1:6;
+            var arrWeek=[];
+            date=new Date(date.setDate(date.getDate()-day));
+            arrWeek.push(FormatDate(date.toLocaleDateString()));
+            for(let i=1;i<7;i++){
+                date=new Date(date.setDate(date.getDate()+1));
+                arrWeek.push(FormatDate(date.toLocaleDateString()));
+            }
+            console.log(arrWeek);
+            return arrWeek;
+    }
+    catch(e){
+        console.error(e.message); return [];
+    } 
+}
 export function getDarkColor() {
     var color = '#';
     for (var i = 0; i < 6; i++) {

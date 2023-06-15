@@ -383,33 +383,58 @@
   .Container-Tools{
     width:-webkit-fill-available;
   }
-  /*Horizontal Bar*/
-  .list-graph-sum{
-    display: grid;
-    grid-template-columns: auto;
-    width: -webkit-fill-available;
-  }
-
-  .item-graph{
-    display:flow-root;
-    padding-left:15px;
-    width:-webkit-fill-available;
-  }
-  .graph-ncateg{
-    display:block;
-    flex:30%;
-  }
-  .graph-sum{
-    display:block;
-    flex:70%;
-    height:10px;
-    background: grey;
-  }
-  /*Vertical Bar*/
-  .list-graph-date{
-    
-  }
-
+    /*Horizontal Bar*/
+    .list-graph-sum{
+      display: grid;
+      grid-template-columns: auto;
+      width: -webkit-fill-available;
+    }
+    .item-graph{
+      display:flow-root;
+      padding-left:15px;
+      width:-webkit-fill-available;
+    }
+    .graph-ncateg{
+      display:block;
+      flex:30%;
+    }
+    .graph-sum{
+      display:block;
+      flex:70%;
+      height:10px;
+      background: grey;
+    }
+    /*Vertical Bar*/
+    .list-graph-date{
+      display: block;
+    }
+    .list-graph-tab{
+      display: grid;
+      grid-auto-flow: column;
+      height:200px;
+      justify-content: space-evenly;
+    }
+    .graph-column{
+      align-items: center;
+      height: inherit;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    .graph-label{
+      align-self: baseline;
+    }
+    .graph-column-value{
+      width:-webkit-fill-available;
+      height: inherit;
+      display: flex;
+      flex-direction: column-reverse;
+      align-self: baseline;
+    }
+    .graph-column-bar{
+      height:10px;
+      width:-webkit-fill-available;
+      background: red;
+    }
 
 /* **FINE** Subcomponent Tools */
 /* **FINE** COMPONENT SPESE */

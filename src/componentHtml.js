@@ -174,7 +174,7 @@ const subComponentTransition_Html=`
   <div class="List-Transitions">
   <li v-for="item in arrayTransitions">
     <div class="dropdown-categ-actions"> 
-      <div class="categ-actions-item"><p>{{item[1]}}</p><p>{{item[2]}}</p><p>{{item[3]}}</p></div>
+      <div class="categ-actions-item"><!--<p>{{item[4].nCateg}}</p>--><p>{{item[1]}}</p><p>{{item[2]}}</p><p>{{item[3]}}</p></div>
       <div class="dropdown-categ-actions-content">
         <ul class="list-group-categ-action">
           <li><div class="categ-action-item" role="button" @click="RemTransition(item[0])">Delete Transition</div></li>
@@ -191,35 +191,39 @@ const subComponentTools_Html=`
     <div role="button" @click="ConfirmDate">debuggatools</div>
     <br>
     <div class="list-graph-date">
-      <!--<div class="list-graph-week">
-        <span v-for="day in objView.week.categ">
-          <li v-for="(categ,ncateg) in day.categ">
-            <div>{{ncateg}} - {{categ.sum}} </div>
-          </li>
-        </span>
-      </div>-->
-      <div class="list-graph-month">
-        <span v-for="(day,key) in objView.month.days">
-          <li v-for="(categ,ncateg) in day.categ">
-            <div>{{key}} - {{ncateg}} - {{categ.sum}} </div>
-          </li>
-        </span>
+      <div class="list-graph-tab">
+        <div class="graph-column" v-for="day in objView.week.arr">
+          <div class="graph-label">{{day.index}}</div>
+          <div class="graph-column-value">
+            <div class="graph-column-bar" v-for="(categ,ncateg) in day.value.categ" :style='{background: categ.metadati["color"], height: objGraphView.percent(categ["sum"],objView.week.max)}'></div>
+          </div>
+        </div>
+      </div> <!-- Month -->
+      <div class="list-graph-tab">
+        <div class="graph-column" v-for="(day,index) in objView.month.days">
+          <div class="graph-label">{{index}}</div>
+          <div class="graph-column-value">
+            <div class="graph-column-bar" v-for="(categ,ncateg) in day.categ" :style='{background: categ.metadati["color"], height: objGraphView.percent(categ["sum"],objView.month.sum)}'></div>
+          </div>
+        </div>
+      </div> <!-- Year -->
+      <div class="list-graph-tab">
+        <div class="graph-column" v-for="(months,index) in objView.year.months">
+          <div class="graph-label">{{index}}</div>
+          <div class="graph-column-value">
+            <div class="graph-column-bar" v-for="(categ,ncateg) in months.categ" :style='{background: categ.metadati["color"], height: objGraphView.percent(categ["sum"], objView.year.max)}'></div>
+          </div>
+        </div>
+      </div> <!-- AllTime -->
+      <div class="list-graph-tab">
+        <div class="graph-column" v-for="(years,index) in objView.all.years">
+          <div class="graph-label">{{index}}</div>
+          <div class="graph-column-value">
+            <div class="graph-column-bar" v-for="(categ,ncateg) in years.categ" :style='{background: categ.metadati["color"], height: objGraphView.percent(categ["sum"],objView.all.max)}'></div>
+          </div>
+        </div>
       </div>
-      <div class="list-graph-year">
-        <span v-for="months in objView.year.months">
-          <li v-for="(categ,ncateg) in months.categ">
-            <div>{{ncateg}} - {{categ.sum}} </div>
-          </li>
-        </span>
-      </div>
-      <!--<div class="list-graph-all">
-        <span v-for="(years,key) in objView.all.years">
-          <li v-for="(categ,ncateg) in years.categ">
-            <div> {{key}} - {{ncateg}} - {{categ.sum}} </div>
-          </li>
-        </span>
-      </div>-->  
-    </div>
+    </div> <!-- Horizontal Graph -->
     <div class="list-graph-sum">
       <li class="item-graph" v-for="item in objView.h_bar">
         <div class="graph-ncateg">{{item["nCateg"]}}</div>

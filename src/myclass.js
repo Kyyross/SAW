@@ -1,5 +1,5 @@
 import {categories, codContainer, objGraphView } from "./globalVar.js";
-import { getDarkColor , checkNested } from "./mymacros/macro-functions.js";
+import { checkNested, CheckDate, GetWeek} from "./mymacros/macro-functions.js";
 
 class Nota{
     constructor(title,lastaccess,text=""){
@@ -48,7 +48,7 @@ export class graphView{
                                                                             }}}} */
     GetMapCategorie(categorie){
         if(categorie===undefined) return {};
-        var allTime={"sum":0, "categ":{}, "years":{}};
+        var allTime={"max":0 , "sum":0, "categ":{}, "years":{}};
         console.log(categorie);
         for(var categoria in categorie){
             for(let transition of categorie[categoria]["Transitions"]){
@@ -79,6 +79,8 @@ export class graphView{
             }
         }
         console.log(allTime);
+        this.CalculateMax(allTime);
+        console.log(allTime);
         return {allTime};
     }
     GetGraph(date){
@@ -87,16 +89,27 @@ export class graphView{
         var [year, month, day]=date!==undefined?date.split("-"):[undefined,undefined,undefined];
         try{
             console.log(year+month+day);
-            if(day!==undefined){
-                //calcola la settimana
-                 return this.map["allTime"]["years"][year]["months"][month]["days"][day];
-            }
+            if(day!==undefined) return this.map["allTime"]["years"][year]["months"][month]["days"][day];
             if(month!==undefined) return this.map["allTime"]["years"][year]["months"][month];
             if(year!==undefined) return this.map["allTime"]["years"][year];
             console.log(this.map["allTime"]);
             return this.map["allTime"];
         }
         catch(e){console.log(e); return {}}
+    }
+    CalculateMax(alltime){
+        for(let year in alltime.years){
+            let objyear=alltime.years[year];
+            if(alltime.max<objyear.sum) alltime.max=objyear.sum;
+            for(let month in objyear["months"]){
+                let objmonth=objyear["months"][month];
+                if(objyear.max<objmonth.sum) objyear.max=objmonth.sum;
+                for(let day in objmonth["days"]){
+                    let objday=objmonth["days"][day];
+                    if(objmonth.max<objday.sum) objmonth.max=objday.sum;
+                }
+            }
+        }
     }
     ShowDay(date){
         this.arrGraph=[];
@@ -108,6 +121,29 @@ export class graphView{
                 if(arrDate[0]==date[0]&&arrDate[1]==date[1]&&arrDate[2]==date[2])this.arrGraph.push(transition);
             }
         }
+    }
+    CalculateWeek(date){
+        console.log(date);
+        if(!CheckDate(date)) return [];
+        let week=GetWeek(date);
+        let arr=[];
+        let sum=0;
+        let max=0;
+        for(let i=0;i<7;i++){
+            console.log(week[i]);
+            let temp=this.GetGraph(week[i]);
+            if(temp!==undefined&&Object.entries(temp).length>0){
+                sum+=temp.sum;
+                max=max>=temp.sum?max:temp.sum;
+                arr.push({"index": i, "value": temp});
+            }
+        }
+        console.log(arr);
+        return { "arr": arr, "sum":sum, "max":max};
+    }
+    ShowWeek(weekDate){
+        this.arrGraph=[];
+        //weekDate=weekDate
     }
     ShowMonth(monthDate){
         this.arrGraph=[];
@@ -143,12 +179,13 @@ export class graphView{
             let category=codContainer[item[0]];
             if(!objGraphView.value[category]){
                 let [value, newcolor]=[parseFloat(item[2])];
-                while(newcolor===undefined){
+                /*while(newcolor===undefined){
                     let trycolor=getDarkColor();
                     if(!this.containerColors[trycolor]){
                         [newcolor, this.containerColors[trycolor]]=[trycolor,trycolor];
                     }
-                }
+                }*/
+                newcolor=categories.value[category]["color"];
                 objGraphView.value[category]={"nCateg":category,"transitions":[item],"sum":value, "color": newcolor};
                 objGraphView.sum+=value;
             }
@@ -167,22 +204,22 @@ export class graphView{
                 this.month=this.GetGraph(value);
                 this.ShowMonth(value); 
             }break;
+            case "week":{
+                this.week=this.CalculateWeek(value);
+                this.ShowWeek(value);
+            }break;
             case "day":{
                 this.week=this.GetGraph(value);
                 this.ShowDay(value); 
             }break;
             case "year":{
-                console.log("showgraph");
                 this.year=this.GetGraph(value);
                 this.ShowYear(value);
-                console.log(this.year);
             }
             break;
             case "all":{
-                console.log("showgraph");
                 this.allTime=this.GetGraph();
                 this.ShowAll();
-                console.log(this.allTime);
             }
             break;
             default:break;
@@ -192,21 +229,21 @@ export class graphView{
 
 function GetCateg(transition,init=true){
     let nCateg=codContainer[transition[0]];
-    let obj={"sum":parseFloat(transition[2]),"metadati": categories.value[nCateg]}
+    let obj={"max":parseFloat(transition[2]),"sum":parseFloat(transition[2]),"metadati": categories.value[nCateg]}
     let obj1={};
     obj1[nCateg]=obj;
     return (init?obj1:obj);
 }
 function InitializeYear(transition,date,allTime,what){
-    let objDay={"transitions":[transition], "categ": GetCateg(transition) ,"sum":parseFloat(transition[2])};
+    let objDay={"transitions":[transition], "categ": GetCateg(transition) ,"sum":parseFloat(transition[2]), "max":parseFloat(transition[2])};
     if(what==="day")return objDay;
     let day={};
     day[date[2]]=objDay;
-    let objMonth={"sum":parseFloat(transition[2]), "categ": GetCateg(transition), "days": day};
+    let objMonth={"max": parseFloat(transition[2]),"sum":parseFloat(transition[2]), "categ": GetCateg(transition), "days": day};
     if(what==="month")return objMonth;
     let month={};
     month[date[1]]=objMonth;
-    let objYear={"sum":parseFloat(transition[2]), "categ": GetCateg(transition) ,"months": month};
+    let objYear={"max":parseFloat(transition[2]),"sum":parseFloat(transition[2]), "categ": GetCateg(transition) ,"months": month};
     return objYear;
 }
 function setCateg(arr,transition){
@@ -225,88 +262,4 @@ function setCateg(arr,transition){
     }
 }
 
-
-
 export {Nota, Categoria}
-
-
-/*
-
-    GetGraphDay(date){
-        if(Object.entries(this.map).length==0) return {};
-        var [year, month, day]=date.split("-");
-        var objDay={};
-        try{
-            for(let transition of this.map["allTime"]["years"][year][month][day]){
-                let codTrans=transition[0];
-                let cat=categories.value;
-                if(cat[codContainer[codTrans]]){
-                    let categoria=codContainer[codTrans];
-                    if(!objDay[categoria]){
-                        let temp={};
-                        [temp["nCateg"],temp["codIcona"],temp["color"],temp["transitions"],temp["sum"]]=[cat[categoria]["nCateg"],cat[categoria]["nIcon"],"",[transition],parseFloat(transition[2])]; //DA METTERE COLOR
-                        objDay[categoria]=temp;
-                    }
-                    else{
-                        objDay[categoria]["transitions"].push(transition);
-                        objDay[categoria]["sum"]+=parseFloat(transition[2]);
-                    }
-                }
-            }
-            let sum=0;
-            for(let categ in objDay){
-                sum+=objDay[categ]["sum"];
-            }
-            objDay["sumDay"]=sum;
-        }
-        catch(e){console.log(e); return {}}
-        return objDay;
-    }
-    GetGraphMonth(date){
-        if(Object.entries(this.map).length==0) return {};
-        var [year, month]=date.split("-");
-        var objMonth={"sumMonth":0, "days":{}, "categ":{}};
-        try{
-            for(let day in this.map["allTime"]["years"][year][month]){
-                objMonth["days"][day]=this.GetTransitionsDay(year+"-"+month+"-"+day);
-                let objCateg=GetCategDay(objMonth["days"][day]);
-                for(let nCateg in objCateg)
-                if(!objMonth.categ[objCateg])objMonth.categ[objCateg]=
-                objMonth["sumMonth"]+=objMonth["days"][day]["sumDay"];
-            }
-        }
-        catch(e){ console.log(e); return {};}
-        return objMonth;
-    }
-    GetCategDay(obj){
-        var objCateg={}
-        for(let nCateg in obj){
-            objCateg[nCateg]=obj[nCateg].sum;
-        }
-        return objCateg;
-    }
-    GetGraphYear(year){
-        if(Object.entries(this.map).length==0) return {};
-        var objYear={"sumYear":0, "months":{}};
-        try{
-            for(let month in this.map["allTime"]["years"][year]){
-                objYear["months"][month]=this.GetTransitionsMonth(year+"-"+month);
-                objYear["sumYear"]+=objYear["months"][month]["sumMonth"];
-            }
-        }
-        catch(e){ console.log(e); return {};}
-        return objYear;
-    }
-    GetGraphAll(){
-        if(Object.entries(this.map).length==0) return {};
-        var objAll={"sumAll":0, "years":{}};
-        try{
-            for(let year in this.map["allTime"]["years"]){
-                objAll["years"][year]=this.GetTransitionsYear(year);
-                objAll["sumAll"]+=objAll["years"][year]["sumYear"];
-            }
-        }
-        catch(e){ console.log(e); return {};}
-        return objAll;
-    }
-    */
