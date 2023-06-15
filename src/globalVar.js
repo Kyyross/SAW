@@ -9,7 +9,7 @@ const userName=reactive({value:"", logged:false, temp:"",display:"none"});
 const items = reactive({"value":{}});
 const categories = reactive({"value":{}});
 const objGraphView= reactive({value:{},sum:0,'percent':(a,b)=>(a*100/b)+"%"});
-export const date=reactive({"value":"","type":""});
+const date=reactive({"value":"","type":""});
 var codContainer={};
 const inModal= {bool:false,temp:""};
 const [modalCategState,modalTransitionState,warning]=[reactive({display:"none", mod:"none"}),reactive({display:"none"}),ref("")];
@@ -30,10 +30,10 @@ const Clear=()=>{
     date.value="";
     date.type="";
 }
-//Cleans the Html input of the Modal 
 const ItemDataSetter = (...arg) => [itemData.value.nCateg, itemData.value.nIcon, itemData.value.noteTransition,
      itemData.value.valueTransition, itemData.value.codTransition, itemData.value.dateTransition]=[...arg];
-
+const GetCateg = (codTransition) =>  categories.value[codContainer[codTransition]];
+     
 export {displayAppNotes, displayAppAuth, displayAppSpese, displayButtonSign, warningSign, userName, items, categories,
-    modalCategState, modalTransitionState, warning, itemData, itemData_Nota, codContainer, inModal, objGraphView, ItemDataSetter, Clear
+    date, GetCateg, modalCategState, modalTransitionState, warning, itemData, itemData_Nota, codContainer, inModal, objGraphView, ItemDataSetter, Clear
 };

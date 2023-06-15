@@ -56,25 +56,25 @@ export class graphView{
                 date=date.split("-");
                 if(checkNested(allTime,"years",date[0],"months",date[1],"days",date[2])){
                     allTime.years[date[0]]["months"][date[1]]["days"][date[2]]["transitions"].push(transition);
-                    setCateg([allTime.years[date[0]]["months"][date[1]]["days"][date[2]],allTime.years[date[0]]["months"][date[1]],allTime.years[date[0]],allTime],transition);
+                    this.SetCateg([allTime.years[date[0]]["months"][date[1]]["days"][date[2]],allTime.years[date[0]]["months"][date[1]],allTime.years[date[0]],allTime],transition);
                 }
                 else
                     if(checkNested(allTime,"years",date[0],"months",date[1])){
                         let day={};
-                        day[date[2]]=InitializeYear(transition,date,allTime,"day");
+                        day[date[2]]=this.InitializeYear(transition,date,allTime,"day");
                         Object.assign(allTime.years[date[0]]["months"][date[1]]["days"],day);
-                        setCateg([allTime.years[date[0]]["months"][date[1]],allTime.years[date[0]],allTime],transition);
+                        this.SetCateg([allTime.years[date[0]]["months"][date[1]],allTime.years[date[0]],allTime],transition);
                     }
                     else  
                         if(allTime.years[date[0]]){
                             let month={};
-                            month[date[1]]=InitializeYear(transition,date,allTime,"month");
+                            month[date[1]]=this.InitializeYear(transition,date,allTime,"month");
                             Object.assign(allTime.years[date[0]]["months"],month);
-                            setCateg([allTime.years[date[0]],allTime],transition);
+                            this.SetCateg([allTime.years[date[0]],allTime],transition);
                         }
                         else{
-                            allTime.years[date[0]]=InitializeYear(transition,date,allTime);
-                            setCateg([allTime],transition);
+                            allTime.years[date[0]]=this.InitializeYear(transition,date,allTime);
+                            this.SetCateg([allTime],transition);
                         }
             }
         }
@@ -82,6 +82,40 @@ export class graphView{
         this.CalculateMax(allTime);
         console.log(allTime);
         return {allTime};
+    }
+    GetCateg(transition,init=true){
+        let nCateg=codContainer[transition[0]];
+        let obj={"max":parseFloat(transition[2]),"sum":parseFloat(transition[2]),"metadati": categories.value[nCateg]}
+        let obj1={};
+        obj1[nCateg]=obj;
+        return (init?obj1:obj);
+    }
+    SetCateg(arr,transition){
+        let [nCateg,value]=[codContainer[transition[0]],parseFloat(transition[2])];
+        for(let obj of arr){
+            let categ=obj.categ;
+            console.log(categ);
+            console.log(obj.sum + "value: "+value);
+            obj.sum+=value;
+            if(categ[nCateg]){
+                categ[nCateg]["sum"]+=value;
+            }else
+            {
+                categ[nCateg]=this.GetCateg(transition,false);
+            }
+        }
+    }
+    InitializeYear(transition,date,allTime,what){
+        let objDay={"transitions":[transition], "categ": this.GetCateg(transition) ,"sum":parseFloat(transition[2]), "max":parseFloat(transition[2])};
+        if(what==="day")return objDay;
+        let day={};
+        day[date[2]]=objDay;
+        let objMonth={"max": parseFloat(transition[2]),"sum":parseFloat(transition[2]), "categ": this.GetCateg(transition), "days": day};
+        if(what==="month")return objMonth;
+        let month={};
+        month[date[1]]=objMonth;
+        let objYear={"max":parseFloat(transition[2]),"sum":parseFloat(transition[2]), "categ": this.GetCateg(transition) ,"months": month};
+        return objYear;
     }
     GetGraph(date){
         if(Object.entries(this.map).length==0){console.log("getgraph"+this.map); return {}; }
@@ -141,9 +175,22 @@ export class graphView{
         console.log(arr);
         return { "arr": arr, "sum":sum, "max":max};
     }
-    ShowWeek(weekDate){
+    ShowWeek(date){
         this.arrGraph=[];
-        //weekDate=weekDate
+        let weekdate=GetWeek(date);
+        for(var category in this.categorie){
+            for(var transition of this.categorie[category]["Transitions"]){
+                let fulldate=transition[3];
+                for(let day of weekdate){
+                    console.log("fulldate"+fulldate+" "+day);
+                    if(day==fulldate){
+                        this.arrGraph.push(transition);
+                        break;
+                    }
+                }  
+            }
+        }
+        console.log(this.arrGraph);
     }
     ShowMonth(monthDate){
         this.arrGraph=[];
@@ -209,7 +256,7 @@ export class graphView{
                 this.ShowWeek(value);
             }break;
             case "day":{
-                this.week=this.GetGraph(value);
+                this.week=this.CalculateWeek(value);
                 this.ShowDay(value); 
             }break;
             case "year":{
@@ -226,7 +273,7 @@ export class graphView{
         }
     }
 }
-
+/*
 function GetCateg(transition,init=true){
     let nCateg=codContainer[transition[0]];
     let obj={"max":parseFloat(transition[2]),"sum":parseFloat(transition[2]),"metadati": categories.value[nCateg]}
@@ -261,5 +308,5 @@ function setCateg(arr,transition){
         }
     }
 }
-
+*/
 export {Nota, Categoria}

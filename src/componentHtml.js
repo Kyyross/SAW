@@ -174,7 +174,7 @@ const subComponentTransition_Html=`
   <div class="List-Transitions">
   <li v-for="item in arrayTransitions">
     <div class="dropdown-categ-actions"> 
-      <div class="categ-actions-item"><!--<p>{{item[4].nCateg}}</p>--><p>{{item[1]}}</p><p>{{item[2]}}</p><p>{{item[3]}}</p></div>
+      <div class="categ-actions-item"><p>{{GetCateg(item[0]).nCateg}}</p><p>{{item[1]}}</p><p>{{item[2]}}</p><p>{{item[3]}}</p></div>
       <div class="dropdown-categ-actions-content">
         <ul class="list-group-categ-action">
           <li><div class="categ-action-item" role="button" @click="RemTransition(item[0])">Delete Transition</div></li>

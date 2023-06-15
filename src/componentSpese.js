@@ -1,5 +1,5 @@
 import { displayAppSpese, categories, codContainer, itemData, 
-    warning, modalCategState, modalTransitionState, objGraphView, date } from './globalVar.js';
+    warning, modalCategState, modalTransitionState, objGraphView, GetCateg } from './globalVar.js';
 
 import { CloseAddCategGump, OpenAddCategGump, AddCateg, ModCateg, 
     MergeCateg, RemCateg } from './subComponent/componentCategory.js';
@@ -30,7 +30,7 @@ export default{
         return {categories,itemData, modalCategState, modalTransitionState, displayAppSpese, CloseAddCategGump, OpenAddCategGump, 
             AddCateg, ModCateg, MergeCateg, AddTransition, RemTransition,ModTransition, warning, debug, RemCateg, OpenAddTransitionGump, 
             CloseAddTransitionGump, OpenModTransitionGump, CloseModTransitionGump,OpenCategory, OpenAnalyticsTools, OpenTransitions, 
-            arrayTransitions, objGraphView, objView, ConfirmDate
+            arrayTransitions, objGraphView, objView, ConfirmDate, GetCateg
         }
     },
     template:componentSpese_Html
