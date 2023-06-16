@@ -10,10 +10,8 @@ export default {
         const state = reactive({display:"none"});
         //REACTIVE FUNCTIONs
         const Open=()=>{ 
-          inModal.bool=true;
-          ItemDataSetter("","","",new Date().toLocaleString()) 
-          warning.value=""; 
-          state.display="block";
+          ItemDataSetter("","","",new Date().toLocaleString());
+          [inModal.bool, warning.value, state.display]=[true,"","block"]; 
         };
 
         const Close=()=>{ inModal.bool=false; ItemDataSetter(); state.display="none";};

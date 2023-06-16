@@ -43,7 +43,6 @@ const checkCache = (event) =>
                 if(!(value===undefined))
                     return value;
                 else {
-                    //return fetch(event.request);
                     return fetch(event.request);
                 }
         });

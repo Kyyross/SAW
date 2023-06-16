@@ -27,7 +27,7 @@ export const AddTransition=()=>{
         do{
             codGenerated=uuid();
         }while(codContainer[codGenerated])
-        categories.value[itemData.value.nCateg]["Transitions"].push([codGenerated,itemData.value.noteTransition,itemData.value.valueTransition,itemData.value.dateTransition]); // categories.value[itemData.value.nCateg]]
+        categories.value[itemData.value.nCateg]["Transitions"].push([codGenerated,itemData.value.noteTransition,itemData.value.valueTransition,itemData.value.dateTransition]);
         codContainer[codGenerated]=itemData.value.nCateg;
         CloseAddTransitionGump();
     }catch(e){console.log("error when try to add the transition"+e);}

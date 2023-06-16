@@ -130,7 +130,7 @@
   .modal {
       display: none; /* Hidden by default */
       position: fixed; /* Stay in place */
-      z-index: 2; /* Sit on top */
+      z-index: 10; /* Sit on top */
       left: 0;
       top: 0;
       width: 100%; /* Full width */
@@ -175,6 +175,15 @@
     display: none;
   }
   [type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }
+  [type="month"] {
+    background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+  }
+  [type="month"]::-webkit-inner-spin-button {
+    display: none;
+  }
+  [type="month"]::-webkit-calendar-picker-indicator {
     opacity: 0;
   }
   .label-date {
@@ -388,6 +397,9 @@
       display: grid;
       grid-template-columns: auto;
       width: -webkit-fill-available;
+      border: solid;
+      border-color:grey;
+      margin-top: 25px;
     }
     .item-graph{
       display:flow-root;
@@ -413,6 +425,10 @@
       grid-auto-flow: column;
       height:200px;
       justify-content: space-evenly;
+      padding-top: 15px;
+      margin-bottom: 25px;
+      border: ridge;
+      border-color:grey;
     }
     .graph-column{
       align-items: center;

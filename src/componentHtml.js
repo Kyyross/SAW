@@ -153,7 +153,7 @@ const subComponentTransition_Html=`
             <input v-model="itemData.value.noteTransition" placeholder="Nota">
             <label class="label-date">Data</label>
             <input type="date" v-model="itemData.value.dateTransition" class="input-date">
-            <div @click="AddTransition">Confirm Transition</div>
+            <div role="button" @click="AddTransition">Confirm Transition</div>
             <p class="warning">{{ warning }}</p>
         </div>
 </div>
@@ -166,7 +166,7 @@ const subComponentTransition_Html=`
             <input v-model="itemData.value.noteTransition" placeholder="Nota">
             <label class="label-date">Data</label>
             <input type="date" v-model="itemData.value.dateTransition" class="input-date">
-            <div @click="ModTransition">Confirm Transition</div>
+            <div role="button" @click="ModTransition">Confirm Transition</div>
             <p class="warning">{{ warning }}</p>
         </div>
 </div>
@@ -188,18 +188,37 @@ const subComponentTransition_Html=`
 
 const subComponentTools_Html=`
   <div class="Container-Tools" :style="{ display: displayAppSpese.containerTools }">
-    <div role="button" @click="ConfirmDate">debuggatools</div>
+    <div :style="{ display: itemData_Tools.toolsGump }" class="modal">
+    <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close"  @click="CloseToolsGump">&times;</span>
+        <label>Choose a type of date:</label>
+          <select class="type-date-gump" v-model="itemData_Tools.type">
+            <option value="alltime" selected>Alltime</option>
+            <option value="year">Year</option>
+            <option value="month">Month</option>
+            <option value="week">Week</option>
+            <option value="day">Day</option>
+          </select>
+        <input type="date" v-model="itemData_Tools.value" class="input-date" :style="{ display: itemData_Tools.dBool }" />
+        <input type="month" v-model="itemData_Tools.value" class="input-date" :style="{ display: itemData_Tools.mBool }" />
+        <input type="number" v-model="itemData_Tools.value" class="input-date" :style="{ display: itemData_Tools.yBool }" />  
+        <div role="button" @click="ConfirmDate">Confirm</div>
+        <p class="warning">{{ warning }}</p>
+      </div>
+    </div>
+    <div role="button" @click="OpenToolsGump">Study graphs</div>
     <br>
-    <div class="list-graph-date">
-      <div class="list-graph-tab">
+    <div class="list-graph-date" :style="{ display: itemData_Tools.tabBool }">
+      <div class="list-graph-tab" :style="{ display: itemData_Tools.dBool }">
         <div class="graph-column" v-for="day in objView.week.arr">
-          <div class="graph-label">{{day.index}}</div>
+          <div class="graph-label">{{objGraphView.tras(day.index)}}</div>
           <div class="graph-column-value">
             <div class="graph-column-bar" v-for="(categ,ncateg) in day.value.categ" :style='{background: categ.metadati["color"], height: objGraphView.percent(categ["sum"],objView.week.max)}'></div>
           </div>
         </div>
       </div> <!-- Month -->
-      <div class="list-graph-tab">
+      <div class="list-graph-tab" :style="{ display: itemData_Tools.mBool }">
         <div class="graph-column" v-for="(day,index) in objView.month.days">
           <div class="graph-label">{{index}}</div>
           <div class="graph-column-value">
@@ -207,7 +226,7 @@ const subComponentTools_Html=`
           </div>
         </div>
       </div> <!-- Year -->
-      <div class="list-graph-tab">
+      <div class="list-graph-tab" :style="{ display: itemData_Tools.yBool }">
         <div class="graph-column" v-for="(months,index) in objView.year.months">
           <div class="graph-label">{{index}}</div>
           <div class="graph-column-value">
@@ -215,7 +234,7 @@ const subComponentTools_Html=`
           </div>
         </div>
       </div> <!-- AllTime -->
-      <div class="list-graph-tab">
+      <div class="list-graph-tab" :style="{ display: itemData_Tools.aBool }">
         <div class="graph-column" v-for="(years,index) in objView.all.years">
           <div class="graph-label">{{index}}</div>
           <div class="graph-column-value">
@@ -224,7 +243,7 @@ const subComponentTools_Html=`
         </div>
       </div>
     </div> <!-- Horizontal Graph -->
-    <div class="list-graph-sum">
+    <div class="list-graph-sum" :style="{ display: itemData_Tools.sumBool }">
       <li class="item-graph" v-for="item in objView.h_bar">
         <div class="graph-ncateg">{{item["nCateg"]}}</div>
         <div class="graph-sum" :style='{background: item["color"], width: objGraphView.percent(item["sum"],objGraphView.sum)}'></div>

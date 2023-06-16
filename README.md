@@ -1,5 +1,5 @@
 # SAW
-v.0.3.6
+v.0.3.7
 
 to Do:
 
@@ -21,19 +21,3 @@ Done:
 
 not to Do:
 -foreach operation front-end make a http request. (notDONE! YEAH)
-
-
-<!-- BUONO <div class="month">
-          <div class="graph-label">02</div>
-          <div class="graph-column-value">
-            <div class="graph-bar-month"></div>
-            <div class="graph-bar-month"></div>
-          </div>
-        </div>
-        <div class="graph-column">
-          <div class="graph-label">12</div>
-          <div class="graph-month">
-            <div class="graph-bar-month"></div>
-            <div class="graph-bar-month"></div>
-          </div>
-        </div> BUONO -->

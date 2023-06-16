@@ -1,4 +1,4 @@
-import { displayAppSpese, categories, codContainer, itemData, 
+import { displayAppSpese, categories, codContainer, itemData, itemData_Tools,
     warning, modalCategState, modalTransitionState, objGraphView, GetCateg } from './globalVar.js';
 
 import { CloseAddCategGump, OpenAddCategGump, AddCateg, ModCateg, 
@@ -8,7 +8,7 @@ import { AddTransition, RemTransition, ModTransition,
     OpenAddTransitionGump, CloseAddTransitionGump, 
     OpenModTransitionGump, CloseModTransitionGump, GetTransitions} from './subComponent/componentTransition.js';
 
-import { ConfirmDate, objView } from './subComponent/componentTools.js';
+import { ConfirmDate, objView, OpenToolsGump, CloseToolsGump} from './subComponent/componentTools.js';
 
 import { componentSpese_Html } from './componentHtml.js';
 import { computed } from 'vue';
@@ -30,7 +30,7 @@ export default{
         return {categories,itemData, modalCategState, modalTransitionState, displayAppSpese, CloseAddCategGump, OpenAddCategGump, 
             AddCateg, ModCateg, MergeCateg, AddTransition, RemTransition,ModTransition, warning, debug, RemCateg, OpenAddTransitionGump, 
             CloseAddTransitionGump, OpenModTransitionGump, CloseModTransitionGump,OpenCategory, OpenAnalyticsTools, OpenTransitions, 
-            arrayTransitions, objGraphView, objView, ConfirmDate, GetCateg
+            arrayTransitions, objGraphView, objView, ConfirmDate, GetCateg, OpenToolsGump, CloseToolsGump, itemData_Tools
         }
     },
     template:componentSpese_Html

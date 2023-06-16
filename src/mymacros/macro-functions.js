@@ -56,12 +56,22 @@ export function getDarkColor() {
     }
     return color;
 }
+export function TranslateDaysWeek(num){
+    switch(num){
+        case 0 : return "Mon";
+        case 1 : return "Tue";
+        case 2 : return "Wed";
+        case 3 : return "Thu";
+        case 4 : return "Fri";
+        case 5 : return "Sat";
+        case 6 : return "Sun";
+    }
+}
 
 export function checkNested(obj, level,  ...rest) {
     if (obj === undefined) return false
     if (rest.length == 0 && obj.hasOwnProperty(level)) return true
     return checkNested(obj[level], ...rest)
   }
-
 //export {sortObject, GetTransitions, CheckDate, getDarkColor}
 

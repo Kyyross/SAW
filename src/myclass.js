@@ -30,7 +30,6 @@ export class graphView{
         this.categorie=categorie;
         this.map=this.GetMapCategorie(categorie);
         this.arrGraph=[];
-        this.containerColors={};
         this.allTime={};
         this.month={};
         this.week={};
@@ -118,6 +117,7 @@ export class graphView{
         return objYear;
     }
     GetGraph(date){
+        if(date===undefined) return this.map["allTime"];
         if(Object.entries(this.map).length==0){console.log("getgraph"+this.map); return {}; }
         console.log(this.map);
         var [year, month, day]=date!==undefined?date.split("-"):[undefined,undefined,undefined];
@@ -126,10 +126,9 @@ export class graphView{
             if(day!==undefined) return this.map["allTime"]["years"][year]["months"][month]["days"][day];
             if(month!==undefined) return this.map["allTime"]["years"][year]["months"][month];
             if(year!==undefined) return this.map["allTime"]["years"][year];
-            console.log(this.map["allTime"]);
-            return this.map["allTime"];
+            return {};
         }
-        catch(e){console.log(e); return {}}
+        catch(e){console.error(e); return {}}
     }
     CalculateMax(alltime){
         for(let year in alltime.years){
@@ -264,7 +263,7 @@ export class graphView{
                 this.ShowYear(value);
             }
             break;
-            case "all":{
+            case "alltime":{
                 this.allTime=this.GetGraph();
                 this.ShowAll();
             }
@@ -273,40 +272,5 @@ export class graphView{
         }
     }
 }
-/*
-function GetCateg(transition,init=true){
-    let nCateg=codContainer[transition[0]];
-    let obj={"max":parseFloat(transition[2]),"sum":parseFloat(transition[2]),"metadati": categories.value[nCateg]}
-    let obj1={};
-    obj1[nCateg]=obj;
-    return (init?obj1:obj);
-}
-function InitializeYear(transition,date,allTime,what){
-    let objDay={"transitions":[transition], "categ": GetCateg(transition) ,"sum":parseFloat(transition[2]), "max":parseFloat(transition[2])};
-    if(what==="day")return objDay;
-    let day={};
-    day[date[2]]=objDay;
-    let objMonth={"max": parseFloat(transition[2]),"sum":parseFloat(transition[2]), "categ": GetCateg(transition), "days": day};
-    if(what==="month")return objMonth;
-    let month={};
-    month[date[1]]=objMonth;
-    let objYear={"max":parseFloat(transition[2]),"sum":parseFloat(transition[2]), "categ": GetCateg(transition) ,"months": month};
-    return objYear;
-}
-function setCateg(arr,transition){
-    let [nCateg,value]=[codContainer[transition[0]],parseFloat(transition[2])];
-    for(let obj of arr){
-        let categ=obj.categ;
-        console.log(categ);
-        console.log(obj.sum + "value: "+value);
-        obj.sum+=value;
-        if(categ[nCateg]){
-            categ[nCateg]["sum"]+=value;
-        }else
-        {
-            categ[nCateg]=GetCateg(transition,false);
-        }
-    }
-}
-*/
+
 export {Nota, Categoria}
