@@ -8,6 +8,7 @@ export default {
     data(){
         //VARs
         const state = reactive({display:"none"});
+        const listSelected={};
         //REACTIVE FUNCTIONs
         const Open=()=>{ 
           ItemDataSetter("","","",new Date().toLocaleString());
@@ -35,6 +36,26 @@ export default {
           itemData_Nota.value.title=title;
           itemData_Nota.value.tag=tag;
           if(lastaccess!=-1)itemData_Nota.value.lastaccess=lastaccess;
+        }
+
+        function deleteNotes(){
+          console.log("deletenotes");
+          for(let item in listSelected){
+            delete(items.value[item]);
+            delete(listSelected[item]);
+          }
+        }
+
+        function selectNote(nameobj,bool){
+          console.log("selectNote: "+nameobj+" "+bool);
+          if(bool) select(nameobj);
+          else deselect(nameobj);
+        }
+        function select(nameobj){
+          if(!listSelected[nameobj]) listSelected[nameobj]=null; 
+        }
+        function deselect(nameobj){ 
+          delete(listSelected[nameobj]); 
         }
 
         const isDisabled=computed(()=>itemData_Nota.disabled)
@@ -68,7 +89,7 @@ export default {
           inModal.temp=obje.title;
         });
 
-        return {items, state, displayAppNotes , Open, Close, Confirm, Debugg, itemData_Nota, warning, Show, arrayOrdered, isDisabled};
+        return {items, state, displayAppNotes , Open, Close, Confirm, Debugg, deleteNotes, selectNote, itemData_Nota, warning, Show, arrayOrdered, isDisabled};
     },
     template: componentNotes_Html
 }

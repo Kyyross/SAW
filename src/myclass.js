@@ -6,6 +6,7 @@ class Nota{
         this.title=title;
         this.lastaccess=lastaccess;
         this.text=text;
+        this.checked=false;
     }
 }
 
@@ -123,9 +124,10 @@ export class graphView{
         var [year, month, day]=date!==undefined?date.split("-"):[undefined,undefined,undefined];
         try{
             console.log(year+month+day);
-            if(day!==undefined) return this.map["allTime"]["years"][year]["months"][month]["days"][day];
-            if(month!==undefined) return this.map["allTime"]["years"][year]["months"][month];
-            if(year!==undefined) return this.map["allTime"]["years"][year];
+            let yearsmap=this.map["allTime"]["years"];
+            if(day!==undefined) return (yearsmap[year]["months"][month]["days"][day]===undefined?{}:yearsmap[year]["months"][month]["days"][day]);
+            if(month!==undefined) return (yearsmap[year]["months"][month]===undefined?{}:yearsmap[year]["months"][month]);
+            if(year!==undefined) return yearsmap[year]===undefined?{}:yearsmap[year];
             return {};
         }
         catch(e){console.error(e); return {}}

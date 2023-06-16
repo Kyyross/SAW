@@ -27,17 +27,22 @@ const componentNotes_Html=`
       <input v-model="itemData_Nota.value.title" maxlength="40" placeholder="Note title">
       <input v-model="itemData_Nota.value.tag" maxlength="10" placeholder="Note tag">
       <div @click="Debugg">debug x develouper</div>
-      <div @click="Confirm"><button>add note</button></div>
+      <div role="button" @click="Confirm"><button>add note</button></div>
       <p class="warning">{{ warning }}</p>
     </div>
   </div>
   <div class="areaNote">
     <div class="grid-listanote">
       <button @click="Open"><img src="/src/img/piu.png"></button>
+      <button @click="deleteNotes">delete notes</button>
       <button @click="Debugg">debugg</button>
       <div class="listaNote">
         <li v-for="item in arrayOrdered">
           <div @click="Show(item.title)"> {{ item.title }} - {{ item.lastaccess }}</div>
+          <input type="checkbox" v-model="item.checked" v-bind:id="'listanote'+item.title" @click="selectNote(item.title,!item.checked)">
+            <label v-bind:for="'listanote'+item.title"></label>
+          <!-- <div @click="selectNotes(item.title)">select</div>
+          <div @click="deselectNotes(item.title)">deselect</div> -->
         </li>
       </div>
     </div>

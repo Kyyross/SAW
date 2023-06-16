@@ -10,7 +10,7 @@ export function sortObject(obj,key){
     return arr.sort((a,b)=>Sorting(a,b)).map((a)=>a[0]);
 }
 //function per ordinare gli elementi in ordine decrescente.
-function Sorting(a,b,){return a[1]>b[1]?-1:0;}
+function Sorting(a,b){return a[1]>b[1]?-1:0;}
 
 export function CheckDate(value){
     try{

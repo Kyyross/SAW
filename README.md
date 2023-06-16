@@ -1,10 +1,9 @@
 # SAW
-v.0.3.7
+v.0.3.8
 
 to Do:
 
 -make a view for the state. (in corso)
--add delete note.
 -(optional)implement firebase(database), so fix operations restful.
 -optmize lighthouse (in corso)
 
@@ -18,6 +17,7 @@ Done:
 -implement file config to progressive app. (DONE)
 -...check the conditions for Restful app. (DONE)
 -put style in date (DONE)
+-add delete note (DONE)
 
 not to Do:
 -foreach operation front-end make a http request. (notDONE! YEAH)
