@@ -21,3 +21,15 @@ Done:
 
 not to Do:
 -foreach operation front-end make a http request. (notDONE! YEAH)
+
+plane:
+
+modal color picker:
+  tabella di quadratini colorati, cliccandone uno mi restituisce il codice del colore
+
+modal icon picker:
+  tabella di quadratini con img l'icona, cliccandone uno mi restituisce l'immagine associata. -> ?
+
+
+
+

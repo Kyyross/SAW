@@ -79,3 +79,4 @@ else{
 
 //DEBUGGINGif(window.isSecureContext)console.log("siamo al sicuro");
 //else console.log("non al sicuro");
+

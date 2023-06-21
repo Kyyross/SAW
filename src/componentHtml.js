@@ -34,8 +34,8 @@ const componentNotes_Html=`
   <div class="areaNote">
     <div class="grid-listanote">
       <button @click="Open"><img src="/src/img/piu.png"></button>
-      <button @click="deleteNotes">delete notes</button>
-      <button @click="Debugg">debugg</button>
+      <button @click="deleteNotes"><img src="/src/img/delete.png"></button>
+      <!-- <button @click="Debugg">debugg</button> -->
       <div class="listaNote">
         <li v-for="item in arrayOrdered">
           <div @click="Show(item.title)"> {{ item.title }} - {{ item.lastaccess }}</div>
@@ -46,11 +46,11 @@ const componentNotes_Html=`
         </li>
       </div>
     </div>
-  </div>
-  <div class="contenutoNote">
-    <textarea class="titleNoteCon" v-model="itemData_Nota.value.title" maxlength="40" :disabled="isDisabled" placeholder="Title"></textarea>
-    <br>
-    <textarea class="textNoteCon" v-model="itemData_Nota.value.text" :disabled="isDisabled" placeholder="Text"></textarea>
+    <div class="contenutoNote">
+      <textarea class="titleNoteCon" v-model="itemData_Nota.value.title" maxlength="40" :disabled="isDisabled" placeholder="Title"></textarea>
+      <br>
+      <textarea class="textNoteCon" v-model="itemData_Nota.value.text" :disabled="isDisabled" placeholder="Text"></textarea>
+    </div>
   </div>
 </div>
 `;
@@ -71,7 +71,7 @@ const componentMenu_Html=`
   </div>
 </div>
 <!-- Page content-->
-    <h1 class="mt-4">Let's Go</h1>
+    <h1 class="titlepage">{{titlePage}}</h1>
 `
 
 const componentAuthentication_Html=`
@@ -116,35 +116,97 @@ const componentAuthentication_Html=`
 `;
 
 const subComponentCategory_Html=`
-<div :style="{ display: modalCategState.display }" class="modal">
+<div :style="{ display: modalCategState.add }" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
-            <span class="close"  @click="CloseAddCategGump">&times;</span>
+            <span class="close"  @click="CloseCategGump(0)">&times;</span>
             <input v-model="itemData.value.nCateg" placeholder="Nome Categoria">
-            <input v-model="itemData.value.nIcon" placeholder="work in progress">
+            <div role="button" @click="OpenCategGump('iconPicker')">Icona:</div>
+            <img class="img-icon" v-if="itemData.value.nIcon!=''" :src="LoadImg(itemData.value.nIcon)" /> 
+            <div role="button" @click="OpenCategGump('genericColorPicker')">Colore:</div>
+            <div class="color-pick" v-if="itemData.value.color!=''" :style="{ background: itemData.value.color }" />
             <div @click="AddCateg">Confirm Categories</div>
             <p class="warning">{{ warning }}</p>
         </div>
-  </div>
+</div>
+<div :style="{ display: modalCategState.mod }" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close"  @click="CloseCategGump(0)">&times;</span>
+            <p>{{itemData.value.nCateg}}</p>
+            <input v-model="itemData.value.rename" placeholder="Nome Categoria">
+            <div role="button" @click="OpenCategGump('iconPicker')">Icona:</div>
+            <img class="img-icon" v-if="itemData.value.nIcon!=''" :src="LoadImg(itemData.value.nIcon)" /> 
+            <div role="button" @click="OpenCategGump('genericColorPicker')">Colore:</div>
+            <div class="color-pick" v-if="itemData.value.color!=''" :style="{ background: itemData.value.color }" />
+            <div @click="ModCateg">Confirm Categories</div>
+            <p class="warning">{{ warning }}</p>
+        </div>
+</div>
+<div :style="{ display: modalCategState.merge }" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close"  @click="CloseCategGump(0)">&times;</span>
+            <p>{{itemData.value.nCateg}}</p>
+            <p>Inserire la categoria con cui fare il merge</p>
+            <input v-model="itemData.value.rename" placeholder="Nome Categoria">
+            <div @click="MergeCateg()">Confirm Categories</div>
+            <p class="warning">{{ warning }}</p>
+        </div>
+</div>
+<div :style="{ display: modalCategState.iconPicker }" class="modalPicker">
+        <!-- Modal content -->
+        <div class="modal-content-picker">
+            <span class="close"  @click="CloseCategGump(1)">&times;</span>
+            <div class="item-pick-grid">
+              <div v-for="(item,index) in images">
+                <div role="button" class="item-pick" @click="PickIcon(index)"><img class="img-icon" :src="LoadImg(index)" /></div>
+              </div>
+            </div>
+        </div>
+</div>
+<div :style="{ display: modalCategState.genericColorPicker }" class="modalPicker">
+        <!-- Modal content -->
+        <div class="modal-content-picker">
+            <span class="close"  @click="CloseCategGump(1)">&times;</span>
+            <div class="item-pick-grid">
+              <div v-for="(item,index) in matColors">
+                <div role="button" class="color-pick" @click="OpenCategGump('colorPicker',item)"><div class="color-pick" :style="{ background: index.toString() }" /></div>
+              </div>
+            </div>
+        </div>
+</div>
+<div :style="{ display: modalCategState.colorPicker }" class="modalPicker-2">
+        <!-- Modal content -->
+        <div class="modal-content-picker">
+            <span class="close"  @click="CloseCategGump(2)">&times;</span>
+            <div class="item-pick-grid">
+              <div v-for="(item,index) in colors.value">
+                <div role="button" class="color-pick" @click="PickColor(index)"><div class="color-pick" :style="{ background: item }" /></div>
+              </div>
+            </div>
+        </div>
+</div>
 <div class="Container-Spese" :style="{ display: displayAppSpese.containerSpese }">
-  <div class="area-cmd">
-    <button @click="OpenAddCategGump">Add Categories</button>
+  <!-- <div class="area-cmd">
+    <button @click="OpenCategGump('add')"><img src="/src/img/piu.png"></button>
     <button @click="debug">DebugPrinf</button>
-  </div>
+  </div> -->
   <div class="area-categorie">
     <li v-for="item in categories.value">
     <div class="dropdown-categ-actions"> 
-      <div class="categ-actions-item"><p>{{item.nCateg}}</p><p>{{ item.codIcona }}</p></div>
+      <div class="categ-actions-item" :style="{ background: item.color }"><p>{{item.nCateg}}</p><img class="img-icon" :src="LoadImg(item.codIcona)" /></div> <!-- <img v-bind:src="img[item.codIcona]/> -->
       <div class="dropdown-categ-actions-content">
         <ul class="list-group-categ-action">
           <li><div class="categ-action-item" role="button" @click="OpenAddTransitionGump(item.nCateg,item.codIcona)">Add Transition</div></li>
-          <li><div class="categ-action-item" role="button" @click="ModCateg(item.nCateg)">Mod Category</div></li>
+          <li><div class="categ-action-item" role="button" @click="OpenCategGump('mod',item.nCateg,item.codIcona,item.color)">Mod Category</div></li>
           <li><div class="categ-action-item" role="button" @click="RemCateg(item.nCateg)">Rem Category</div></li>
-          <li><div class="categ-action-item" role="button" @click="MergeCateg(item.nCateg)">Merge Category</div></li>
+          <li><div class="categ-action-item" role="button" @click="OpenCategGump('merge',item.nCateg)">Merge Category</div></li>
         </ul>  
       </div>
     </div>
     </li>
+    <li class="li-add-categ"><button @click="OpenCategGump('add')"><img src="/src/img/piu.png"></button></li>
   </div>
 </div>`;
 
@@ -176,11 +238,11 @@ const subComponentTransition_Html=`
         </div>
 </div>
 <div class="Container-Transitions" :style="{ display: displayAppSpese.containerTransitions }">
-  <div class="List-Transitions">
+  <div class="list-transitions">
   <li v-for="item in arrayTransitions">
-    <div class="dropdown-categ-actions"> 
-      <div class="categ-actions-item"><p>{{GetCateg(item[0]).nCateg}}</p><p>{{item[1]}}</p><p>{{item[2]}}</p><p>{{item[3]}}</p></div>
-      <div class="dropdown-categ-actions-content">
+    <div class="dropdown-transition-actions">
+      <div class="transition-actions-item" :style="{ background: GetCateg(item[0]).color }" ><div class="t-div-ncateg"> <div class="t-div-date"> {{item[3]}} </div> {{GetCateg(item[0]).nCateg}} </div><div class="t-div-desc">{{item[1]}}</div><div class="t-div-value">{{item[2]}}</div></div>
+      <div class="dropdown-transition-actions-content">
         <ul class="list-group-categ-action">
           <li><div class="categ-action-item" role="button" @click="RemTransition(item[0])">Delete Transition</div></li>
           <li><div class="categ-action-item" role="button" @click="OpenModTransitionGump(item[0])">Mod Transition</div></li>
@@ -212,7 +274,9 @@ const subComponentTools_Html=`
         <p class="warning">{{ warning }}</p>
       </div>
     </div>
-    <div role="button" @click="OpenToolsGump">Study graphs</div>
+    <div class="container-btn-study">
+      <div class="button-studygraphs" role="button" @click="OpenToolsGump">Study graphs</div>
+    </div>
     <br>
     <div class="list-graph-date" :style="{ display: itemData_Tools.tabBool }">
       <div class="list-graph-tab" :style="{ display: itemData_Tools.dBool }">

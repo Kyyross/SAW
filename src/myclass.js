@@ -214,12 +214,14 @@ export class graphView{
         }
     }
     ShowAll(){
-        this.arrgraph=[];
+        this.arrGraph=[];
+        console.log(this.categorie);
         for(var category in this.categorie){
             for(var transition of this.categorie[category]["Transitions"]){
                 this.arrGraph.push(transition);
             }
         }
+        console.log(this.arrGraph);
     }
     SumValueTransition(){
         [this.containerColors,objGraphView.value,objGraphView.sum]=[{},{},0];

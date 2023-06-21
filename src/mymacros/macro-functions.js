@@ -49,6 +49,7 @@ export function GetWeek(value){
         console.error(e.message); return [];
     } 
 }
+/*function che genera colori scuri e restituisce l'hex code del colore
 export function getDarkColor() {
     var color = '#';
     for (var i = 0; i < 6; i++) {
@@ -56,6 +57,7 @@ export function getDarkColor() {
     }
     return color;
 }
+*/
 export function TranslateDaysWeek(num){
     switch(num){
         case 0 : return "Mon";

@@ -31,16 +31,20 @@ export default {
           ItemDataSetter(title,items.value[title]["tag"],items.value[title]["text"],items.value[title]["lastaccess"]);
         }
 
-        function ItemDataSetter(title="", tag="", text="", lastaccess=-1){
+        function ItemDataSetter(title="", tag="", text="", lastaccess=""){
           itemData_Nota.value.text=text;
           itemData_Nota.value.title=title;
           itemData_Nota.value.tag=tag;
-          if(lastaccess!=-1)itemData_Nota.value.lastaccess=lastaccess;
+          itemData_Nota.value.lastaccess=lastaccess;
         }
 
         function deleteNotes(){
           console.log("deletenotes");
           for(let item in listSelected){
+            if(itemData_Nota.value.title==item){
+              itemData_Nota.disabled=true;
+              ItemDataSetter();
+            }
             delete(items.value[item]);
             delete(listSelected[item]);
           }
@@ -71,7 +75,7 @@ export default {
         }
         //WATCHERs
         watch(()=>itemData_Nota.value.text,(dataNew)=>{ 
-          if(inModal.bool)return;
+          if(inModal.bool||itemData_Nota.disabled)return;
           itemData_Nota.value.text=dataNew;
           itemData_Nota.value.lastaccess=new Date().toLocaleString();
           var obje=new Nota(itemData_Nota.value.title,itemData_Nota.value.lastaccess,dataNew);
@@ -79,7 +83,7 @@ export default {
          });
 
         watch(()=>itemData_Nota.value.title,dataNew=>{
-          if(inModal.bool||dataNew=="")return;
+          if(inModal.bool||dataNew==""||itemData_Nota.disabled)return;
           itemData_Nota.value.title=dataNew;
           itemData_Nota.value.lastaccess=new Date().toLocaleString();
           var obje=new Nota(itemData_Nota.value.title,itemData_Nota.value.lastaccess,itemData_Nota.value.text);
