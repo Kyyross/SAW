@@ -1,5 +1,5 @@
 //XmlHttpRequest Approach
-import { warningSign, userName, items, categories, codContainer} from '../globalVar.js';
+import { warningSign, userName, items, categories, codContainer, itemData_Auth} from '../globalVar.js';
 var httpRequest;
 
 const MakeRequest= (TYPE,REQUEST="",URL="")=>{
@@ -93,6 +93,9 @@ const CheckStateSignIn=()=>{
                     LoadSave(response.data);
                     window.localStorage.setItem("username",userName.value);
                     window.localStorage.setItem(userName.value,JSON.stringify(response.data));
+                    itemData_Auth.Password="";
+                    itemData_Auth.Username="";
+                    itemData_Auth.cPassword="";
                 }
                 break;
                 case 400: {

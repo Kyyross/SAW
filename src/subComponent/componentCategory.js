@@ -1,8 +1,11 @@
 import { categories, codContainer, warning, ItemDataSetter, inModal, modalCategState, itemData } from '../globalVar.js';
 import { Categoria } from '../myclass.js';
 import { reactive } from 'vue';
-
-export const images=["/src/icons/1.png","/src/icons/2.png"];
+const f="/src/icons/"
+export const images=["/src/icons/1.svg","/src/icons/2.svg","/src/icons/3.svg","/src/icons/4.svg",
+"/src/icons/5.svg","/src/icons/6.svg","/src/icons/7.svg","/src/icons/8.svg","/src/icons/9.svg","/src/icons/10.svg",
+"/src/icons/11.svg","/src/icons/12.svg","/src/icons/13.svg","/src/icons/14.svg","/src/icons/15.svg","/src/icons/16.svg",
+"/src/icons/17.svg","/src/icons/18.svg","/src/icons/19.svg","/src/icons/20.svg"];
 export const colors=reactive({value:{}});
 export const matColors = {
 	"#ff6f00" : {

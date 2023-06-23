@@ -2,19 +2,20 @@ import { categories, codContainer, warning, ItemDataSetter, modalTransitionState
 import { CheckDate } from '../mymacros/macro-functions.js';
 import { v4 as uuid } from 'uuid';
 
-export const OpenAddTransitionGump = (nameCateg,nIcon) => { 
+export const OpenAddTransitionGump = (nameCateg,nIcon,color) => { 
     [inModal.bool,warning.value,modalTransitionState.display]=[true,"","block"];
-    console.log(nameCateg+nIcon);
-    ItemDataSetter(nameCateg,nIcon,"","","","");
+    console.log(nameCateg+""+nIcon+""+color);
+    ItemDataSetter(nameCateg,nIcon,"","","","","",color);
 };
 export const CloseAddTransitionGump = () => [inModal.bool,modalTransitionState.display]=[false,"none"];
 
-export const OpenModTransitionGump = (codItem) => {
+export const OpenModTransitionGump = (codItem, nota, value, date) => {
     [inModal.bool,warning.value,modalTransitionState.mod]=[true,"","block"];
     let nameCateg=codContainer[codItem];
     let nIcon=categories.value[nameCateg]["codIcona"];
+    let color=categories.value[nameCateg]["color"];
     console.log(nameCateg+nIcon);
-    ItemDataSetter(nameCateg,nIcon,"","",codItem,"");
+    ItemDataSetter(nameCateg,nIcon,nota,value,codItem,date,"",color);
 }
 export const CloseModTransitionGump = () => [inModal.bool,modalTransitionState.mod]=[false,"none"];
 

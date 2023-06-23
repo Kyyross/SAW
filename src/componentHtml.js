@@ -13,7 +13,7 @@ const html_=
 const html1=`</div><div id="app1">`;
 const html2=`</div><div id="app2">`;
 const html3=`</div><div id="app3">`;
-const _html=`</div></div></div></body></html>`;
+const _html=`</div></div></div></body><footer><p>Developed by Edoardo Barigliano</p><div>Icon made by UIcons from <a href="www.flaticon.com"> www.flaticon.com</a></div><div><a href="https://www.freepik.com/free-vector/seamless-pattern-stripes-ink-brush-background_15229871.htm#page=2&query=continuous%20pattern&position=37&from_view=keyword&track=ais">Image by rawpixel.com</a> on Freepik</div></footer></html>`;
 
 //HTML FOR TEMPLATE: app components
 const componentNotes_Html=`
@@ -57,61 +57,67 @@ const componentNotes_Html=`
 
 const componentMenu_Html=`
 <!-- Top navigation-->
-<div class="navbar">
-  <div class="navbar-item" :style="{ display: userName.display }"><p>{{userName.value}}</p></div>
-  <div style="display: fixed" class="navbar-item" role="button" @click="Open1"><p>Login</p></div>
-  <div class="dropdown"> 
-      <div class="navbar-item"><p>Your Apps</p></div>
-      <div class="dropdown-content">
-        <ul class="list-group">
-          <li><div style="display: fixed" class="navitem-btn" role="button" @click="Open0">Notes</div></li>
-          <li><div style="display: fixed" class="navitem-btn" role="button" @click="Open2">Expense Management</div></li>
-        </ul>
+<div class="navbar">  
+  <div class="nav-homeEitems">  
+    <div class="nav-home">
+      <div class="navbar-item" role="button" @click="Open0"> <img src="/src/icons/home.png" /> </div>
+    </div>
+    <div class="nav-items">
+      <div class="dropdown">
+        <div class="navbar-item" :style="{ display: userName.display }"><p class="nav-bar-userName">{{userName.value}}</p></div>
+        <div class="dropdown-content">
+          <ul :style="{ display: displayButtonSign.SignOut }" class="list-group">
+            <li><div style="display: fixed" class="navitem-btn" role="button" @click="SaveWork">SaveWork</div></li>
+            <li><div style="display: fixed" class="navitem-btn" role="button" @click="SignOut">Log Out</div></li>
+          </ul>
+        </div>
+      </div>  
+      <div class="dropdown"> 
+        <div style="display: fixed" class="navbar-item"><p>Login</p></div>
+        <div class="dropdown-content">
+          <ul class="list-group" :style="{ display: displayButtonSign.SignIn }">
+            <li><div style="display: fixed" class="navitem-btn" role="button" @click="Open2(false)">Sign Up</div></li>
+            <li><div style="display: fixed" class="navitem-btn" role="button" @click="Open2(true)">Sign In</div></li>
+          </ul>
+        </div>
       </div>
-  </div>
+      <div class="dropdown"> 
+        <div class="navbar-item"><p>Your Apps</p></div>
+        <div class="dropdown-content">
+          <ul class="list-group">
+            <li><div style="display: fixed" class="navitem-btn" role="button" @click="Open1">Notes</div></li>
+            <li><div style="display: fixed" class="navitem-btn" role="button" @click="Open3">Expense Management</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>    
 </div>
 <!-- Page content-->
-    <h1 class="titlepage">{{titlePage}}</h1>
+    <h1 class="titlepage">{{titlePage.value}}</h1>
+    <div class="Home-Page" :style="{ display: titlePage.homeB }">
+      <h3>Hello everybody,</h3>
+      <p>thank you for visiting us. This is a experimental Pwa (progressive web app), you can register and try it freely. 
+      If you think this app is interesting, i would be very glad in the case you will leave a review. 
+      Thanks again, best regards.</p>
+    </div>
 `
 
 const componentAuthentication_Html=`
-<div :style="{ display: displayAppAuth.display }"> 
-  <p> {{userName.value}} </p>
-  <p class="warning"> {{ warningSign }} </p>
-  <div :style="{ display: displayButtonSign.SignIn }">
-  <button @click="GumpSign('y','y')">Sign Up</button>
-  <button @click="GumpSign('n','y')">Sign In</button>
-  </div>
-  <div :style="{ display: displayButtonSign.SignOut }">
-  <button @click="SignOut">Sign Out</button>
-  </div>
-  <button @click="SaveWork">SaveWork</button>
-  <!-- The Modal SignUp-->
-  <div :style="{ display: displaySign.displaySignUp }" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close" @click="GumpSign('y','n')">&times;</span>
-        <label>Username</label>
-        <input v-model="itemData.Username"><br><br>
-        <label>Password</label> 
-        <input v-model="itemData.Password"><br><br>
-        <div @click="SignUp">Sign Up</div>
+<div class="container-auth" :style="{ display: displayAppAuth.display }"> 
+      <div class="area-auth" :style="{ display: displayButtonSign.SignIn }">  
+        <label class="label-username">Username</label>
+        <input class="input-username" maxlength="15" v-model="itemData_Auth.Username"><br><br>
+        <label class="label-password">Password</label> 
+        <input class="input-password" type="password" maxlength="15" v-model="itemData_Auth.Password"><br><br>
+        <label class="label-password" :style="{ display: displayButtonSign.cmdSignUp }">Confirm password</label> 
+        <input class="input-password" type="password" maxlength="15" v-model="itemData_Auth.cPassword" :style="{ display: displayButtonSign.cmdSignUp }"><br><br>
+        <div class="btn-sign" :style="{ display: displayButtonSign.cmdSignUp }" @click="SignUp">Sign Up</div>
+        <div class="btn-sign" :style="{ display: displayButtonSign.cmdSignIn }" @click="SignIn">Sign In</div>
+      </div>
         <p class="warning"> {{ warningSign }} </p>
-    </div>
-  </div>
-  <!-- The Modal SignIn-->
-  <div :style="{ display: displaySign.displaySignIn }" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close" @click="GumpSign('n','n')">&times;</span>
-        <label>Username</label>
-        <input v-model="itemData.Username"><br><br>
-        <label>Password</label> 
-        <input v-model="itemData.Password"><br><br>
-        <div @click="SignIn">Sign In</div>
-        <p class="warning"> {{ warningSign }} </p>
-    </div>
-  </div>
+  <!-- <button @click="GumpSign('y','y')">Sign Up</button>
+        <button @click="GumpSign('n','y')">Sign In</button> -->
 </div>
 `;
 
@@ -120,12 +126,12 @@ const subComponentCategory_Html=`
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close"  @click="CloseCategGump(0)">&times;</span>
-            <input v-model="itemData.value.nCateg" placeholder="Nome Categoria">
-            <div role="button" @click="OpenCategGump('iconPicker')">Icona:</div>
+            <input class="input-nCateg" maxlength="30" v-model="itemData.value.nCateg" placeholder="Nome Categoria">
+            <div class="div-icon" role="button" @click="OpenCategGump('iconPicker')">Icona:</div>
             <img class="img-icon" v-if="itemData.value.nIcon!=''" :src="LoadImg(itemData.value.nIcon)" /> 
-            <div role="button" @click="OpenCategGump('genericColorPicker')">Colore:</div>
+            <div class="div-color" role="button" @click="OpenCategGump('genericColorPicker')">Colore:</div>
             <div class="color-pick" v-if="itemData.value.color!=''" :style="{ background: itemData.value.color }" />
-            <div @click="AddCateg">Confirm Categories</div>
+            <div class="btn-modal" @click="AddCateg">Confirm Categories</div>
             <p class="warning">{{ warning }}</p>
         </div>
 </div>
@@ -133,13 +139,13 @@ const subComponentCategory_Html=`
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close"  @click="CloseCategGump(0)">&times;</span>
-            <p>{{itemData.value.nCateg}}</p>
-            <input v-model="itemData.value.rename" placeholder="Nome Categoria">
-            <div role="button" @click="OpenCategGump('iconPicker')">Icona:</div>
+            <h2>{{itemData.value.nCateg}}</h2>
+            <input class="input-nCateg" maxlength="30" v-model="itemData.value.rename" placeholder="Rename Category">
+            <div class="div-icon" role="button" @click="OpenCategGump('iconPicker')">Icona:</div>
             <img class="img-icon" v-if="itemData.value.nIcon!=''" :src="LoadImg(itemData.value.nIcon)" /> 
-            <div role="button" @click="OpenCategGump('genericColorPicker')">Colore:</div>
+            <div class="div-color" role="button" @click="OpenCategGump('genericColorPicker')">Colore:</div>
             <div class="color-pick" v-if="itemData.value.color!=''" :style="{ background: itemData.value.color }" />
-            <div @click="ModCateg">Confirm Categories</div>
+            <div class="btn-modal" @click="ModCateg">Confirm Categories</div>
             <p class="warning">{{ warning }}</p>
         </div>
 </div>
@@ -147,10 +153,13 @@ const subComponentCategory_Html=`
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close"  @click="CloseCategGump(0)">&times;</span>
-            <p>{{itemData.value.nCateg}}</p>
+            <div class="modal-heading">
+              <h2 class="modal-nCateg">{{itemData.value.nCateg}}</h2> 
+              <div class="modal-icon" :style="{ background: itemData.value.color }"><img class="img-icon" :src="LoadImg(itemData.value.nIcon)" /></div>
+            </div>
             <p>Inserire la categoria con cui fare il merge</p>
-            <input v-model="itemData.value.rename" placeholder="Nome Categoria">
-            <div @click="MergeCateg()">Confirm Categories</div>
+            <input class="input-nCateg" maxlength="30" v-model="itemData.value.rename" placeholder="Nome Categoria">
+            <div class="btn-modal" @click="MergeCateg()">Confirm Categories</div>
             <p class="warning">{{ warning }}</p>
         </div>
 </div>
@@ -195,10 +204,10 @@ const subComponentCategory_Html=`
   <div class="area-categorie">
     <li v-for="item in categories.value">
     <div class="dropdown-categ-actions"> 
-      <div class="categ-actions-item" :style="{ background: item.color }"><p>{{item.nCateg}}</p><img class="img-icon" :src="LoadImg(item.codIcona)" /></div> <!-- <img v-bind:src="img[item.codIcona]/> -->
+      <div class="categ-actions-item" :style="{ background: item.color }"><h2>{{item.nCateg}}</h2><img class="img-icon" :src="LoadImg(item.codIcona)" /></div>
       <div class="dropdown-categ-actions-content">
         <ul class="list-group-categ-action">
-          <li><div class="categ-action-item" role="button" @click="OpenAddTransitionGump(item.nCateg,item.codIcona)">Add Transition</div></li>
+          <li><div class="categ-action-item" role="button" @click="OpenAddTransitionGump(item.nCateg,item.codIcona,item.color)">Add Transition</div></li>
           <li><div class="categ-action-item" role="button" @click="OpenCategGump('mod',item.nCateg,item.codIcona,item.color)">Mod Category</div></li>
           <li><div class="categ-action-item" role="button" @click="RemCateg(item.nCateg)">Rem Category</div></li>
           <li><div class="categ-action-item" role="button" @click="OpenCategGump('merge',item.nCateg)">Merge Category</div></li>
@@ -215,12 +224,15 @@ const subComponentTransition_Html=`
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close"  @click="CloseAddTransitionGump">&times;</span>
-            <p>{{itemData.value.nCateg}} {{itemData.value.nIcon}}</p>
-            <input v-model="itemData.value.valueTransition" placeholder="Valore">
-            <input v-model="itemData.value.noteTransition" placeholder="Nota">
+            <div class="modal-heading">
+              <h2 class="modal-nCateg">{{itemData.value.nCateg}}</h2> 
+              <div class="modal-icon" :style="{ background: itemData.value.color }"><img class="img-icon" :src="LoadImg(itemData.value.nIcon)" /></div>
+            </div>
+            <input class="input-valuetrans" v-model="itemData.value.valueTransition" placeholder="Valore">
+            <input class="input-notatrans" v-model="itemData.value.noteTransition" placeholder="Nota">
             <label class="label-date">Data</label>
             <input type="date" v-model="itemData.value.dateTransition" class="input-date">
-            <div role="button" @click="AddTransition">Confirm Transition</div>
+            <div class="btn-modal" role="button" @click="AddTransition">Confirm Transition</div>
             <p class="warning">{{ warning }}</p>
         </div>
 </div>
@@ -228,12 +240,15 @@ const subComponentTransition_Html=`
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close"  @click="CloseModTransitionGump">&times;</span>
-            <p>{{itemData.value.nCateg}} {{itemData.value.nIcon}}</p>
+            <div class="modal-heading">
+              <h2 class="modal-nCateg">{{itemData.value.nCateg}}</h2> 
+              <div class="modal-icon" :style="{ background: itemData.value.color }"><img class="img-icon" :src="LoadImg(itemData.value.nIcon)" /></div>
+            </div>
             <input v-model="itemData.value.valueTransition" placeholder="Valore">
             <input v-model="itemData.value.noteTransition" placeholder="Nota">
             <label class="label-date">Data</label>
             <input type="date" v-model="itemData.value.dateTransition" class="input-date">
-            <div role="button" @click="ModTransition">Confirm Transition</div>
+            <div class="btn-modal" role="button" @click="ModTransition">Confirm Transition</div>
             <p class="warning">{{ warning }}</p>
         </div>
 </div>
@@ -244,8 +259,8 @@ const subComponentTransition_Html=`
       <div class="transition-actions-item" :style="{ background: GetCateg(item[0]).color }" ><div class="t-div-ncateg"> <div class="t-div-date"> {{item[3]}} </div> {{GetCateg(item[0]).nCateg}} </div><div class="t-div-desc">{{item[1]}}</div><div class="t-div-value">{{item[2]}}</div></div>
       <div class="dropdown-transition-actions-content">
         <ul class="list-group-categ-action">
-          <li><div class="categ-action-item" role="button" @click="RemTransition(item[0])">Delete Transition</div></li>
-          <li><div class="categ-action-item" role="button" @click="OpenModTransitionGump(item[0])">Mod Transition</div></li>
+          <li><div class="trans-action-item" role="button" @click="RemTransition(item[0])">Delete Transition</div></li>
+          <li><div class="trans-action-item" role="button" @click="OpenModTransitionGump(item[0],item[1],item[2],item[3])">Mod Transition</div></li>
         </ul>  
       </div>
     </div>  
@@ -260,6 +275,7 @@ const subComponentTools_Html=`
       <div class="modal-content">
         <span class="close"  @click="CloseToolsGump">&times;</span>
         <label>Choose a type of date:</label>
+        <br>
           <select class="type-date-gump" v-model="itemData_Tools.type">
             <option value="alltime" selected>Alltime</option>
             <option value="year">Year</option>
@@ -270,7 +286,8 @@ const subComponentTools_Html=`
         <input type="date" v-model="itemData_Tools.value" class="input-date" :style="{ display: itemData_Tools.dBool }" />
         <input type="month" v-model="itemData_Tools.value" class="input-date" :style="{ display: itemData_Tools.mBool }" />
         <input type="number" v-model="itemData_Tools.value" class="input-date" :style="{ display: itemData_Tools.yBool }" />  
-        <div role="button" @click="ConfirmDate">Confirm</div>
+        <br>
+        <div class="btn-modal" role="button" @click="ConfirmDate">Confirm</div>
         <p class="warning">{{ warning }}</p>
       </div>
     </div>
@@ -311,6 +328,7 @@ const subComponentTools_Html=`
           </div>
         </div>
       </div>
+      <div class="tab-footer" :style="{ display: itemData_Tools.aBool }"></div>
     </div> <!-- Horizontal Graph -->
     <div class="list-graph-sum" :style="{ display: itemData_Tools.sumBool }">
       <li class="item-graph" v-for="item in objView.h_bar">

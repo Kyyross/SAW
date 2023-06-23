@@ -1,4 +1,4 @@
-import { categories, date, inModal, itemData_Tools, warning } from "../globalVar.js";
+import { categories, date, inModal, itemData_Tools, warning, ClearItemDataTools } from "../globalVar.js";
 import { computed , watch } from 'vue';
 import { graphView } from '../myclass.js';
 import {CheckDate} from '../mymacros/macro-functions.js';
@@ -28,11 +28,9 @@ export const ConfirmDate = () => {
     CloseToolsGump();
 }
 export const OpenToolsGump = () => {
-  [inModal.bool,warning.value,itemData_Tools.toolsGump,
-    itemData_Tools.value, itemData_Tools.type,itemData_Tools.yBool,
-    itemData_Tools.mBool,itemData_Tools.dBool, itemData_Tools.aBool,
-    itemData_Tools.sumBool, itemData_Tools.tabBool]
-    =[true,"","block","","","none","none","none","none","none","none"];
+  warning.value="";
+  ClearItemDataTools();
+  itemData_Tools.toolsGump="block";
 }
 export const CloseToolsGump = () => {
   [inModal.bool,warning.value,itemData_Tools.toolsGump,
@@ -58,11 +56,16 @@ watch(()=>itemData_Tools.type,(type) => {
       default: warning.value="Errore nel tipo della data";
   }
 })
-watch(categories,(newvalue)=>{
+/*watch(categories,(newvalue)=>{
+  console.log("WATCHED categ");
   viewgraph=new graphView(newvalue.value);
-})
+})*/
 
 const CalculateGraphs = () => {
+  /*console.log("computed");
+  console.log(categories.value);*/
+  viewgraph=new graphView(categories.value)
+  if(Object.entries(categories.value).length==0)return {"h_bar":{}, "week":{}, "month":{}, "year":{}, "all":{}};
   viewgraph.ShowGraphics(date.type,date.value);
   return {"h_bar": viewgraph.SumValueTransition(), 
     "week":viewgraph.week, "month":viewgraph.month, 

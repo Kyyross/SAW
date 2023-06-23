@@ -47,8 +47,9 @@ export class graphView{
                                                                               ncateg:{"svago": { sum 100, fun }}  
                                                                             }}}} */
     GetMapCategorie(categorie){
-        if(categorie===undefined) return {};
+        console.log("getmap: "+categorie);
         var allTime={"max":0 , "sum":0, "categ":{}, "years":{}};
+        if(categorie===undefined) return {allTime};
         console.log(categorie);
         for(var categoria in categorie){
             for(let transition of categorie[categoria]["Transitions"]){
@@ -225,6 +226,9 @@ export class graphView{
     }
     SumValueTransition(){
         [this.containerColors,objGraphView.value,objGraphView.sum]=[{},{},0];
+        console.log("arrgraph");
+        console.log(this.arrGraph);
+        if(this.arrGraph.length==0)return {};
         for(var item of this.arrGraph){
             let category=codContainer[item[0]];
             if(!objGraphView.value[category]){
