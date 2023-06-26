@@ -34,6 +34,7 @@ if("serviceWorker" in navigator){
     });
 
     navigator.serviceWorker.addEventListener('message',evt=>{
+        if(evt.data==="offline")var notification= new Notification("ora sei offline");
         console.log("SW to Client: " + evt.data);
     });
 
@@ -49,11 +50,11 @@ if(!("Notification" in window)){
     alert("The Browser does not support the notification")
     }
     else if(Notification.permission==="granted"){
-    var notification = new Notification(
+        new Notification(
         "Hello",
         {
             lang: "en",
-            body: "Hi",
+            body: "Welcome back",
             icon: "/src/icons/icon-192x192.png",
             vibrate: [200,100,200]
         }
@@ -61,10 +62,13 @@ if(!("Notification" in window)){
     }else if(Notification.permission!=="denied"){
     await Notification.requestPermission();
     if(Notification.permission==="granted"){
-        var notification = new Notification("Try Notification");   
+        new Notification("Le notifiche sono attivate");   
     }
 }
+addEventListener("online", (event) => {new Notification("mode online")});
+addEventListener("offline", (event) => {new Notification("mode offline")});
 
+/*
 if(window.localStorage.length!=0){
     let utente=window.localStorage.getItem("username");
     console.log(utente);
@@ -76,7 +80,7 @@ if(window.localStorage.length!=0){
 else{
     console.log("inizio sessione");
 }
-
+*/
 //DEBUGGINGif(window.isSecureContext)console.log("siamo al sicuro");
 //else console.log("non al sicuro");
 

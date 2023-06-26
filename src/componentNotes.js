@@ -3,6 +3,7 @@ import {displayAppNotes, items, itemData_Nota, inModal, warning} from './globalV
 import { Nota } from './myclass.js';
 import { sortObject } from './mymacros/macro-functions.js';
 import { componentNotes_Html } from './componentHtml.js';
+import { works } from './Firebase/firebase_db.js';
 
 export default {
     data(){
@@ -16,12 +17,14 @@ export default {
         };
 
         const Close=()=>{ inModal.bool=false; ItemDataSetter(); state.display="none";};
-
+        
         const Confirm = ()=>{
-            var obje=new Nota(itemData_Nota.value.title,itemData_Nota.value.lastaccess); 
+            var obje=Nota(itemData_Nota.value.title,itemData_Nota.value.lastaccess);
             if(Check(obje)) return; 
             items.value[obje.title]=obje;
-            inModal.temp=obje.title; 
+            addNote(obje)
+            inModal.temp=obje.title;
+            itemData_Nota.disabled=true; 
             Close();
         };
 
@@ -48,6 +51,8 @@ export default {
             delete(items.value[item]);
             delete(listSelected[item]);
           }
+          itemData_Nota.dirty=true;
+          updateNote();
         }
 
         function selectNote(nameobj,bool){
@@ -78,22 +83,34 @@ export default {
           if(inModal.bool||itemData_Nota.disabled)return;
           itemData_Nota.value.text=dataNew;
           itemData_Nota.value.lastaccess=new Date().toLocaleString();
-          var obje=new Nota(itemData_Nota.value.title,itemData_Nota.value.lastaccess,dataNew);
+          var obje=Nota(itemData_Nota.value.title,itemData_Nota.value.lastaccess,dataNew);
           items.value[obje.title]=obje;
+          itemData_Nota.dirty=true;
          });
 
         watch(()=>itemData_Nota.value.title,dataNew=>{
           if(inModal.bool||dataNew==""||itemData_Nota.disabled)return;
           itemData_Nota.value.title=dataNew;
           itemData_Nota.value.lastaccess=new Date().toLocaleString();
-          var obje=new Nota(itemData_Nota.value.title,itemData_Nota.value.lastaccess,itemData_Nota.value.text);
+          var obje=Nota(itemData_Nota.value.title,itemData_Nota.value.lastaccess,itemData_Nota.value.text);
           if(items.value[obje.title]) return;
           delete(items.value[inModal.temp]);
           items.value[obje.title]=obje;
           inModal.temp=obje.title;
+          console.log("sto watchando");
+          itemData_Nota.dirty=true;
         });
 
-        return {items, state, displayAppNotes , Open, Close, Confirm, Debugg, deleteNotes, selectNote, itemData_Nota, warning, Show, arrayOrdered, isDisabled};
+        const addNote=(obj)=>{
+          let ob={};
+          ob[obj.title]=obj;
+          works.addWork("notes",{"notes":ob})
+        }
+        const updateNote=()=>{
+          if(itemData_Nota.dirty)works.updateWork({"notes":items.value});
+          itemData_Nota.dirty=false;
+        }
+        return {items, state, displayAppNotes , Open, Close, Confirm, Debugg, deleteNotes, selectNote, itemData_Nota, warning, Show, arrayOrdered, isDisabled, updateNote};
     },
     template: componentNotes_Html
 }

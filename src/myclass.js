@@ -1,13 +1,16 @@
 import {categories, codContainer, objGraphView } from "./globalVar.js";
 import { checkNested, CheckDate, GetWeek} from "./mymacros/macro-functions.js";
 
-class Nota{
+/*class Nota{
     constructor(title,lastaccess,text=""){
         this.title=title;
         this.lastaccess=lastaccess;
         this.text=text;
         this.checked=false;
     }
+}*/
+const Nota=(title,lastaccess,text="")=>{
+    return {"title":title,"lastaccess":lastaccess, "text":text};
 }
 
 class Categoria{
@@ -55,6 +58,9 @@ export class graphView{
             for(let transition of categorie[categoria]["Transitions"]){
                 let date=transition[3];
                 date=date.split("-");
+                for(let x in date) date[x]=parseInt(date[x]);
+                //[date[0],date[1],date[2]]=[parseInt(date[0]),parseInt(date[1]),parseInt(date[2])];
+                //console.log(year+" "+month+""+day);
                 if(checkNested(allTime,"years",date[0],"months",date[1],"days",date[2])){
                     allTime.years[date[0]]["months"][date[1]]["days"][date[2]]["transitions"].push(transition);
                     this.SetCateg([allTime.years[date[0]]["months"][date[1]]["days"][date[2]],allTime.years[date[0]]["months"][date[1]],allTime.years[date[0]],allTime],transition);
@@ -122,9 +128,12 @@ export class graphView{
         if(date===undefined) return this.map["allTime"];
         if(Object.entries(this.map).length==0){console.log("getgraph"+this.map); return {}; }
         console.log(this.map);
-        var [year, month, day]=date!==undefined?date.split("-"):[undefined,undefined,undefined];
+        var [year, month, day]=date.split("-");
+        year = (year!==undefined?parseInt(year):undefined);
+        month = (month!==undefined?parseInt(month):undefined);
+        day = (day!==undefined?parseInt(day):undefined);
         try{
-            console.log(year+month+day);
+            //console.log(year+" "+month+""+day);
             let yearsmap=this.map["allTime"]["years"];
             if(day!==undefined) return (yearsmap[year]["months"][month]["days"][day]===undefined?{}:yearsmap[year]["months"][month]["days"][day]);
             if(month!==undefined) return (yearsmap[year]["months"][month]===undefined?{}:yearsmap[year]["months"][month]);

@@ -1,3 +1,4 @@
+import { works } from '../Firebase/firebase_db.js';
 import { categories, codContainer, warning, ItemDataSetter, inModal, modalCategState, itemData } from '../globalVar.js';
 import { Categoria } from '../myclass.js';
 import { reactive } from 'vue';
@@ -270,6 +271,8 @@ export const ModCateg=()=>{
             categories.value[rename]["codIcona"]=itemData.value.nIcon;
             categories.value[rename]["color"]=itemData.value.color;
             if(nameC!==rename)delete(categories.value[nameC]);
+            //works.updateWork({"codContainer":codContainer});
+            works.updateWork({"codContainer":codContainer, "categories":categories.value});
             CloseCategGump(0);
         } 
     }catch(e){console.error("error on delete categoria"+e);}
@@ -279,17 +282,23 @@ export const AddCateg=()=>{
     var obje=new Categoria(itemData.value.nCateg,itemData.value.nIcon); 
     if(Check(obje)) return;
     categories.value[itemData.value.nCateg]={"nCateg":itemData.value.nCateg,"codIcona":obje.nIcon, "color": itemData.value.color ,"Transitions":[]};
+    let obj={"categories":{}};
+    obj.categories[itemData.value.nCateg]=categories.value[itemData.value.nCateg];
+    works.addWork("categories",obj);
     CloseCategGump(0);
 }
 
 export const RemCateg=(item)=>{
     try{
-        if(categories.value[item]&&confirm("sicuro di volerla rimuovere? così eliminerai anche le transazioni di questa categoria registrate finora")){
+        if(categories.value[item]){//&&confirm("sicuro di volerla rimuovere? così eliminerai anche le transazioni di questa categoria registrate finora")){
             for(let key of categories.value[item]["Transitions"]){
                 console.log(key[0]);
                 delete(codContainer[key[0]]);
+                //works.updateWork({"codContainer":codContainer});
             }
             delete(categories.value[item]);
+            works.updateWork({"codContainer":codContainer, "categories":categories.value});
+            CloseCategGump(0);
         } 
     }catch(e){console.error("error on delete categoria"+e);}
 }
@@ -307,6 +316,7 @@ export const MergeCateg=()=>{
             categories.value[categ2]["Transitions"].push(key);
         }
         delete(categories.value[categ1]);
+        works.updateWork({"codContainer":codContainer,"categories":categories.value})
         CloseCategGump(0);
     }catch(e){console.error(e);}
 }
@@ -324,9 +334,13 @@ export const OpenCategGump = (type,...rest) => {
             ItemDataSetter(rest[0],rest[1],"","","","",rest[0],rest[2]);
         }
         break;
+        case "del":{
+            modalCategState.del="block";
+            ItemDataSetter(rest[0],rest[1],"","","","","",rest[2]);
+        }break;
         case "merge":{
             modalCategState.merge="block";
-            ItemDataSetter(rest[0],"","","","","","","");
+            ItemDataSetter(rest[0],rest[1],"","","","","",rest[2]);
         }
         break;
         case "genericColorPicker":{
@@ -347,7 +361,7 @@ export const OpenCategGump = (type,...rest) => {
 export const CloseCategGump = (lvl=0) => {
     switch(lvl){
         case 0:{
-            [inModal.bool,modalCategState.add,modalCategState.mod,modalCategState.merge]=[false,"none","none","none"];
+            [inModal.bool,modalCategState.add,modalCategState.mod,modalCategState.del,modalCategState.merge]=[false,"none","none","none","none"];
         }break;
         case 1:{
             [modalCategState.genericColorPicker, modalCategState.colorPicker, modalCategState.iconPicker]=["none","none","none"];

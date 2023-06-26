@@ -7,9 +7,11 @@
   body {
     font-family: Arial;
     margin: 0;
-    background-image: url('/src/img/bg.jpg');
+    background-color: #121212;
+    margin-bottom: 60px;
+    /*background-image: url('/src/img/bg.jpg');
     background-repeat:repeat;
-    background-size: cover;
+    background-size: cover;*/
   }
   .header {
     padding: 60px;
@@ -99,6 +101,7 @@
     background-color: seashell;
   }
   .Home-Page{
+    padding: 15px;
     border:ridge;
     border-color:seashell;
     background-color: seashell;
@@ -120,12 +123,13 @@
     background-color: white;
     padding: 20px;
     min-width: 0;
-    background-image: url('/src/img/bg.jpg');
+    background-color: #121212;
+    /*background-image: url('/src/img/bg.jpg');
     background-repeat:repeat;
-    background-size: cover;
+    background-size: cover;*/
   }
-  footer {
-    position: fixed;
+  .footer {
+    position:fixed;
     bottom: 0;
     width: 100%;
     height: 20px;
@@ -135,11 +139,6 @@
     align-items: center;
     flex-wrap: nowrap;
     flex-direction: row;
-  }
-  .footer {
-    padding: 20px;
-    text-align: center;
-    background: #ddd;
   }
   @media (max-width: 700px) {
     .navbar {   
@@ -153,6 +152,9 @@
     }
     .nav-items{
       flex-direction: column;
+    }
+    .footer {
+      height: 60px;
     }
   }
   .button{
@@ -371,6 +373,14 @@
     background-color: #1abc9c;
     padding:11px;
   }
+  .auth-log{
+    min-width:120px;
+    border: ridge;
+    border-color: seashell;
+    padding: 5px;
+    background-color: seashell;
+    text-align: center;
+  }
 /* **FINE** COMPONENT AUTHENTICATION */
 /* COMPONENT NOTES */
   .areaNote{
@@ -383,10 +393,7 @@
     left: 0;
   }
   .grid-listanote{
-    /*flex: 30%;*/
     display: grid;
-    /*grid-template-columns: 32px 100px;
-    justify-content: space-evenly;*/
     grid-template: 
                   "a b" 20px
                   "c c" 20px;
@@ -483,6 +490,9 @@
     }
     .nav-bar-userName{
       color: #1e9c83;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   .Container-Spese{
     flex:80%;
@@ -552,13 +562,14 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     border: solid;
+    border-radius: 30%;
     border-color: grey;
     background: sienna;
   }
-  .categ-actions-item p {
+  /*.categ-actions-item p {
     filter: invert(1);
     mix-blend-mode: difference;
-  }
+  }*/
   .categ-actions-item:hover{
     cursor: pointer;
   }
@@ -641,8 +652,8 @@
   }
   .t-div-ncateg{
     flex:30%;
-    filter: invert(1);
-    mix-blend-mode: difference;
+    /*filter: invert(1);
+    mix-blend-mode: difference;*/
     text-align: center;
     font-size: 14px;
     overflow:hidden;
@@ -651,8 +662,8 @@
   }
   .t-div-ncateg p{
     text-align: center;
-    filter: invert(1);
-    mix-blend-mode: difference;
+    /*filter: invert(1);
+    mix-blend-mode: difference;*/
     font-size: 14px;
     overflow:hidden;
     text-overflow: ellipsis;
@@ -660,8 +671,8 @@
   }
   .t-div-desc{
     flex:50%;
-    filter: invert(1);
-    mix-blend-mode: difference;
+    /*filter: invert(1);
+    mix-blend-mode: difference;*/
     text-align: center;
     font-size: 14px;
     overflow:hidden;
@@ -670,8 +681,8 @@
   }
   .t-div-value{
     flex:20%;
-    filter: invert(1);
-    mix-blend-mode: difference;
+    /*filter: invert(1);
+    mix-blend-mode: difference;*/
     text-align: center;
     font-size: 14px;
     overflow:hidden;
@@ -690,6 +701,7 @@
     cursor: pointer;
   }
   .Container-Transitions{
+    flex:80%;
     display:"none";
     background-image: url(/src/img/background1.jpeg);
     width: -webkit-fill-available;
@@ -712,11 +724,13 @@
 /* **FINE** Subcomponent Transitions */
 /* Subcomponent Tools */
   .Container-Tools{
+    flex:80%;
     width: -webkit-fill-available;
     padding:10px;
   }
     .container-btn-study{
       display: flex;
+      flex-direction: column;
       flex-wrap: nowrap;
       align-content: center;
       justify-content: center;
@@ -741,6 +755,10 @@
       height:31px;
       border:double;
       background-color:seashell;
+    }
+    .tools-data-type{
+      margin-top: 15px;
+      font-size: 24px;
     }
     /*Horizontal Bar*/
     .list-graph-sum{

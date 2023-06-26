@@ -7,10 +7,10 @@ export function sortObject(obj,key){
     for(var item in obj.value){
         arr.push([obj.value[item],obj.value[item][key]]);
     }
-    return arr.sort((a,b)=>Sorting(a,b)).map((a)=>a[0]);
+    return arr.sort((a,b)=>Sorting(a[1],b[1])).map((a)=>a[0]);
 }
 //function per ordinare gli elementi in ordine decrescente.
-function Sorting(a,b){return a[1]>b[1]?-1:0;}
+export function Sorting(a,b){return a>b?-1:0;}
 
 export function CheckDate(value){
     try{
@@ -67,6 +67,25 @@ export function TranslateDaysWeek(num){
         case 4 : return "Fri";
         case 5 : return "Sat";
         case 6 : return "Sun";
+    }
+}
+
+export function TranslateMonths(num){
+    console.log(num);
+    console.log(typeof num);
+    switch(num){
+        case '1' : return "Jan";
+        case '2' : return "Feb";
+        case '3' : return "Mar";
+        case '4' : return "Apr";
+        case '5' : return "May";
+        case '6' : return "Jun";
+        case '7' : return "July";
+        case '8' : return "Aug";
+        case '9' : return "Sep";
+        case '10' : return "Oct";
+        case '11' : return "Nov";
+        case '12' : return "Dec";
     }
 }
 

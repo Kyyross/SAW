@@ -23,14 +23,15 @@ export const ConfirmDate = () => {
       default:{warning.value="scegliere il tipo di data"; return;}
     }
     console.log(itemData_Tools.type+" "+ itemData_Tools.value);
-    [date.type,date.value, itemData_Tools.tabBool ,itemData_Tools.sumBool]
-      =[itemData_Tools.type,itemData_Tools.value.toString(),"block","block"];
-    CloseToolsGump();
+    [date.type,date.value, itemData_Tools.tabBool ,itemData_Tools.sumBool, inModal.bool,warning.value,itemData_Tools.toolsGump]
+      =[itemData_Tools.type,itemData_Tools.value.toString(),"block","block",false,"","none"];
+      
+    //CloseToolsGump();
 }
 export const OpenToolsGump = () => {
-  warning.value="";
   ClearItemDataTools();
   itemData_Tools.toolsGump="block";
+  warning.value="";
 }
 export const CloseToolsGump = () => {
   [inModal.bool,warning.value,itemData_Tools.toolsGump,
@@ -53,6 +54,7 @@ watch(()=>itemData_Tools.type,(type) => {
       case "alltime": [itemData_Tools.yBool,itemData_Tools.mBool,itemData_Tools.dBool,
         itemData_Tools.aBool, itemData_Tools.type]=["none","none","none","flex","alltime"];
       break;
+      case "":break;
       default: warning.value="Errore nel tipo della data";
   }
 })

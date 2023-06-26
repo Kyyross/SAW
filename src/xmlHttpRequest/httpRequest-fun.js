@@ -119,9 +119,10 @@ const CheckStateSignIn=()=>{
     catch(e){console.error(e);}
 }
 
-export function LoadSave(obj){
+function LoadSave(obj){
     //manca di pulire items
     console.log(obj);
+    if(obj===undefined)return;
     try{
         for(let item in obj["notes"]){
             items.value[item]=obj["notes"][item];
@@ -151,4 +152,4 @@ function MakeObjToSave(){
     return {"notes":objNotes,"categories":objCategories,"codContainer":objCodContainer};
 }
 
-export {MakeRequest}
+export {MakeRequest, LoadSave, MakeObjToSave}

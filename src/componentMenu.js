@@ -2,13 +2,16 @@ import {displayAppNotes, displayAppAuth, displayAppSpese, userName, warningSign,
 import { componentMenu_Html } from './componentHtml.js';
 import { MakeRequest } from './xmlHttpRequest/httpRequest-fun.js';
 import { watch } from 'vue';
+import { userStore } from './Firebase/firebase_auth.js';
+import { works } from './Firebase/firebase_db.js';
 
 export default {
     data() {
       const Open0=()=>{Close(); titlePage.value="Welcome"; titlePage.homeB="block";}
       const Open1=()=>{Close(); if(CheckLogIn()){titlePage.value="Notes"; displayAppNotes.display="block";}};
-      const Open2=(bool)=>{
-        Close(); 
+      const Open2=(bool,bool1=true)=>{
+        Close();
+        if(bool1) warningSign.value=""; 
         titlePage.value="Authentication"; 
         displayAppAuth.display="flex";
         if(bool){
@@ -25,26 +28,31 @@ export default {
         let check= (userName.value!=""?true:false);
         if(!check){
           warningSign.value="Per accedere alle tue applicazioni è necessario autenticarsi";
-          Open2(true);
+          Open2(true,false);
         }
         return check;
       }
       const Close=()=>{
-        displayAppNotes.display="none", displayAppAuth.display="none", displayAppSpese.display="none", titlePage.homeB="none";
+        [displayAppNotes.display, displayAppAuth.display, displayAppSpese.display, 
+        displayAppSpese.containerSpese, displayAppSpese.containerTransitions, displayAppSpese.containerTools, titlePage.homeB]
+        =["none","none","none","none","none","none","none"];
       }
-      const SignOut= ()=>{
-        Close();
-        Open0();
-        console.log("Il tuo account è stato disconnesso correttamente");
-        window.localStorage.clear();
-        Clear();
+      const SignOut = () => {
+        userStore.logout().then((res)=>{
+          Close();
+          Open0();
+          console.log("Il tuo account è stato disconnesso correttamente");
+          //window.localStorage.clear();
+          Clear();
+        }).catch((rej)=>console.error(rej));
       }
       const SaveWork= ()=>{
         if(!userName||userName.value==""){
           console.log("It can't be possible save the work because there isn't a Authentication");
           return;
         }
-        MakeRequest("SaveWork");
+        works.addWorkall();
+        //MakeRequest("SaveWork");
       } 
       watch(()=>userName.value, (newValue)=>{ 
         console.log("GUARDOOO "+newValue);
