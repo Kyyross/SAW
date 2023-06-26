@@ -1,6 +1,5 @@
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword,signInWithPopup, signOut } from "firebase/auth";
 import { app } from './firebase_config.js';
-import { warningSign } from "../globalVar.js";
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -26,14 +25,10 @@ function createUserStore() {
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            console.log(user);
             credentials.username=user.displayName;
             credentials.id=user.email;
-            //username=user.displayName;
         } else {
-            console.log(user);
             credentials.username="";
-            //username=undefined;
         }
     });
 

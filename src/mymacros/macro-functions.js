@@ -14,7 +14,6 @@ export function Sorting(a,b){return a>b?-1:0;}
 
 export function CheckDate(value){
     try{
-        console.log(value);
         if((new Date(value).toString())==='Invalid Date')throw new Error("Format is wrong, it must be: fullyear-month-day");
     }
     catch(e){console.error(e.message); return false;}
@@ -42,22 +41,12 @@ export function GetWeek(value){
                 date=new Date(date.setDate(date.getDate()+1));
                 arrWeek.push(FormatDate(date.toLocaleDateString()));
             }
-            console.log(arrWeek);
             return arrWeek;
     }
     catch(e){
         console.error(e.message); return [];
     } 
 }
-/*function che genera colori scuri e restituisce l'hex code del colore
-export function getDarkColor() {
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-        color += Math.floor(Math.random() * 10);
-    }
-    return color;
-}
-*/
 export function TranslateDaysWeek(num){
     switch(num){
         case 0 : return "Mon";
@@ -94,5 +83,4 @@ export function checkNested(obj, level,  ...rest) {
     if (rest.length == 0 && obj.hasOwnProperty(level)) return true
     return checkNested(obj[level], ...rest)
   }
-//export {sortObject, GetTransitions, CheckDate, getDarkColor}
 

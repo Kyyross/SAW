@@ -2,7 +2,7 @@ const CACHE = "v1";
 const URLS =["/src/app.js", "/src/client.js", "/", "/src/mycss.css", 
 "/src/componentHtml.js", "/src/componentAuthentication.js", "/src/componentMenu.js", "/src/componentNotes.js", 
 "/src/componentSpese.js", "/src/subComponent/componentTransition.js", "/src/subComponent/componentCategory.js", 
-"/src/subComponent/componentTools.js", "/src/globalVar.js", "/src/myclass.js", "/src/xmlHttpRequest/httpRequest-fun.js", 
+"/src/subComponent/componentTools.js", "/src/globalVar.js", "/src/myclass.js", "/src/mymacros/httpRequest-fun.js", 
 "/src/mymacros/macro-functions.js", "/PWA.webmanifest","https://unpkg.com/vue@3/dist/vue.esm-browser.js",
 "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js",
 "src/Firebase/firebase_auth.js", "/src/Firebase/firebase_config.js", "/src/Firebase/firebase_db.js",
@@ -29,14 +29,12 @@ self.addEventListener('fetch', event=>{
         .catch(e=>{
             self.clients.matchAll()
                 .then(clients => {
-                    clients.forEach(client => client.postMessage("offline"));
+                    clients.forEach(client => client.postMessage("Error on checking in Cache: "+e));
                 });
             console.error(e);
         })
     )
 });       
-
-
 self.addEventListener('message',evt=>{
     console.log(evt.data);
 });

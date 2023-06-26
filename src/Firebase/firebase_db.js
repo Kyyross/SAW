@@ -1,6 +1,6 @@
 import { app } from "./firebase_config.js";
 import { setDoc, updateDoc, doc, getDoc, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, query } from 'firebase/firestore';
-import {MakeObjToSave, LoadSave} from '../xmlHttpRequest/httpRequest-fun.js';
+import {MakeObjToSave, LoadSave} from '../mymacros/httpRequest-fun.js';
 import { userStore } from "./firebase_auth.js";
 
 const db = initializeFirestore(app, {
@@ -27,9 +27,6 @@ export function createFirebaseStore() {
     }
 
     const addWork = async (key,obj,bool=true) => {
-        //const obj= MakeObjToSave();
-        console.log(obj); // {Bar:obj}
-        console.log(istance.id,istance.workQuery);
         try {
             await setDoc(doc(db, "utenti", istance.id), obj, {merge:bool});
         } catch (e) {
@@ -39,8 +36,6 @@ export function createFirebaseStore() {
     
     const addWorkall = async () => {
         const obj= MakeObjToSave();
-        console.log(obj); // {Bar:obj}
-        console.log(istance.id,istance.workQuery);
         try {
             await setDoc(doc(db, "utenti", istance.id), obj);
         } catch (e) {
@@ -49,7 +44,6 @@ export function createFirebaseStore() {
     }
 
     const updateWork= async (obj) =>{
-        console.log(obj);
         try{
             await updateDoc(doc(db,"utenti",istance.id),obj);
         }catch(e){

@@ -2,7 +2,6 @@ import { works } from '../Firebase/firebase_db.js';
 import { categories, codContainer, warning, ItemDataSetter, inModal, modalCategState, itemData } from '../globalVar.js';
 import { Categoria } from '../myclass.js';
 import { reactive } from 'vue';
-const f="/src/icons/"
 export const images=["/src/icons/1.svg","/src/icons/2.svg","/src/icons/3.svg","/src/icons/4.svg",
 "/src/icons/5.svg","/src/icons/6.svg","/src/icons/7.svg","/src/icons/8.svg","/src/icons/9.svg","/src/icons/10.svg",
 "/src/icons/11.svg","/src/icons/12.svg","/src/icons/13.svg","/src/icons/14.svg","/src/icons/15.svg","/src/icons/16.svg",
@@ -262,16 +261,13 @@ export const ModCateg=()=>{
                 warning.value="esiste già questa categoria";
                 return;
             }
-            for(let key of categories.value[nameC]["Transitions"]){
-                console.log(key[0]);
+            for(let key of categories.value[nameC]["Transitions"])
                 codContainer[key[0]]=rename;
-            }
             categories.value[rename]=categories.value[nameC];
             categories.value[rename]["nCateg"]=rename;
             categories.value[rename]["codIcona"]=itemData.value.nIcon;
             categories.value[rename]["color"]=itemData.value.color;
             if(nameC!==rename)delete(categories.value[nameC]);
-            //works.updateWork({"codContainer":codContainer});
             works.updateWork({"codContainer":codContainer, "categories":categories.value});
             CloseCategGump(0);
         } 
@@ -290,11 +286,10 @@ export const AddCateg=()=>{
 
 export const RemCateg=(item)=>{
     try{
-        if(categories.value[item]){//&&confirm("sicuro di volerla rimuovere? così eliminerai anche le transazioni di questa categoria registrate finora")){
+        if(categories.value[item]){
             for(let key of categories.value[item]["Transitions"]){
                 console.log(key[0]);
                 delete(codContainer[key[0]]);
-                //works.updateWork({"codContainer":codContainer});
             }
             delete(categories.value[item]);
             works.updateWork({"codContainer":codContainer, "categories":categories.value});

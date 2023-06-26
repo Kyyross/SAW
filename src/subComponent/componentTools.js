@@ -6,8 +6,6 @@ import {CheckDate} from '../mymacros/macro-functions.js';
 var viewgraph=new graphView();
 
 export const ConfirmDate = () => {
-    //let type=prompt("t, a, m, g, w");
-    //let value=prompt("inserisci la data");
     //controlli sulla data
     switch(itemData_Tools.type){
       case "day": CheckDate(itemData_Tools.value);
@@ -25,8 +23,6 @@ export const ConfirmDate = () => {
     console.log(itemData_Tools.type+" "+ itemData_Tools.value);
     [date.type,date.value, itemData_Tools.tabBool ,itemData_Tools.sumBool, inModal.bool,warning.value,itemData_Tools.toolsGump]
       =[itemData_Tools.type,itemData_Tools.value.toString(),"block","block",false,"","none"];
-      
-    //CloseToolsGump();
 }
 export const OpenToolsGump = () => {
   ClearItemDataTools();
@@ -58,14 +54,8 @@ watch(()=>itemData_Tools.type,(type) => {
       default: warning.value="Errore nel tipo della data";
   }
 })
-/*watch(categories,(newvalue)=>{
-  console.log("WATCHED categ");
-  viewgraph=new graphView(newvalue.value);
-})*/
 
 const CalculateGraphs = () => {
-  /*console.log("computed");
-  console.log(categories.value);*/
   viewgraph=new graphView(categories.value)
   if(Object.entries(categories.value).length==0)return {"h_bar":{}, "week":{}, "month":{}, "year":{}, "all":{}};
   viewgraph.ShowGraphics(date.type,date.value);

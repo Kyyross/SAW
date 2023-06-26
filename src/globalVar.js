@@ -43,7 +43,6 @@ const ClearItemData = () => {
     
 }
 export const ClearItemDataTools = () => {
-    //[objGraphView["value"],objGraphView["sum"],inModal["temp"]]=[{},0,""];
     [itemData_Tools.toolsGump,
     itemData_Tools.value, itemData_Tools.type,itemData_Tools.yBool,
     itemData_Tools.mBool,itemData_Tools.dBool, itemData_Tools.aBool,

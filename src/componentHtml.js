@@ -1,6 +1,6 @@
 // HTML FOR SERVER (SSR)
 const html_=
-`<!DOCTYPE html><html lang="en"><head><title>MySawProject</title><meta name="viewport" content="width=device-width, initial-scale=1" name="theme-color"></meta>
+`<!DOCTYPE html><html lang="en"><head><title>SawProject-EB</title><meta name="viewport" content="width=device-width, initial-scale=1" name="theme-color"></meta>
 <script type="importmap">{"imports": {"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js", "firebase/auth": "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js", "firebase/app":"https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js", "firebase/firestore":"https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js" ,"uuid": "https://jspm.dev/uuid"}}</script>
 <script type="module" src="/src/client.js"></script>
 <link rel="stylesheet" a href="./src/mycss.css">
@@ -25,8 +25,6 @@ const componentNotes_Html=`
       <span class="close"  @click="Close">&times;</span>
       <p>Add your Note!</p>
       <input v-model="itemData_Nota.value.title" maxlength="40" placeholder="Note title">
-      <input v-model="itemData_Nota.value.tag" maxlength="10" placeholder="Note tag">
-      <div @click="Debugg">debug x develouper</div>
       <div  @click="Confirm"><button>add note</button></div>
       <p class="warning">{{ warning }}</p>
     </div>
@@ -35,7 +33,6 @@ const componentNotes_Html=`
     <div class="grid-listanote">
       <button @click="Open"><img src="/src/img/piu.png" alt="add"></button>
       <button @click="deleteNotes"><img src="/src/img/delete.png" alt="del"></button>
-      <!-- <button @click="Debugg">debugg</button> -->
       <div class="listaNote">
         <li v-for="item in arrayOrdered">
           <div @click="Show(item.title)"> {{ item.title }} - {{ item.lastaccess }}</div>
@@ -210,10 +207,6 @@ const subComponentCategory_Html=`
         </div>
 </div>
 <div class="Container-Spese" :style="{ display: displayAppSpese.containerSpese }">
-  <!-- <div class="area-cmd">
-    <button @click="OpenCategGump('add')"><img src="/src/img/piu.png" alt="add"></button>
-    <button @click="debug">DebugPrinf</button>
-  </div> -->
   <div class="area-categorie">
     <li v-for="item in categories.value">
     <div class="dropdown-categ-actions"> 

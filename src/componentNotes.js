@@ -42,7 +42,6 @@ export default {
         }
 
         function deleteNotes(){
-          console.log("deletenotes");
           for(let item in listSelected){
             if(itemData_Nota.value.title==item){
               itemData_Nota.disabled=true;
@@ -56,7 +55,6 @@ export default {
         }
 
         function selectNote(nameobj,bool){
-          console.log("selectNote: "+nameobj+" "+bool);
           if(bool) select(nameobj);
           else deselect(nameobj);
         }
@@ -70,12 +68,9 @@ export default {
         const isDisabled=computed(()=>itemData_Nota.disabled)
         const arrayOrdered=computed(()=>sortObject(items,"lastaccess"))
 
-        const Debugg=()=>{console.log(items);}
-
         function Check(obje){
           if(obje.title==""||obje.tag==""){ warning.value="Tutti i campi devono essere compilati"; return true;}
           if(items.value[obje.title]){warning.value="esiste già una nota con questo titolo"; return true;}
-          console.log(obje.title);
           return false;
         }
         //WATCHERs
@@ -97,7 +92,6 @@ export default {
           delete(items.value[inModal.temp]);
           items.value[obje.title]=obje;
           inModal.temp=obje.title;
-          console.log("sto watchando");
           itemData_Nota.dirty=true;
         });
 
@@ -110,7 +104,7 @@ export default {
           if(itemData_Nota.dirty)works.updateWork({"notes":items.value});
           itemData_Nota.dirty=false;
         }
-        return {items, state, displayAppNotes , Open, Close, Confirm, Debugg, deleteNotes, selectNote, itemData_Nota, warning, Show, arrayOrdered, isDisabled, updateNote};
+        return {items, state, displayAppNotes , Open, Close, Confirm, deleteNotes, selectNote, itemData_Nota, warning, Show, arrayOrdered, isDisabled, updateNote};
     },
     template: componentNotes_Html
 }

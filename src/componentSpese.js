@@ -21,14 +21,10 @@ export default{
         const Close=()=>{
             [displayAppSpese.containerSpese, displayAppSpese.containerTransitions, displayAppSpese.containerTools]=["none","none","none"];
         }
-        function debug(item){
-            console.log(item);
-            console.log(categories.value);
-            console.log(codContainer);
-        }
+    
         const arrayTransitions=computed(()=>GetTransitions(categories))
         return {PickIcon, PickColor, images, colors, matColors, categories, itemData, modalCategState, modalTransitionState, displayAppSpese, CloseCategGump, OpenCategGump, 
-            AddCateg, ModCateg, MergeCateg, AddTransition, RemTransition,ModTransition, warning, debug, RemCateg, OpenAddTransitionGump, 
+            AddCateg, ModCateg, MergeCateg, AddTransition, RemTransition,ModTransition, warning, RemCateg, OpenAddTransitionGump, 
             CloseTransitionGump, OpenModTransitionGump, OpenDelTransitionGump, OpenCategory, OpenAnalyticsTools, OpenTransitions, 
             arrayTransitions, objGraphView, objView, ConfirmDate, GetCateg, OpenToolsGump, CloseToolsGump, itemData_Tools, LoadImg
         }

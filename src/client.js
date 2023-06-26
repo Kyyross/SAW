@@ -1,28 +1,9 @@
 import { createApp } from './app.js';
-import { LoadSave } from './xmlHttpRequest/httpRequest-fun.js';
-import {userName, displayButtonSign} from './globalVar.js'
 
 createApp(0).mount('#app0');
 createApp(1).mount('#app1');
 createApp(2).mount('#app2');
 createApp(3).mount('#app3');
-
-/*window.addEventListener('DOMContentLoaded', event => {
-
-    // Toggle the side navigation
-    const sidebarToggle = document.body.querySelector('#navbar-side');
-    if (sidebarToggle) {
-        // Uncomment Below to persist sidebar toggle between refreshes
-        // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
-        //     document.body.classList.toggle('sb-sidenav-toggled');
-        // }
-        sidebarToggle.addEventListener('click', event => {
-            //event.preventDefault();
-            //document.body.classList.toggle('sb-sidenav-toggled');
-            //localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
-        });
-    }
-  });*/
 
 if("serviceWorker" in navigator){
     navigator.serviceWorker
@@ -34,7 +15,6 @@ if("serviceWorker" in navigator){
     });
 
     navigator.serviceWorker.addEventListener('message',evt=>{
-        if(evt.data==="offline")var notification= new Notification("ora sei offline");
         console.log("SW to Client: " + evt.data);
     });
 
@@ -68,19 +48,4 @@ if(!("Notification" in window)){
 addEventListener("online", (event) => {new Notification("mode online")});
 addEventListener("offline", (event) => {new Notification("mode offline")});
 
-/*
-if(window.localStorage.length!=0){
-    let utente=window.localStorage.getItem("username");
-    console.log(utente);
-    let obj=JSON.parse(window.localStorage.getItem(utente));
-    console.log(obj);
-    LoadSave(obj);
-    [userName.value,userName.logged,userName.display,displayButtonSign.displaySignIn,displayButtonSign.displaySignUp]=[utente,true,"block","none","block"];
-}
-else{
-    console.log("inizio sessione");
-}
-*/
-//DEBUGGINGif(window.isSecureContext)console.log("siamo al sicuro");
-//else console.log("non al sicuro");
 

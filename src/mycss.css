@@ -9,9 +9,6 @@
     margin: 0;
     background-color: #121212;
     margin-bottom: 60px;
-    /*background-image: url('/src/img/bg.jpg');
-    background-repeat:repeat;
-    background-size: cover;*/
   }
   .header {
     padding: 60px;
@@ -124,9 +121,6 @@
     padding: 20px;
     min-width: 0;
     background-color: #121212;
-    /*background-image: url('/src/img/bg.jpg');
-    background-repeat:repeat;
-    background-size: cover;*/
   }
   .footer {
     position:fixed;
@@ -139,6 +133,7 @@
     align-items: center;
     flex-wrap: nowrap;
     flex-direction: row;
+    z-index: 1000;
   }
   @media (max-width: 700px) {
     .navbar {   
@@ -431,7 +426,6 @@
   }
   .contenutoNote {
     flex:70%;
-    /*margin-left: 200px;*/
     padding-left: 20px;
     height: 370px;
     overflow-x: hidden;
@@ -471,7 +465,6 @@
   .navbar-side {
     flex: 20%;
     max-width: 180px;
-    /*background-color: #f1f1f1;*/
     background-color: #333;
     padding: 20px;
   }
@@ -652,8 +645,6 @@
   }
   .t-div-ncateg{
     flex:30%;
-    /*filter: invert(1);
-    mix-blend-mode: difference;*/
     text-align: center;
     font-size: 14px;
     overflow:hidden;
@@ -662,8 +653,6 @@
   }
   .t-div-ncateg p{
     text-align: center;
-    /*filter: invert(1);
-    mix-blend-mode: difference;*/
     font-size: 14px;
     overflow:hidden;
     text-overflow: ellipsis;
@@ -671,8 +660,6 @@
   }
   .t-div-desc{
     flex:50%;
-    /*filter: invert(1);
-    mix-blend-mode: difference;*/
     text-align: center;
     font-size: 14px;
     overflow:hidden;
@@ -681,8 +668,6 @@
   }
   .t-div-value{
     flex:20%;
-    /*filter: invert(1);
-    mix-blend-mode: difference;*/
     text-align: center;
     font-size: 14px;
     overflow:hidden;

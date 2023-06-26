@@ -86,13 +86,11 @@ export function GetTransitions(obj){
             arr.push([item[0],item[1],item[2],item[3]]);
         }
     }
-    //console.log(arr);
     return arr.sort((a,b)=>Sorting(a[3],b[3]));
 }
 
 function CheckFormatTransition(value,date){
     try{
-        //check sul testo della nota, considerare di mettere controlli di sicurezza.
         if(value===""||isNaN(parseFloat(value))||parseFloat(value)<=0) return "Immettere dei valori validi";
         if(!CheckDate(date)) return "La data deve essere del formato: full_year-month-day";
     }

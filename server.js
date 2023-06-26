@@ -1,8 +1,7 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import {createApp} from './src/app.js';
 import {html_, _html, html1, html2, html3 } from './src/componentHtml.js';
-import { RenderApp, RegisterAccount, LogIn, StoreFile, corsOption } from './src/mymacros/macroserver.js';
+import { RenderApp, corsOption } from './src/mymacros/macroserver.js';
 import cors from 'cors';
 import favicon from 'serve-favicon';
 
@@ -28,36 +27,6 @@ server.get('/',(req, res) => {
     },()=>{throw new Error("error on the server, it couldn't renderize the page");})
   }
   catch(err){console.error(err.message)};
-});
-
-server.post('/SignUp', (req, res)=>{
-  try{
-    let token=req.headers["authorization"];
-    console.log("da server:"+token);
-    let response=RegisterAccount(token);
-    res.status(response.status);
-    delete response.status;
-    res.send(response);
-  }catch(e){res.status(500); console.error(e); res.send({message: "Internal Server Error"});}
-});
-
-server.post('/SignIn', (req, res)=>{
-  try{
-    let token=req.headers["authorization"];
-    console.log("da server:"+token);
-    let response=LogIn(token);
-    res.status(response.status);
-    delete response.status;
-    res.send(response);
-  }catch(e){res.status(500); console.error(e); res.send({message: "Internal Server Error"});}
-});
-
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }))
-server.post('/SaveWork', (req, res)=>{
-  console.log(req.body);
-  let response=StoreFile(req.body);
-  res.send(response);
 });
 
 server.use(express.static('.'));

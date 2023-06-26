@@ -1,6 +1,5 @@
 import {displayAppNotes, displayAppAuth, displayAppSpese, userName, warningSign, titlePage, Clear, displayButtonSign} from './globalVar.js';
 import { componentMenu_Html } from './componentHtml.js';
-import { MakeRequest } from './xmlHttpRequest/httpRequest-fun.js';
 import { watch } from 'vue';
 import { userStore } from './Firebase/firebase_auth.js';
 import { works } from './Firebase/firebase_db.js';
@@ -42,20 +41,17 @@ export default {
           Close();
           Open0();
           console.log("Il tuo account è stato disconnesso correttamente");
-          //window.localStorage.clear();
           Clear();
         }).catch((rej)=>console.error(rej));
       }
       const SaveWork= ()=>{
         if(!userName||userName.value==""){
-          console.log("It can't be possible save the work because there isn't a Authentication");
+          console.log("Impossible to save the work: No authentication");
           return;
         }
         works.addWorkall();
-        //MakeRequest("SaveWork");
       } 
       watch(()=>userName.value, (newValue)=>{ 
-        console.log("GUARDOOO "+newValue);
         if(newValue===""){
           displayButtonSign.SignOut="none";
           displayButtonSign.SignIn="flex";
