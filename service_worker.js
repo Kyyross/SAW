@@ -11,7 +11,7 @@ const URLS =["/src/app.js", "/src/client.js", "/", "/src/mycss.css",
 "/src/icons/1.svg","/src/icons/2.svg","/src/icons/3.svg","/src/icons/4.svg",
 "/src/icons/5.svg","/src/icons/6.svg","/src/icons/7.svg","/src/icons/8.svg","/src/icons/9.svg","/src/icons/10.svg",
 "/src/icons/11.svg","/src/icons/12.svg","/src/icons/13.svg","/src/icons/14.svg","/src/icons/15.svg","/src/icons/16.svg",
-"/src/icons/17.svg","/src/icons/18.svg","/src/icons/19.svg","/src/icons/20.svg","/src/img/home.png","/src/img/delete.png"];
+"/src/icons/17.svg","/src/icons/18.svg","/src/icons/19.svg","/src/icons/20.svg","/src/img/home.png","/src/img/delete.png","src/img/background1.jpeg"];
 
 self.addEventListener('install', event=>{
     console.log('installing..');
